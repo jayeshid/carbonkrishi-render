@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Methodology — CarbonKrishi AI</title>
+    <meta name="description"
+        content="CarbonKrishi methodology: ISO 14040/44 LCA, IPCC 2019 emission factors, SALCA losses, and ReCiPe 2016 mid-point characterisation." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/landing.css" />
+    <!-- Theme controller — runs before first paint to avoid theme flash. -->
+    <script src="/js/theme.js"></script>
+</head>
+
+<body>
+    <!-- ── Top navigation ───────────────────────────────────────────────── -->
+    <header class="lc-nav">
+        <div class="lc-nav-inner">
+            <a href="/" class="lc-brand" aria-label="CarbonKrishi home">
+                <div class="lc-brand-mark">🌾</div>
+                <div class="lc-brand-text">
+                    <div>CarbonKrishi</div>
+                    <div class="lc-brand-sub">AI · LCA</div>
+                </div>
+            </a>
+
+            <nav class="lc-nav-links" aria-label="Main">
+                <a class="lc-nav-link" href="/">Home</a>
+                <a class="lc-nav-link" href="/dashboard-info">Dashboard</a>
+                <a class="lc-nav-link active" href="/methodology">Methodology</a>
+                <a class="lc-nav-link" href="/about">About Us</a>
+            </nav>
+
+            <a class="lc-cta-btn lc-nav-cta" href="/dashboard">
+                <span>Open Dashboard</span><span class="lc-cta-arrow" aria-hidden="true">→</span>
+            </a>
+            <button class="lc-theme-toggle" data-theme-toggle aria-label="Toggle theme" title="Toggle theme"
+                type="button">☀</button>
+            <button class="lc-burger" id="lc-burger" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- ── Page header ─────────────────────────────────────────────────── -->
+    <section class="lc-page-head">
+        <div class="lc-container">
+            <span class="lc-breadcrumb"><a href="/">Home</a> / Methodology</span>
+            <h1>Science-grade accounting, simple inputs.</h1>
+            <p>We combine internationally-recognised LCA methods with locally-calibrated agronomic data so every
+                kilogram of fertiliser maps to a credible environmental cost.</p>
+        </div>
+    </section>
+
+    <!-- ── Standards cards ─────────────────────────────────────────────── -->
+    <section class="lc-section alt">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">Standards we follow</span>
+            <h2 class="lc-h2">Four pillars of credibility.</h2>
+            <p class="lc-section-lede">
+                Every prediction is anchored in a peer-reviewed framework so results are auditable, comparable, and
+                defensible.
+            </p>
+
+            <div class="lc-method-grid">
+                <article class="lc-method-card">
+                    <div class="ico">🔬</div>
+                    <h3>ISO-aligned LCA</h3>
+                    <p>Cradle-to-field system boundary covering upstream production, transport, and on-field
+                        emissions in line with <strong>ISO 14040 / 14044</strong>. Allocation, system boundary, and
+                        impact-assessment choices are all documented.</p>
+                </article>
+                <article class="lc-method-card amber">
+                    <div class="ico">🌡️</div>
+                    <h3>IPCC 2019 factors</h3>
+                    <p>Direct &amp; indirect <strong>N₂O</strong>, <strong>CH₄</strong> from rice paddies,
+                        <strong>NO₃⁻</strong> leaching and <strong>NH₃</strong> volatilisation — using the IPCC 2019
+                        Refinement national tier-1 / tier-2 emission factors for tropical irrigated rice.
+                    </p>
+                </article>
+                <article class="lc-method-card blue">
+                    <div class="ico">🧪</div>
+                    <h3>SALCA losses</h3>
+                    <p>Phosphorus runoff and soil-eutrophication factors from the Swiss <strong>SALCA</strong>
+                        framework, adapted to Indian alluvial and red-soil conditions through ICAR-IIRR field
+                        sampling.</p>
+                </article>
+                <article class="lc-method-card purple">
+                    <div class="ico">🌍</div>
+                    <h3>ReCiPe 2016 (H)</h3>
+                    <p>Mid-point characterisation across <strong>Climate Change</strong> (kg CO₂-eq),
+                        <strong>Eutrophication</strong> (kg P-eq), <strong>Acidification</strong> (kg SO₂-eq), and
+                        <strong>Ecotoxicity</strong> (CTUe) — using the hierarchical (H) perspective.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Workflow timeline ───────────────────────────────────────────── -->
+    <section class="lc-section">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">Workflow</span>
+            <h2 class="lc-h2">How a prediction is made.</h2>
+            <p class="lc-section-lede">
+                Four steps from your fertiliser plan to a complete LCA scorecard with farmer-friendly
+                recommendations.
+            </p>
+
+            <ol class="lc-process" aria-label="Workflow">
+                <li class="lc-step">
+                    <div class="lc-step-bullet">1</div>
+                    <h4>Enter inputs</h4>
+                    <p>N · P · K · Zn or FYM &amp; compost rates per hectare.</p>
+                </li>
+                <li class="lc-step">
+                    <div class="lc-step-bullet">2</div>
+                    <h4>AI prediction</h4>
+                    <p>Ridge models (R² &gt; 0.85) score four impact categories.</p>
+                </li>
+                <li class="lc-step">
+                    <div class="lc-step-bullet">3</div>
+                    <h4>Compare scenarios</h4>
+                    <p>Single, blend slider, or A/B compare-two modes.</p>
+                </li>
+                <li class="lc-step">
+                    <div class="lc-step-bullet">4</div>
+                    <h4>Act &amp; earn</h4>
+                    <p>Get mitigation advice and CCTS soil-carbon revenue.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ── Model details ───────────────────────────────────────────────── -->
+    <section class="lc-section alt">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">Under the hood</span>
+            <h2 class="lc-h2">Ridge regression on 13,042 OpenLCA records.</h2>
+            <p class="lc-section-lede">
+                Two separate models — one for conventional, one for organic — each trained on parametric OpenLCA
+                runs validated against field observations.
+            </p>
+
+            <div class="lc-method-grid">
+                <article class="lc-method-card">
+                    <div class="ico">🤖</div>
+                    <h3>Algorithm</h3>
+                    <p>Multivariate <strong>Ridge regression</strong> (L2-regularised) — chosen for stability,
+                        interpretability, and well-behaved extrapolation across input ranges.</p>
+                </article>
+                <article class="lc-method-card amber">
+                    <div class="ico">📚</div>
+                    <h3>Training data</h3>
+                    <p><strong>7,116</strong> conventional + <strong>5,926</strong> organic LCA records, generated
+                        in OpenLCA via parametric sampling across realistic input ranges for Indian rice.</p>
+                </article>
+                <article class="lc-method-card blue">
+                    <div class="ico">🌾</div>
+                    <h3>Primary data</h3>
+                    <p>Field measurements from <strong>ICAR-IIRR Hyderabad</strong> and <strong>KVK Medak,
+                            Telangana</strong> were used to validate model outputs and tune local emission
+                        factors.</p>
+                </article>
+                <article class="lc-method-card purple">
+                    <div class="ico">📈</div>
+                    <h3>Validation</h3>
+                    <p>Hold-out <strong>R² &gt; 0.85</strong> across all four impact categories. Validation plots
+                        are available in the <a href="/dashboard">Model Info tab</a> of the dashboard.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Data sources / boundary ─────────────────────────────────────── -->
+    <section class="lc-section">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">System boundary</span>
+            <h2 class="lc-h2">What's included in each prediction.</h2>
+
+            <div class="lc-mod-grid" style="margin-top: 1.5rem;">
+                <div class="lc-mod-card">
+                    <div class="ico">🏭</div>
+                    <h4>Upstream production</h4>
+                    <p>Manufacturing of urea, DAP, MOP, zinc sulphate, FYM &amp; compost, including energy and
+                        feedstock impacts.</p>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🚛</div>
+                    <h4>Transport</h4>
+                    <p>Average inland transport distances from manufacturing hubs to the farm gate within India.</p>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🌾</div>
+                    <h4>Field emissions</h4>
+                    <p>CH₄ from flooded paddies, N₂O direct + indirect, NH₃ volatilisation, NO₃⁻ leaching, PO₄³⁻
+                        runoff.</p>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">⚖️</div>
+                    <h4>Functional unit</h4>
+                    <p>Per <strong>hectare</strong> per <strong>cropping season</strong> — the natural unit for
+                        farm-level decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Final CTA ───────────────────────────────────────────────────── -->
+    <section>
+        <div class="lc-container">
+            <div class="lc-final-cta">
+                <div>
+                    <h2>See the methodology in action.</h2>
+                    <p>Run a prediction on your own fertiliser plan and inspect every impact category.</p>
+                </div>
+                <a class="lc-cta-btn" href="/dashboard">
+                    🚀 Open Dashboard <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ──────────────────────────────────────────────────────── -->
+    <footer class="lc-footer">
+        <div class="lc-container">
+            <div class="lc-footer-grid">
+                <div>
+                    <div class="lc-brand" style="margin-bottom: 0.7rem;">
+                        <div class="lc-brand-mark">🌾</div>
+                        <div class="lc-brand-text">
+                            <div style="color:white;">CarbonKrishi</div>
+                            <div class="lc-brand-sub">AI · LCA</div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.88rem; line-height:1.55; margin:0; color:#b6cbbe;">
+                        Climate-smart agriculture LCA, powered by AI and rooted in Indian field data.
+                    </p>
+                </div>
+                <div>
+                    <h5>Product</h5>
+                    <ul>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/methodology">Methodology</a></li>
+                        <li><a href="/about">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Modules</h5>
+                    <ul>
+                        <li><a href="/dashboard">Predictor</a></li>
+                        <li><a href="/dashboard">Gradient</a></li>
+                        <li><a href="/dashboard">Credits</a></li>
+                        <li><a href="/dashboard">Emissions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Standards</h5>
+                    <ul>
+                        <li>ISO 14040 / 14044</li>
+                        <li>ReCiPe 2016 (H)</li>
+                        <li>IPCC 2019</li>
+                        <li>SALCA</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lc-footer-bottom">
+                <div>&copy; 2026 CarbonKrishi AI · Data from ICAR-IIRR &amp; KVK Medak</div>
+                <div>Made with 🌾 for Indian farmers</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/landing.js"></script>
+    <!-- Dev-only hot reload (no-op in production: ws fails silently) -->
+    <script>
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+            (function connect() {
+                try {
+                    const ws = new WebSocket(`ws://${location.host}/hot-reload`);
+                    ws.onmessage = (e) => { if (e.data === "reload") location.reload(); };
+                    ws.onclose = () => setTimeout(connect, 1000);
+                    ws.onerror = () => { try { ws.close(); } catch { } };
+                } catch { setTimeout(connect, 2000); }
+            })();
+        }
+    </script>
+</body>
+
+</html>

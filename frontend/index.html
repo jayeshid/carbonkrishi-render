@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarbonKrishi AI — Climate-Smart Rice LCA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Theme controller — runs synchronously BEFORE first paint to set
+         data-theme on <html> and avoid a flash of the wrong theme. -->
+    <script src="/js/theme.js"></script>
+    <!-- Plotly for radar / sankey / treemap / gauges -->
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+</head>
+
+<body>
+    <div class="ck-app">
+        <!-- ── Sidebar ──────────────────────────────────────────────── -->
+        <aside class="ck-sidebar" id="ck-sidebar">
+            <a href="/" class="ck-brand" title="Back to home">
+                <div class="ck-brand-mark">🌾</div>
+                <div class="ck-brand-text">
+                    <div class="ck-brand-name">CarbonKrishi</div>
+                    <div class="ck-brand-tag">AI · LCA Dashboard</div>
+                </div>
+            </a>
+
+            <nav class="ck-side-nav" role="tablist">
+                <button class="ck-tab ck-side-link active" data-tab="t0" data-title="Overview" role="tab"
+                    aria-selected="true">
+                    <span class="ck-side-ico">🏠</span><span class="ck-side-lbl">Overview</span>
+                </button>
+                <button class="ck-tab ck-side-link" data-tab="t1" data-title="LCA Impact Predictor" role="tab">
+                    <span class="ck-side-ico">🔬</span><span class="ck-side-lbl">Predictor</span>
+                </button>
+                <button class="ck-tab ck-side-link" data-tab="t2" data-title="Organic–Conventional Gradient" role="tab">
+                    <span class="ck-side-ico">🎚️</span><span class="ck-side-lbl">Gradient</span>
+                </button>
+                <button class="ck-tab ck-side-link" data-tab="t3" data-title="Carbon Credit Potential" role="tab">
+                    <span class="ck-side-ico">💲</span><span class="ck-side-lbl">Credits</span>
+                </button>
+                <button class="ck-tab ck-side-link" data-tab="t4" data-title="Field Emission Calculator" role="tab">
+                    <span class="ck-side-ico">🌱</span><span class="ck-side-lbl">Emissions</span>
+                </button>
+                <button class="ck-tab ck-side-link" data-tab="t5" data-title="Model Information" role="tab">
+                    <span class="ck-side-ico">📊</span><span class="ck-side-lbl">Model Info</span>
+                </button>
+            </nav>
+
+            <div class="ck-side-foot">
+                <div class="ck-side-foot-card">
+                    <div class="ck-side-foot-title">🌍 Environmental impact</div>
+                    <div class="ck-side-foot-sub">ISO 14040/44 · ReCiPe 2016</div>
+                </div>
+                <small>© 2026 CarbonKrishi AI</small>
+            </div>
+        </aside>
+
+        <!-- ── Shell (topbar + main) ───────────────────────────────── -->
+        <div class="ck-shell">
+            <header class="ck-topbar">
+                <button class="ck-icon-btn ck-side-toggle" id="ck-side-toggle" title="Toggle sidebar">☰</button>
+                <div class="ck-topbar-title">
+                    <h1 id="ck-page-title">Overview</h1>
+                    <p id="ck-page-sub" class="ck-muted">Climate-smart rice LCA analytics</p>
+                </div>
+                <div class="ck-topbar-actions">
+                    <div class="ck-search">
+                        <span>🔎</span>
+                        <input type="text" placeholder="Search inputs, crops…" />
+                    </div>
+                    <button class="ck-icon-btn ck-theme-toggle" data-theme-toggle aria-label="Toggle theme"
+                        title="Toggle theme" type="button">☀</button>
+                </div>
+            </header>
+
+            <main class="ck-main">
+                <!-- ── Tab 0: Overview ──────────────────────────────── -->
+                <section class="ck-tabpanel active" id="t0" role="tabpanel">
+                    <div class="ck-welcome">
+                        <div class="ck-welcome-text">
+                            <span class="ck-pill"><span class="ck-pill-dot"></span> AI · LCA · Climate Smart</span>
+                            <h2>Welcome back 👋</h2>
+                            <p class="ck-muted">A unified dashboard for cradle-to-field rice fertiliser LCA, blend
+                                analysis,
+                                CCTS soil-carbon credits, and IPCC + SALCA field-emission accounting.</p>
+                            <div class="ck-cta-row">
+                                <button class="ck-btn ck-cta" data-jump="t1">🔬 Run a Prediction</button>
+                                <button class="ck-btn ck-cta-ghost" data-jump="t2">🎚️ Explore Blend</button>
+                            </div>
+                        </div>
+                        <div class="ck-welcome-illustration">🌾🌱</div>
+                    </div>
+
+                    <h3 class="ck-section-h">📌 Key Indicators</h3>
+                    <div class="ck-kpi-strip" id="ov-kpis"></div>
+
+                    <h3 class="ck-section-h">🧭 Modules</h3>
+                    <div class="ck-feature-grid">
+                        <div class="ck-feature-card" data-jump="t1">
+                            <div class="ck-feature-ico">🔬</div>
+                            <h4>LCA Predictor</h4>
+                            <p>Single + Compare-Two for conventional &amp; organic.</p>
+                        </div>
+                        <div class="ck-feature-card" data-jump="t2">
+                            <div class="ck-feature-ico">🎚️</div>
+                            <h4>Blend Analysis</h4>
+                            <p>Slider-driven gradient between conventional and organic.</p>
+                        </div>
+                        <div class="ck-feature-card" data-jump="t3">
+                            <div class="ck-feature-ico">💲</div>
+                            <h4>Carbon Credits</h4>
+                            <p>CCTS soil-carbon estimator with permanence buffer.</p>
+                        </div>
+                        <div class="ck-feature-card" data-jump="t4">
+                            <div class="ck-feature-ico">🌱</div>
+                            <h4>Field Emissions</h4>
+                            <p>CH₄ / N₂O / NO₃ / NH₃ / PO₄ via IPCC + SALCA.</p>
+                        </div>
+                        <div class="ck-feature-card" data-jump="t5">
+                            <div class="ck-feature-ico">📊</div>
+                            <h4>Model Info</h4>
+                            <p>Per-kg footprint heatmap, methodology, datasets.</p>
+                        </div>
+                    </div>
+
+                    <div class="ck-grid-2">
+                        <div class="ck-input-block">
+                            <h3 style="margin-top:0;">📚 What this app does</h3>
+                            <p>Rice fertiliser application drives <strong>~3,000–7,000 kg CO₂-eq/ha/season</strong> via
+                                upstream production and field emissions. CarbonKrishi uses Ridge regression models
+                                trained
+                                on <strong>13,042 OpenLCA records</strong> to predict the full impact of any input mix
+                                and
+                                suggest farmer-friendly mitigations in 3 languages.</p>
+                            <p class="ck-muted">Primary data: ICAR-IIRR Hyderabad &amp; KVK Medak, Telangana.</p>
+                        </div>
+                        <div class="ck-input-block">
+                            <h3 style="margin-top:0;">🚀 Get started</h3>
+                            <ol style="padding-left: 1.1rem; margin: 0;">
+                                <li>Open <strong>Predictor</strong> and enter your N/P/K/Zn or FYM/Compost rates.</li>
+                                <li>Use <strong>Gradient</strong> to find the cost-optimal organic transition.</li>
+                                <li>Estimate revenue in <strong>Credits</strong> from soil-carbon storage.</li>
+                                <li>Audit field-level losses in <strong>Emissions</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Tab 1: Predictor ──────────────────────────────────────── -->
+                <section class="ck-tabpanel" id="t1" role="tabpanel" hidden>
+                    <h2>LCA Impact Predictor</h2>
+                    <p class="ck-muted">
+                        Predict environmental impact using either conventional or organic fertiliser systems.
+                    </p>
+                    <hr />
+
+                    <div class="ck-row">
+                        <fieldset class="ck-radio-group" id="t1-system">
+                            <label><input type="radio" name="t1-sys" value="conventional" checked /> 🧪
+                                Conventional</label>
+                            <label><input type="radio" name="t1-sys" value="organic" /> 🌿 Organic</label>
+                        </fieldset>
+                        <fieldset class="ck-radio-group" id="t1-mode">
+                            <label><input type="radio" name="t1-mode" value="single" checked /> 🔍 Single
+                                Prediction</label>
+                            <label><input type="radio" name="t1-mode" value="compare" /> 🔀 Compare Two</label>
+                        </fieldset>
+                    </div>
+
+                    <!-- Conventional inputs -->
+                    <div id="t1-conv-inputs" class="ck-input-block">
+                        <h3>Enter Conventional Fertiliser Rates</h3>
+                        <div class="ck-info">Recommended Ranges: N: 120–150 | P: 40–60 | K: 30–40 | Zn: 10–30</div>
+                        <div class="ck-grid-2">
+                            <label class="ck-field">
+                                <span>🌾 Nitrogen (N)<small>Primary nutrient for leaf and grain formation</small></span>
+                                <input type="number" id="t1-N" min="0" step="0.5" value="135" />
+                            </label>
+                            <label class="ck-field">
+                                <span>🌿 Phosphorus (P)<small>Strengthens root development and tillering</small></span>
+                                <input type="number" id="t1-P" min="0" step="0.5" value="50" />
+                            </label>
+                            <label class="ck-field">
+                                <span>🌾 Potassium (K)<small>Improves grain quality and disease
+                                        resistance</small></span>
+                                <input type="number" id="t1-K" min="0" step="0.5" value="35" />
+                            </label>
+                            <label class="ck-field">
+                                <span>⚡ Zinc (Zn)<small>Micronutrient critical for enzyme function</small></span>
+                                <input type="number" id="t1-Zn" min="0" step="0.5" value="20" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Organic inputs -->
+                    <div id="t1-org-inputs" class="ck-input-block" hidden>
+                        <h3>Enter Organic Amendment Rates</h3>
+                        <div class="ck-info">Recommended Ranges: Manure (FYM): 5,000–15,000 | Compost: 1,000–2,000
+                            (kg/ha)</div>
+                        <div class="ck-grid-2">
+                            <label class="ck-field">
+                                <span>🌱 Farm Yard Manure<small>Slow-release organic N + soil-carbon
+                                        builder</small></span>
+                                <input type="number" id="t1-Manure" min="0" step="100" value="8000" />
+                            </label>
+                            <label class="ck-field">
+                                <span>♻️ Compost<small>Higher humification rate; long-term SOC</small></span>
+                                <input type="number" id="t1-Compost" min="0" step="50" value="1500" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="t1-warnings" class="ck-warnings"></div>
+
+                    <!-- Compare-Two inputs (hidden until selected) -->
+                    <div id="t1-compare-inputs" class="ck-input-block" hidden>
+                        <h3>Compare Two Combinations</h3>
+                        <div class="ck-grid-2">
+                            <div>
+                                <h4 style="margin-top:0;">🅰️ Combination A</h4>
+                                <div id="t1-compare-A-conv" class="ck-grid-2">
+                                    <label class="ck-field"><span>N (kg/ha)</span><input type="number" id="t1-NA"
+                                            value="120" min="0" step="0.5" /></label>
+                                    <label class="ck-field"><span>P (kg/ha)</span><input type="number" id="t1-PA"
+                                            value="40" min="0" step="0.5" /></label>
+                                    <label class="ck-field"><span>K (kg/ha)</span><input type="number" id="t1-KA"
+                                            value="30" min="0" step="0.5" /></label>
+                                    <label class="ck-field"><span>Zn (kg/ha)</span><input type="number" id="t1-ZnA"
+                                            value="10" min="0" step="0.5" /></label>
+                                </div>
+                                <div id="t1-compare-A-org" class="ck-grid-2" hidden>
+                                    <label class="ck-field"><span>FYM (kg/ha)</span><input type="number" id="t1-MA"
+                                            value="10000" min="0" step="100" /></label>
+                                    <label class="ck-field"><span>Compost (kg/ha)</span><input type="number" id="t1-CA"
+                                            value="1500" min="0" step="50" /></label>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="margin-top:0;">🅱️ Combination B</h4>
+                                <div id="t1-compare-B-conv" class="ck-grid-2">
+                                    <label class="ck-field"><span>N (kg/ha)</span><input type="number" id="t1-NB"
+                                            value="150" min="0" step="0.5" /></label>
+                                    <label class="ck-field"><span>P (kg/ha)</span><input type="number" id="t1-PB"
+                                            value="60" min="0" step="0.5" /></label>
+                                    <label class="ck-field"><span>K (kg/ha)</span><input type="number" id="t1-KB"
+                                            value="40" min="0" step="0.5" /></label>
+                                    <label class="ck-field"><span>Zn (kg/ha)</span><input type="number" id="t1-ZnB"
+                                            value="30" min="0" step="0.5" /></label>
+                                </div>
+                                <div id="t1-compare-B-org" class="ck-grid-2" hidden>
+                                    <label class="ck-field"><span>FYM (kg/ha)</span><input type="number" id="t1-MB"
+                                            value="12000" min="0" step="100" /></label>
+                                    <label class="ck-field"><span>Compost (kg/ha)</span><input type="number" id="t1-CB"
+                                            value="1800" min="0" step="50" /></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="ck-btn" id="t1-predict">🔍 Predict</button>
+
+                    <!-- Single-prediction results -->
+                    <div id="t1-results" class="ck-results" hidden>
+                        <hr />
+                        <h3>✅ Prediction Complete</h3>
+                        <div class="ck-metrics-row">
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">💰 Input Cost</div>
+                                <div class="ck-metric-value" id="t1-m-cost">—</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🌍 Climate Impact</div>
+                                <div class="ck-metric-value" id="t1-m-gwp">—</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">⚠️ Highest Risk</div>
+                                <div class="ck-metric-value" id="t1-m-risk">—</div>
+                            </div>
+                        </div>
+
+                        <h3>📊 Predicted LCA Impact Scores</h3>
+                        <div class="ck-metrics-row">
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🌍 Global Warming</div>
+                                <div class="ck-metric-value" id="t1-m-gw">—</div>
+                                <div class="ck-metric-unit">kg CO₂-eq</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">💧 Eutrophication</div>
+                                <div class="ck-metric-value" id="t1-m-eu">—</div>
+                                <div class="ck-metric-unit">kg P-eq</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🌫️ Acidification</div>
+                                <div class="ck-metric-value" id="t1-m-ac">—</div>
+                                <div class="ck-metric-unit">kg SO₂-eq</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">☠️ Ecotoxicity</div>
+                                <div class="ck-metric-value" id="t1-m-ec">—</div>
+                                <div class="ck-metric-unit">CTUe</div>
+                            </div>
+                        </div>
+
+                        <h4>📉 Impact vs Upper-Range Benchmark</h4>
+                        <p class="ck-muted">Each ring shows your input vs the maximum recommended dose.</p>
+                        <div class="ck-gauges-row" id="t1-bench-gauges"></div>
+
+                        <h4>🕸️ Impact Profile (Radar)</h4>
+                        <p class="ck-muted">Your input vs maximum-recommended dose, normalized 0–100.</p>
+                        <div id="t1-radar" class="ck-chart"></div>
+                        <p class="ck-chart-caption">🕸️ <strong>Radar Plot</strong> — each axis is one impact category,
+                            normalized 0–100. The smaller the polygon, the lower the overall environmental footprint.
+                        </p>
+
+                        <h4>🎯 Input Levels vs Recommended Range</h4>
+                        <div class="ck-grid-2" id="t1-bullets"></div>
+                        <p class="ck-chart-caption">🎯 <strong>Bullet Charts</strong> — the dark bar is your applied
+                            dose; the green band is the agronomically recommended range. Bars inside the band indicate
+                            balanced fertilisation.</p>
+
+                        <div id="t1-waffle-wrap">
+                            <h4>🟩 GWP Composition by Nutrient</h4>
+                            <div id="t1-waffle"></div>
+                            <p class="ck-chart-caption">🟩 <strong>Waffle Chart</strong> — each of the 100 squares
+                                represents 1% of upstream GWP. Color shows which nutrient (N/P/K/Zn) is the dominant
+                                climate hotspot in your blend.</p>
+                        </div>
+
+                        <div id="t1-inferences" class="ck-inferences"></div>
+                    </div>
+
+                    <!-- Compare-Two results -->
+                    <div id="t1-compare-results" class="ck-results" hidden>
+                        <hr />
+                        <div class="ck-metrics-row ck-cmp-summary-row">
+                            <div class="ck-callout success" id="t1-cmp-summary-gwp"></div>
+                            <div class="ck-callout info" id="t1-cmp-summary-cost"></div>
+                        </div>
+
+                        <h3>📊 Comparison Results</h3>
+                        <div id="t1-cmp-rows"></div>
+                        <div id="t1-cmp-bars" class="ck-chart"></div>
+                        <p class="ck-chart-caption">📊 <strong>Side-by-side Comparison Bars</strong> — each impact
+                            category plotted for Combination A and B together. Shorter bars = lower environmental
+                            impact.</p>
+
+                        <h4>📉 Combination B vs A (lower is better)</h4>
+                        <p class="ck-muted">Each ring shows B as a percentage of A. &lt;100% (green) means B is greener.
+                        </p>
+                        <div class="ck-gauges-row" id="t1-cmp-gauges"></div>
+
+                        <h4>🕸️ Profile Comparison (Radar)</h4>
+                        <div id="t1-cmp-radar" class="ck-chart"></div>
+                        <p class="ck-chart-caption">🕸️ <strong>Radar Comparison</strong> — overlapping polygons of A
+                            and B; the smaller polygon dominates the larger across the four impact categories.</p>
+
+                        <h4>🔀 Side-by-Side Difference</h4>
+                        <div id="t1-cmp-diffs"></div>
+                        <p class="ck-chart-caption">🔀 <strong>Difference Arrows</strong> — green arrow means B is lower
+                            (better); red means B is higher than A. Magnitude shows the absolute change in each metric.
+                        </p>
+
+                        <h4>💸 Cost vs GWP Trade-off</h4>
+                        <div id="t1-cmp-scatter" class="ck-chart"></div>
+                        <p class="ck-chart-caption">💰 <strong>Cost vs GWP Scatter</strong> — X-axis is climate impact,
+                            Y-axis is input cost. Bottom-left is the sweet spot: cheaper AND greener.</p>
+
+                        <div id="t1-cmp-inferences" class="ck-inferences"></div>
+                    </div>
+                </section>
+
+                <!-- ── Tab 2: Gradient ───────────────────────────────────────── -->
+                <section class="ck-tabpanel" id="t2" role="tabpanel" hidden>
+                    <h2>Organic–Conventional Transition Analyser</h2>
+                    <p class="ck-muted">Enter both systems' input rates, then drag the slider to explore the blend.</p>
+                    <hr />
+
+                    <div class="ck-grid-2">
+                        <div class="ck-input-block">
+                            <h3>🧪 Conventional Inputs</h3>
+                            <div class="ck-grid-2">
+                                <label class="ck-field"><span>N (kg/ha)</span><input type="number" id="t2-N" value="135"
+                                        min="0" step="0.5" /></label>
+                                <label class="ck-field"><span>P (kg/ha)</span><input type="number" id="t2-P" value="50"
+                                        min="0" step="0.5" /></label>
+                                <label class="ck-field"><span>K (kg/ha)</span><input type="number" id="t2-K" value="35"
+                                        min="0" step="0.5" /></label>
+                                <label class="ck-field"><span>Zn (kg/ha)</span><input type="number" id="t2-Zn"
+                                        value="20" min="0" step="0.5" /></label>
+                            </div>
+                        </div>
+                        <div class="ck-input-block">
+                            <h3>🌿 Organic Inputs</h3>
+                            <div class="ck-grid-2">
+                                <label class="ck-field"><span>Manure / FYM (kg/ha)</span><input type="number"
+                                        id="t2-Manure" value="8000" min="0" step="100" /></label>
+                                <label class="ck-field"><span>Compost (kg/ha)</span><input type="number" id="t2-Compost"
+                                        value="1500" min="0" step="50" /></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ck-slider-block">
+                        <label>
+                            Organic share (α): <strong id="t2-alpha-label">0%</strong>
+                            <input type="range" id="t2-alpha" min="0" max="100" value="0" step="5" />
+                        </label>
+                        <button class="ck-btn" id="t2-recompute">🔄 Recompute</button>
+                    </div>
+
+                    <div id="t2-warnings" class="ck-warnings"></div>
+                    <div id="t2-mode-banner" class="ck-callout info">🧪 Currently showing: <strong>Fully
+                            Conventional</strong>
+                    </div>
+
+                    <div id="t2-results" class="ck-results" hidden>
+                        <hr />
+                        <h3>📊 Environmental Impact at Selected Blend</h3>
+                        <p class="ck-muted">Includes upstream fertiliser production + field-level emissions (N₂O, NO₃,
+                            NH₃, PO₄)
+                        </p>
+
+                        <h4>🎯 Change vs Conventional (% Δ)</h4>
+                        <div class="ck-gauges-row" id="t2-pct-gauges"></div>
+
+                        <h4>🏎️ Speedometer View</h4>
+                        <div class="ck-speedo-row" id="t2-speedos">
+                            <div class="ck-speedo" id="t2-sp-gwp"></div>
+                            <div class="ck-speedo" id="t2-sp-cost"></div>
+                            <div class="ck-speedo" id="t2-sp-acid"></div>
+                            <div class="ck-speedo" id="t2-sp-eutro"></div>
+                        </div>
+                        <p class="ck-chart-caption">🏎️ <strong>Speedometer Gauges</strong> — the needle position shows
+                            percentage change of each metric vs the conventional baseline. Greener zones (right) mean
+                            better outcomes; for cost, left/lower is cheaper.</p>
+
+                        <h4>📋 Scenario Snapshots</h4>
+                        <div class="ck-scenario-cards" id="t2-scenarios"></div>
+
+                        <h3>📈 Detailed Impact by Scenario</h3>
+                        <div id="t2-detail"></div>
+
+                        <h3>📊 Impact Breakdown</h3>
+                        <div id="t2-breakdown" class="ck-chart"></div>
+                        <p class="ck-chart-caption">📊 <strong>Grouped Impact Bars</strong> — every impact category
+                            plotted side-by-side for Conventional, Blend, and Organic. Lets you spot which category
+                            benefits most from a transition.</p>
+
+                        <h3>💰 Input Cost Analysis</h3>
+                        <div class="ck-metrics-row">
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🧪 Conventional Cost</div>
+                                <div class="ck-metric-value" id="t2-m-cost-c">—</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🎚️ Blend Cost</div>
+                                <div class="ck-metric-value" id="t2-m-cost">—</div>
+                                <div class="delta" id="t2-cost-delta"></div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🌿 Organic Cost</div>
+                                <div class="ck-metric-value" id="t2-m-cost-o">—</div>
+                            </div>
+                        </div>
+                        <div id="t2-cost-chart" class="ck-chart"></div>
+                        <p class="ck-chart-caption">💰 <strong>Cost Comparison Bars</strong> — per-hectare input cost
+                            for the three scenarios. Helps decide if the green premium of organic blend is affordable
+                            for your farm.</p>
+
+                        <h3>📈 Impact Trend Across Blend</h3>
+                        <div id="t2-trend" class="ck-chart"></div>
+                        <p class="ck-chart-caption">📈 <strong>Blend Trend Curves</strong> — each line traces how one
+                            impact metric changes as the organic share rises from 0% to 100%. Sharp drops indicate
+                            strong climate benefit from organic substitution.</p>
+
+                        <h4>〰️ GWP with ±10% Confidence Band</h4>
+                        <div id="t2-cband" class="ck-chart"></div>
+                        <p class="ck-chart-caption">〰️ <strong>Confidence Band</strong> — shaded area shows a ±10%
+                            uncertainty envelope around the predicted GWP, accounting for model variance and on-farm
+                            variability.</p>
+
+                        <h4>🌊 Impact Composition Streamgraph</h4>
+                        <div id="t2-stream" class="ck-chart"></div>
+                        <p class="ck-chart-caption">🌊 <strong>Streamgraph</strong> — ribbons show how the four impacts
+                            re-balance their relative shares as the blend shifts from fully conventional to fully
+                            organic.</p>
+
+                        <h3>🕸️ Three-Scenario Radar</h3>
+                        <p class="ck-muted">Conventional vs Blend vs Organic — compare profiles at a glance.</p>
+                        <div id="t2-radar3" class="ck-chart"></div>
+                        <p class="ck-chart-caption">🕸️ <strong>Three-Scenario Radar</strong> — overlapping polygons for
+                            Conventional, Blend, and Organic make it easy to spot which scenario dominates each
+                            environmental dimension.</p>
+
+                        <h3>🧭 Blend Decision Charts</h3>
+                        <div class="ck-grid-2">
+                            <div>
+                                <div id="t2-frontier" class="ck-chart"></div>
+                                <p class="ck-chart-caption">🧭 <strong>Cost–GWP Frontier</strong> — each point is one
+                                    possible blend; your chosen point is highlighted. Curve bends toward bottom-left for
+                                    win-win blends.</p>
+                            </div>
+                            <div>
+                                <div id="t2-delta" class="ck-chart"></div>
+                                <p class="ck-chart-caption">📊 <strong>Impact Delta Bars</strong> — percent change of
+                                    each impact category for your current blend vs the conventional baseline. Negative
+                                    bars (green) = improvement.</p>
+                            </div>
+                        </div>
+
+                        <h4>⚖️ Pareto Frontier with Iso-trade-off Lines</h4>
+                        <div id="t2-pareto" class="ck-chart"></div>
+                        <p class="ck-chart-caption">⚖️ <strong>Pareto with Iso-lines</strong> — dashed lines connect
+                            blends with equal cost-to-GWP trade-off. Moving along a line costs nothing extra; crossing
+                            onto a lower line means a strictly better deal.</p>
+
+                        <div id="t2-cost-callout" class="ck-callout info"></div>
+
+                        <details class="ck-details">
+                            <summary>📋 Full Comparison Table</summary>
+                            <div id="t2-fulltable"></div>
+                        </details>
+
+                        <div id="t2-inferences" class="ck-inferences"></div>
+                    </div>
+                </section>
+
+                <!-- ── Tab 3: Credits ────────────────────────────────────────── -->
+                <section class="ck-tabpanel" id="t3" role="tabpanel" hidden>
+                    <h2>Carbon Credit Potential (CCTS)</h2>
+                    <p class="ck-muted">Soil-carbon credits only (1 ha basis), shown in t CO₂-eq/ha.</p>
+                    <hr />
+
+                    <div class="ck-grid-2">
+                        <label class="ck-field"><span>Manure / FYM (kg/ha)</span><input type="number" id="t3-Manure"
+                                value="10000" min="0" step="100" /></label>
+                        <label class="ck-field"><span>Compost (kg/ha)</span><input type="number" id="t3-Compost"
+                                value="1500" min="0" step="50" /></label>
+                    </div>
+
+                    <div class="ck-slider-block">
+                        <label>
+                            Permanence Buffer: <strong id="t3-buffer-label">20%</strong>
+                            <input type="range" id="t3-buffer" min="10" max="30" value="20" step="1" />
+                        </label>
+                        <span class="ck-muted">Applied to account for uncertainty and reversal risk
+                            (Verra-style).</span>
+                    </div>
+
+                    <div id="t3-warnings" class="ck-warnings"></div>
+                    <button class="ck-btn" id="t3-calc">💎 Calculate Credits</button>
+
+                    <div id="t3-results" class="ck-results" hidden>
+                        <hr />
+                        <div class="ck-metrics-row">
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🌱 Soil Carbon Credits</div>
+                                <div class="ck-metric-value" id="t3-m-credits">—</div>
+                                <div class="ck-metric-unit">t CO₂-eq/ha</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">📦 SOC Stored (Before Buffer)</div>
+                                <div class="ck-metric-value" id="t3-m-before">—</div>
+                                <div class="ck-metric-unit">t CO₂-eq/ha</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">Buffer Withheld</div>
+                                <div class="ck-metric-value" id="t3-m-buffer">—</div>
+                                <div class="ck-metric-unit">t CO₂-eq/ha</div>
+                            </div>
+                        </div>
+
+                        <h4>📉 Credit Potential vs Upper-Range Benchmark</h4>
+                        <p class="ck-muted">Each ring shows your potential relative to the maximum recommended FYM +
+                            compost
+                            dose.</p>
+                        <div class="ck-gauges-row" id="t3-bench-gauges"></div>
+
+                        <h4>💰 Estimated Value (per ha, CCTS)</h4>
+                        <div class="ck-callout info" id="t3-value-box">—</div>
+
+                        <h4>📊 Visual Insights</h4>
+                        <div class="ck-grid-2">
+                            <div>
+                                <div id="t3-source" class="ck-chart"></div>
+                                <p class="ck-chart-caption">🌿 <strong>Carbon Source Breakdown</strong> — split of
+                                    soil-carbon sequestration credit between FYM and Compost amendments. Helps you see
+                                    which input is doing the heavy lifting on credits.</p>
+                            </div>
+                            <div>
+                                <div id="t3-bufchart" class="ck-chart"></div>
+                                <p class="ck-chart-caption">🛡️ <strong>Permanence Buffer</strong> — portion of gross
+                                    sequestration retained as a non-permanence reserve (per CCTS rules) vs net credits
+                                    actually issuable.</p>
+                            </div>
+                        </div>
+                        <div id="t3-value-chart" class="ck-chart"></div>
+                        <p class="ck-chart-caption">💵 <strong>Credit Monetary Value Range</strong> — estimated rupee
+                            value of your net credits at the low (₹600/tCO₂) and high (₹900/tCO₂) market price brackets.
+                        </p>
+
+                        <div id="t3-inferences" class="ck-inferences"></div>
+                    </div>
+                </section>
+
+                <!-- ── Tab 4: Field Emissions ────────────────────────────────── -->
+                <section class="ck-tabpanel" id="t4" role="tabpanel" hidden>
+                    <h2>Field Emission Calculator</h2>
+                    <p class="ck-muted">Direct field emissions from fertiliser application based on IPCC and SALCA
+                        methodologies.</p>
+                    <hr />
+
+                    <div class="ck-grid-2">
+                        <label class="ck-field">
+                            <span>Irrigation Mode</span>
+                            <select id="t4-irrigation">
+                                <option>Fully Flooded</option>
+                                <option>Alternate Wetting and Drying</option>
+                                <option>Rainfed</option>
+                            </select>
+                        </label>
+                        <label class="ck-field"><span>Synthetic N — FSN (kg/ha)</span><input type="number" id="t4-N"
+                                value="135" min="0" step="0.5" /></label>
+                        <label class="ck-field"><span>Synthetic P (kg/ha)</span><input type="number" id="t4-P"
+                                value="50" min="0" step="0.5" /></label>
+                        <label class="ck-field">
+                            <span>Organic Amendment 1</span>
+                            <select id="t4-am1">
+                                <option>None</option>
+                                <option>Farm Yard Manure</option>
+                                <option>Compost</option>
+                            </select>
+                        </label>
+                        <label class="ck-field">
+                            <span>Organic Amendment 2</span>
+                            <select id="t4-am2">
+                                <option>None</option>
+                                <option>Farm Yard Manure</option>
+                                <option>Compost</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <button class="ck-btn" id="t4-calc">📈 Calculate Field Emissions</button>
+
+                    <div id="t4-results" class="ck-results" hidden>
+                        <hr />
+                        <h3>Field Emission Results (kg/ha/season)</h3>
+                        <div class="ck-metrics-row">
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🔥 CH₄</div>
+                                <div class="ck-metric-value" id="t4-m-ch4">—</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">⚡ N₂O</div>
+                                <div class="ck-metric-value" id="t4-m-n2o">—</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">💦 NO₃</div>
+                                <div class="ck-metric-value" id="t4-m-no3">—</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">🌬️ NH₃</div>
+                                <div class="ck-metric-value" id="t4-m-nh3">—</div>
+                            </div>
+                            <div class="ck-metric">
+                                <div class="ck-metric-label">💧 PO₄</div>
+                                <div class="ck-metric-value" id="t4-m-po4">—</div>
+                            </div>
+                        </div>
+
+                        <h4>📉 Emissions vs Fully-Flooded Upper-Bound Benchmark</h4>
+                        <p class="ck-muted">Each ring shows your emission relative to the maximum-input, fully-flooded
+                            baseline.
+                        </p>
+                        <div class="ck-gauges-row" id="t4-bench-gauges"></div>
+
+                        <div class="ck-callout info">💡 <strong>Why it matters:</strong> Reducing N₂O and CH₄ emissions
+                            improves
+                            air quality, reduces climate impact, and enhances soil health and long-term yield stability.
+                        </div>
+
+                        <h4>📋 Summary</h4>
+                        <div id="t4-summary"></div>
+
+                        <div class="ck-grid-2">
+                            <div>
+                                <h4>Emission Magnitude</h4>
+                                <div id="t4-bar" class="ck-chart"></div>
+                                <p class="ck-chart-caption">📊 <strong>Emission Magnitude Bars</strong> — absolute kg/ha
+                                    of each gas emitted or nutrient leached this season. Useful to spot the largest
+                                    single source.</p>
+                            </div>
+                            <div>
+                                <h4>Emission Share (%)</h4>
+                                <div id="t4-pie" class="ck-chart"></div>
+                                <p class="ck-chart-caption">🥧 <strong>Emission Share Pie</strong> — same emissions
+                                    expressed as percentages so you instantly see which one dominates the field-level
+                                    footprint.</p>
+                            </div>
+                        </div>
+
+                        <h3>🔗 Inputs → Emissions → Impacts (Sankey)</h3>
+                        <p class="ck-muted">Follow how each fertiliser/amendment flows into specific emissions and
+                            ultimately
+                            into climate, eutrophication and acidification impacts.</p>
+                        <div id="t4-sankey" class="ck-chart"></div>
+                        <p class="ck-chart-caption">🔗 <strong>Sankey Flow Diagram</strong> — ribbon thickness shows
+                            mass flow from each fertiliser/amendment input through specific emissions and onward to the
+                            LCA impact categories they cause.</p>
+
+                        <h3>🌳 Emission Treemap</h3>
+                        <p class="ck-muted">Hierarchical view: Climate / Eutrophication / Acidification → individual
+                            emissions,
+                            sized by magnitude.</p>
+                        <div id="t4-treemap" class="ck-chart"></div>
+                        <p class="ck-chart-caption">🌳 <strong>Treemap</strong> — each rectangle area is proportional to
+                            the emission's mass. Quickly reveals whether climate, eutrophication, or acidification
+                            dominates your footprint.</p>
+
+                        <div id="t4-inferences" class="ck-inferences"></div>
+                    </div>
+                </section>
+
+                <!-- ── Tab 5: Model Info ──────────────────────────────────────── -->
+                <section class="ck-tabpanel" id="t5" role="tabpanel" hidden>
+                    <h2>Model Information & Methodology</h2>
+                    <hr />
+
+                    <div class="ck-input-block">
+                        <h3>⚗️ Fertiliser Impact Intensity</h3>
+                        <p class="ck-muted">Environmental impact per kg of each input (computed in OpenLCA).</p>
+                        <div id="t5-intensity-table"></div>
+                        <div class="ck-info">💡 Zinc (Zn) has dramatically higher ecotoxicity (612.9 CTUe/kg) vs N,
+                            P, K
+                            (2.7–5.2).</div>
+                    </div>
+
+                    <div class="ck-input-block">
+                        <h3>📈 Validation Plots</h3>
+                        <p class="ck-muted">Validate the trained ML models on test data.</p>
+                        <div id="t5-plots"></div>
+                    </div>
+
+                    <h3>🔥 Per-kg Footprint Heatmap</h3>
+                    <p class="ck-muted">Color encodes log₁₀ of the impact value. Reveals at a glance where each input
+                        dominates.
+                    </p>
+                    <div id="t5-heatmap" class="ck-chart"></div>
+                    <p class="ck-chart-caption">🔥 <strong>Per-kg Footprint Heatmap</strong> — rows are inputs (N, P, K,
+                        Zn), columns are LCA impact categories. Darker cells = higher impact per kg. Zinc's ecotoxicity
+                        row is the standout hotspot.</p>
+
+                    <details class="ck-details" open>
+                        <summary>ℹ️ About CarbonKrishi AI &amp; Model Methodology</summary>
+                        <div class="ck-input-block">
+                            <p><b>Algorithm:</b> Ridge Regression (multivariate, L2-regularised) — trained separately
+                                for
+                                conventional and organic rice systems.</p>
+                            <p><b>System Boundary:</b> Cradle-to-field — upstream production, transport, and field-level
+                                emissions
+                                (N₂O, NO₃⁻, NH₃, PO₄³⁻) via IPCC and SALCA methodologies.</p>
+                            <p><b>Training Data:</b> Conventional 7,116 LCA records + Organic 5,926 LCA records
+                                (OpenLCA,
+                                parametric
+                                sampling).</p>
+                            <p><b>Primary Data:</b> ICAR-IIRR Hyderabad and KVK Medak, Telangana.</p>
+                            <p><b>Impact Assessment:</b> ReCiPe 2016 Midpoint (H).</p>
+                            <p><b>Cost References:</b> Indian market rates for fertilisers (2024) and organic
+                                amendments.</p>
+                            <p><b>Features:</b></p>
+                            <ul>
+                                <li>✅ Single prediction for conventional or organic systems</li>
+                                <li>✅ Blend analysis: explore transition from conventional to organic</li>
+                                <li>✅ Cost-benefit analysis with Indian market rates</li>
+                                <li>✅ Environmental impact quantification (GWP, Eutrophication, Acidification,
+                                    Ecotoxicity)</li>
+                                <li>✅ Validation plots and model statistics</li>
+                                <li>✅ Recommendations based on agronomic best practices</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="ck-details">
+                        <summary>📋 Datasets Available</summary>
+                        <div class="ck-input-block">
+                            <p><b>Datasets in <code>/Data/</code> folder:</b></p>
+                            <ul>
+                                <li><code>ML_Dataset_v2_7116.csv</code> — Conventional cultivation (7,116 records)</li>
+                                <li><code>ML_Dataset_Organic_v2_5926.csv</code> — Organic cultivation (5,926 records)
+                                </li>
+                                <li><code>Trial Run 2 ML.csv</code> — Pilot validation data</li>
+                            </ul>
+                            <p><b>Scripts Available:</b></p>
+                            <ul>
+                                <li><code>Model-Training.py</code> — Full training pipeline</li>
+                                <li><code>evaluate.py</code> — Model performance evaluation</li>
+                                <li><code>Organic evaluate.py</code> — Organic model evaluation</li>
+                                <li><code>Organic LCA script.py</code> — Organic OpenLCA data generation</li>
+                                <li><code>predict.py</code> — Batch prediction utilities</li>
+                                <li><code>visualise.py</code> — Visualization and analysis tools</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <h3>📚 References &amp; Data Sources</h3>
+                    <div id="t5-sources" class="ck-source-list"></div>
+                </section>
+
+                <hr />
+                <footer class="ck-footer">
+                    <small>&copy; 2026 CarbonKrishi AI &middot; Data from ICAR-IIRR &amp; KVK Medak</small>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="/js/app.js"></script>
+    <!-- Dev-only hot reload (no-op in production: ws fails silently) -->
+    <script>
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+            (function connect() {
+                try {
+                    const ws = new WebSocket(`ws://${location.host}/hot-reload`);
+                    ws.onmessage = (e) => { if (e.data === "reload") location.reload(); };
+                    ws.onclose = () => setTimeout(connect, 1000);
+                    ws.onerror = () => { try { ws.close(); } catch { } };
+                } catch { setTimeout(connect, 2000); }
+            })();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarbonKrishi AI — Climate-Smart Rice LCA</title>
+    <meta name="description"
+        content="CarbonKrishi AI — predict and reduce the climate impact of rice fertiliser application with ISO 14040/44 LCA, IPCC and SALCA-grade emission factors." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/landing.css" />
+    <!-- Theme controller — runs before first paint to avoid theme flash. -->
+    <script src="/js/theme.js"></script>
+</head>
+
+<body>
+    <!-- ── Top navigation ───────────────────────────────────────────────── -->
+    <header class="lc-nav">
+        <div class="lc-nav-inner">
+            <a href="/" class="lc-brand" aria-label="CarbonKrishi home">
+                <div class="lc-brand-mark">🌾</div>
+                <div class="lc-brand-text">
+                    <div>CarbonKrishi</div>
+                    <div class="lc-brand-sub">AI · LCA</div>
+                </div>
+            </a>
+
+            <nav class="lc-nav-links" aria-label="Main">
+                <a class="lc-nav-link active" href="/">Home</a>
+                <a class="lc-nav-link" href="/dashboard-info">Dashboard</a>
+                <a class="lc-nav-link" href="/methodology">Methodology</a>
+                <a class="lc-nav-link" href="/about">About Us</a>
+            </nav>
+
+            <a class="lc-cta-btn lc-nav-cta" href="/dashboard">
+                <span>Open Dashboard</span><span class="lc-cta-arrow" aria-hidden="true">→</span>
+            </a>
+            <button class="lc-theme-toggle" data-theme-toggle aria-label="Toggle theme" title="Toggle theme"
+                type="button">☀</button>
+            <button class="lc-burger" id="lc-burger" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- ── Scroll-scrubbed video ────────────────────────────────────────── -->
+    <section class="lc-scroll-video" id="lc-scroll-video" aria-label="Scroll to play the field flyover video">
+        <div class="lc-scroll-video-pin">
+            <video class="lc-scroll-video-el" src="/media/video/vid_scroll.mp4" poster="/media/video/vid_scroll_poster.jpg" muted playsinline preload="auto"
+                disablepictureinpicture aria-hidden="true"></video>
+        </div>
+    </section>
+
+    <!-- ── Scroll-Expansion Hero ─────────────────────────────────────────── -->
+    <section class="lc-expand-hero" id="lc-expand-hero" aria-label="Scroll to expand hero">
+        <div class="lc-expand-stage">
+
+            <!-- Background layer (blurred hero image) -->
+            <div class="lc-expand-bg">
+                <img src="/media/hero/hero.jpg" alt="" aria-hidden="true" />
+            </div>
+
+            <!-- Expanding media card -->
+            <div class="lc-expand-media">
+                <img src="/media/hero/hero.jpg" alt="Indian rice paddy at sunrise" />
+            </div>
+
+            <!-- Eyebrow pill -->
+            <span class="lc-expand-eyebrow">
+                <span class="lc-eyebrow-dot"></span> Announcing climate-smart rice LCA
+            </span>
+
+            <!-- Split title -->
+            <div class="lc-expand-titles">
+                <h1 class="lc-expand-title-top">Grow more rice</h1>
+                <h1 class="lc-expand-title-bottom">with a <span class="lc-grad">lighter footprint.</span></h1>
+            </div>
+
+            <!-- Scroll hint -->
+            <div class="lc-expand-scroll-hint" aria-hidden="true">
+                <span>Scroll to explore</span>
+                <span class="lc-hero-scroll-mouse"></span>
+            </div>
+
+            <!-- Revealed content — full hero overlay when expanded -->
+            <div class="lc-expand-reveal">
+                <div class="lc-expand-reveal-inner">
+                    <span class="lc-eyebrow">
+                        <span class="lc-eyebrow-dot"></span> Announcing climate-smart rice LCA
+                    </span>
+
+                    <h1>
+                        Grow more rice with a
+                        <span class="lc-grad">lighter footprint.</span>
+                    </h1>
+
+                    <p class="lede">
+                        A new agricultural era, where AI-driven Life-Cycle Assessment turns every fertiliser
+                        plan into a credible carbon number — in your language, in seconds.
+                    </p>
+
+                    <div class="lc-hero-ctas">
+                        <a class="lc-cta-btn" href="/dashboard">
+                            Open Dashboard
+                            <span class="lc-cta-arrow" aria-hidden="true">→</span>
+                        </a>
+                        <a class="lc-cta-ghost" href="/methodology">Learn more</a>
+                    </div>
+                </div>
+
+                <div class="lc-expand-reveal-scroll" aria-hidden="true">
+                    <span>Scroll more</span>
+                    <span class="lc-hero-scroll-mouse"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maps section study area -->
+    <section class="lc-map-section" aria-labelledby="lc-map-title">
+        <div class="lc-container">
+            <div class="lc-map-head">
+                <span class="lc-eyebrow-h">Field data locations</span>
+                <h2 class="lc-h2" id="lc-map-title">Where the rice LCA data comes from.</h2>
+                <p class="lc-section-lede">
+                    The model is grounded in institutional rice research and field-extension data from Telangana.
+                    These two locations anchor the project’s local fertiliser, crop and management assumptions.
+                </p>
+            </div>
+
+            <div class="lc-map-grid">
+                <article class="lc-map-card">
+                    <div class="lc-map-card-top">
+                        <span class="lc-map-tag">Field source</span>
+                        <h3>ICAR-IIRR Hyderabad</h3>
+                        <p>Indian Institute of Rice Research · Rajendranagar, Hyderabad</p>
+                    </div>
+                    <div class="lc-map-frame">
+                        <iframe title="Map showing ICAR Indian Institute of Rice Research Hyderabad"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5296.760476376082!2d78.3913443763837!3d17.320064183555694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbbdf225a647c9%3A0x136e0ef4392143b3!2sICAR-Indian%20Institute%20of%20Rice%20Research%20Hyderabad!5e1!3m2!1sen!2sin!4v1777624850573!5m2!1sen!2sin"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="lc-map-meta">
+                        <span>📍 Hyderabad, Telangana</span>
+                        <span>Rice research baseline</span>
+                    </div>
+                </article>
+
+                <article class="lc-map-card">
+                    <div class="lc-map-card-top">
+                        <span class="lc-map-tag">Field source</span>
+                        <h3>KVK Medak · Thuniki</h3>
+                        <p>Krishi Vigyan Kendra field-extension location used for local agronomic context.</p>
+                    </div>
+                    <div class="lc-map-frame">
+                        <iframe title="Map showing Krishi Vigyan Kendra Thuniki Medak"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5282.315403223838!2d78.24134787639174!3d17.814291883147476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcc0c5c204abfb3%3A0xe4826f5abce1207e!2sKrishi%20Vigyan%20Kendra%2C%20Thuniki.!5e1!3m2!1sen!2sin!4v1777624892704!5m2!1sen!2sin"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="lc-map-meta">
+                        <span>📍 Medak, Telangana</span>
+                        <span>Field-extension data</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!-- ── Modules preview ─────────────────────────────────────────────── -->
+    <section class="lc-section alt">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">Modules</span>
+            <h2 class="lc-h2">Five tools, one dashboard.</h2>
+            <p class="lc-section-lede">
+                Every module shares the same model artifact and unit conventions, so insights from one tab carry
+                over cleanly to the next.
+            </p>
+
+            <div class="lc-mod-grid">
+                <div class="lc-mod-card">
+                    <div class="ico">🔬</div>
+                    <h4>LCA Predictor</h4>
+                    <p>Single &amp; Compare-Two for conventional and organic systems with benchmark gauges and
+                        inference cards.</p>
+                    <a href="/dashboard">Open Predictor →</a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🎚️</div>
+                    <h4>Gradient Analysis</h4>
+                    <p>Slider-driven blend between conventional and organic with cost/climate frontier and Pareto
+                        iso-lines.</p>
+                    <a href="/dashboard">Open Gradient →</a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">💲</div>
+                    <h4>Carbon Credits</h4>
+                    <p>Soil-organic-carbon credit potential with permanence buffer slider and CCTS price band
+                        valuation.</p>
+                    <a href="/dashboard">Open Credits →</a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🌱</div>
+                    <h4>Field Emissions</h4>
+                    <p>CH₄ / N₂O / NO₃ / NH₃ / PO₄ via IPCC + SALCA, with Sankey and treemap views.</p>
+                    <a href="/dashboard">Open Emissions →</a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">📊</div>
+                    <h4>Model Info</h4>
+                    <p>Per-kg footprint heatmap, methodology, datasets, and references.</p>
+                    <a href="/dashboard">Open Model Info →</a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🗣️</div>
+                    <h4>Multilingual Inferences</h4>
+                    <p>Farmer-friendly recommendations in English, हिंदी, and తెలుగు across every module.</p>
+                    <a href="/dashboard">Try the dashboard →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Methodology + About teasers ─────────────────────────────────── -->
+    <section class="lc-section">
+        <div class="lc-container">
+            <div class="lc-mod-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <a href="/methodology" class="lc-mod-card" style="text-decoration:none;color:inherit;">
+                    <div class="ico">🧪</div>
+                    <h4>How the science works</h4>
+                    <p>ISO 14040/44 LCA, IPCC 2019 emission factors, SALCA losses, and ReCiPe 2016 mid-point
+                        characterisation — explained step-by-step.</p>
+                    <span
+                        style="display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.7rem;color:var(--lc-leaf-2);font-weight:700;font-size:0.88rem;">
+                        Read the methodology →
+                    </span>
+                </a>
+                <a href="/about" class="lc-mod-card" style="text-decoration:none;color:inherit;">
+                    <div class="ico">🤝</div>
+                    <h4>About CarbonKrishi</h4>
+                    <p>Our mission, our research partners (ICAR-IIRR &amp; KVK Medak), and why rice fertiliser LCA
+                        matters for India's climate goals.</p>
+                    <span
+                        style="display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.7rem;color:var(--lc-leaf-2);font-weight:700;font-size:0.88rem;">
+                        Meet the team →
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Final CTA ───────────────────────────────────────────────────── -->
+    <section>
+        <div class="lc-container">
+            <div class="lc-final-cta">
+                <div>
+                    <h2>Ready to score your next season?</h2>
+                    <p>Open the dashboard and run a prediction in under 30 seconds — no signup required.</p>
+                </div>
+                <a class="lc-cta-btn" href="/dashboard">
+                    🚀 Open Dashboard <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Logo Marquee ──────────────────────────────────────────────── -->
+    <section class="lc-marquee-section">
+        <div class="lc-marquee-container">
+            <div class="lc-marquee">
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/iirr.png" alt="ICAR-IIRR" />
+                    </div>
+                </div>
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/kvk.png" alt="KVK Medak" />
+                    </div>
+                </div>
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/iith.png" alt="IIT Hyderabad" />
+                    </div>
+                </div>
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/lca.png" alt="OpenLCA" />
+                    </div>
+                </div>
+                <!-- Repeat for seamless loop -->
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/iirr.png" alt="ICAR-IIRR" />
+                    </div>
+                </div>
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/kvk.png" alt="KVK Medak" />
+                    </div>
+                </div>
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/iith.png" alt="IIT Hyderabad" />
+                    </div>
+                </div>
+                <div class="lc-marquee-item">
+                    <div class="lc-logo-bg">
+                        <img src="/media/footer_logos/lca.png" alt="OpenLCA" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ──────────────────────────────────────────────────────── -->
+    <footer class="lc-footer">
+        <div class="lc-container">
+            <div class="lc-footer-grid">
+                <div>
+                    <div class="lc-brand" style="margin-bottom: 0.7rem;">
+                        <div class="lc-brand-mark">🌾</div>
+                        <div class="lc-brand-text">
+                            <div style="color:white;">CarbonKrishi</div>
+                            <div class="lc-brand-sub">AI · LCA</div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.88rem; line-height:1.55; margin:0; color:#b6cbbe;">
+                        Climate-smart agriculture LCA, powered by AI and rooted in Indian field data.
+                    </p>
+                </div>
+                <div>
+                    <h5>Product</h5>
+                    <ul>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/methodology">Methodology</a></li>
+                        <li><a href="/about">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Modules</h5>
+                    <ul>
+                        <li><a href="/dashboard">Predictor</a></li>
+                        <li><a href="/dashboard">Gradient</a></li>
+                        <li><a href="/dashboard">Credits</a></li>
+                        <li><a href="/dashboard">Emissions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Standards</h5>
+                    <ul>
+                        <li>ISO 14040 / 14044</li>
+                        <li>ReCiPe 2016 (H)</li>
+                        <li>IPCC 2019</li>
+                        <li>SALCA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lc-footer-bottom">
+                <div>&copy; 2026 CarbonKrishi AI · Data from ICAR-IIRR &amp; KVK Medak</div>
+                <div>Made with 🌾 for Indian farmers</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP + ScrollTrigger via CDN — used by the scroll-scrubbed video -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script src="/js/landing.js"></script>
+    <script src="/js/landing-scroll-video.js"></script>
+    <script src="/js/scroll-expand-hero.js"></script>
+    <!-- Dev-only hot reload (no-op in production: ws fails silently) -->
+    <script>
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+            (function connect() {
+                try {
+                    const ws = new WebSocket(`ws://${location.host}/hot-reload`);
+                    ws.onmessage = (e) => { if (e.data === "reload") location.reload(); };
+                    ws.onclose = () => setTimeout(connect, 1000);
+                    ws.onerror = () => { try { ws.close(); } catch { } };
+                } catch { setTimeout(connect, 2000); }
+            })();
+        }
+    </script>
+</body>
+
+</html>

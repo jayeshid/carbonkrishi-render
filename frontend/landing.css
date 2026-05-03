@@ -1,0 +1,2991 @@
+/* ── CarbonKrishi AI · Landing page styles ────────────────────────────── */
+
+:root {
+  --lc-bg: #f4faf3;
+  --lc-bg-2: #e6f7ea;
+  --lc-ink: #0f1f17;
+  --lc-ink-soft: #4a5b50;
+  --lc-leaf-1: #16a34a;
+  --lc-leaf-2: #0f766e;
+  --lc-leaf-3: #34d399;
+  --lc-amber: #f59e0b;
+  --lc-cream: #fff7e6;
+  --lc-line: rgba(15, 31, 23, 0.1);
+  --lc-shadow: 0 22px 50px rgba(15, 31, 23, 0.1);
+  --lc-shadow-soft: 0 10px 22px rgba(15, 31, 23, 0.06);
+  --lc-radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    "Poppins",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  color: var(--lc-ink);
+  background: var(--lc-bg);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.lc-container {
+  max-width: 1240px;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+}
+
+/* ── Top navigation (floating dark pill) ─────────────────────────────── */
+.lc-nav {
+  /* Floats over the hero. The wrapper is fixed and full-width but
+       transparent — only the inner pill catches pointer events. */
+  position: fixed;
+  top: clamp(0.75rem, 1.5vw, 1.25rem);
+  left: 0;
+  right: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: transparent;
+  border: none;
+}
+.lc-nav-inner {
+  pointer-events: auto;
+  width: max-content;
+  max-width: calc(100% - 2rem);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 58px;
+  padding: 0.35rem 0.45rem 0.35rem 1.1rem;
+  background: rgba(18, 26, 22, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.22),
+    0 4px 10px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.lc-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: white;
+  padding-right: 0.6rem;
+  margin-right: 0.3rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.lc-brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #16a34a, #34d399);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.35);
+}
+.lc-brand-text {
+  line-height: 1.1;
+  color: white;
+}
+/* Hide the secondary line in the compact pill nav */
+.lc-brand-sub {
+  display: none;
+}
+
+.lc-nav-links {
+  display: flex;
+  gap: 0.15rem;
+  align-items: center;
+}
+.lc-nav-link {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.78);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+  white-space: nowrap;
+}
+.lc-nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+.lc-nav-link.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Nav CTA — lime pill matching the hero CTA, sized for the compact pill */
+.lc-nav .lc-cta-btn.lc-nav-cta {
+  background: #c5e862;
+  color: #0f1f17;
+  font-weight: 600;
+  font-size: 0.86rem;
+  padding: 0.45rem 0.5rem 0.45rem 1rem;
+  height: 42px;
+  gap: 0.55rem;
+  box-shadow: 0 6px 16px rgba(197, 232, 98, 0.25);
+}
+.lc-nav .lc-cta-btn.lc-nav-cta:hover {
+  background: #d3ee78;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(197, 232, 98, 0.35);
+}
+.lc-nav .lc-cta-btn.lc-nav-cta .lc-cta-arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #0f1f17;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.lc-nav .lc-cta-btn.lc-nav-cta:hover .lc-cta-arrow {
+  transform: translateX(2px);
+}
+
+/* Burger restyled for the dark pill */
+.lc-burger {
+  display: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.18s ease;
+}
+.lc-burger:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.lc-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, var(--lc-leaf-1), var(--lc-leaf-2));
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 12px 25px rgba(16, 185, 129, 0.3);
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+.lc-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(16, 185, 129, 0.4);
+}
+.lc-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: white;
+  color: var(--lc-leaf-2);
+  border: 1px solid rgba(15, 118, 110, 0.3);
+  padding: 0.65rem 1.15rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: var(--lc-shadow-soft);
+  transition: transform 0.18s;
+}
+.lc-cta-ghost:hover {
+  transform: translateY(-1px);
+  border-color: var(--lc-leaf-2);
+}
+
+/* ── Hero (full-bleed, edge-to-edge image) ────────────────────────────── */
+.lc-hero {
+  position: relative;
+  padding: 0 0 clamp(2rem, 4vw, 3.5rem);
+}
+.lc-hero-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  min-height: clamp(560px, 84vh, 820px);
+  background-image:
+    linear-gradient(
+      105deg,
+      rgba(8, 22, 14, 0.55) 0%,
+      rgba(8, 22, 14, 0.32) 45%,
+      rgba(8, 22, 14, 0.1) 100%
+    ),
+    url("/media/hero/hero.jpg");
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  box-shadow:
+    0 30px 70px rgba(15, 31, 23, 0.12),
+    0 6px 18px rgba(15, 31, 23, 0.06);
+  color: white;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Vertical padding scales with viewport. Horizontal padding aligns
+       inner content with the 1240px page container on wide screens, while
+       keeping a healthy gutter on narrow ones. */
+  padding-block: clamp(2.25rem, 5vw, 4.5rem);
+  padding-inline: max(clamp(1.5rem, 4vw, 3rem), calc((100% - 1240px) / 2));
+  gap: clamp(2rem, 6vw, 4rem);
+}
+
+/* Eyebrow on dark image — translucent white pill */
+.lc-hero-card .lc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: white;
+  box-shadow: none;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+.lc-hero-card .lc-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c5e862;
+  box-shadow: 0 0 0 3px rgba(197, 232, 98, 0.25);
+}
+
+/* Headline + body — large white serif/grotesk */
+.lc-hero-card h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-size: clamp(2.4rem, 5.6vw, 4.4rem);
+  line-height: 1.05;
+  margin: 0;
+  max-width: 18ch;
+  color: white;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.15);
+}
+.lc-hero-card h1 .lc-grad {
+  background: linear-gradient(135deg, #c5e862 0%, #86efac 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.lc-hero-card p.lede {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 48ch;
+  margin: 0;
+  font-weight: 400;
+}
+
+.lc-hero-content {
+  max-width: 56ch;
+}
+.lc-hero-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.2vw, 1.6rem);
+  max-width: 60ch;
+}
+
+/* CTA group — lime primary, outlined-white secondary */
+.lc-hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.lc-hero-card .lc-cta-btn {
+  background: #c5e862;
+  color: #0f1f17;
+  box-shadow: 0 8px 22px rgba(197, 232, 98, 0.35);
+  font-weight: 600;
+  padding: 0.7rem 0.7rem 0.7rem 1.4rem;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  gap: 0.65rem;
+}
+.lc-hero-card .lc-cta-btn:hover {
+  background: #d3ee78;
+  box-shadow: 0 12px 28px rgba(197, 232, 98, 0.45);
+  transform: translateY(-1px);
+}
+.lc-hero-card .lc-cta-btn .lc-cta-arrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0f1f17;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.lc-hero-card .lc-cta-btn:hover .lc-cta-arrow {
+  transform: translateX(3px);
+}
+.lc-hero-card .lc-cta-ghost {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f1f17;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+.lc-hero-card .lc-cta-ghost:hover {
+  background: white;
+  transform: translateY(-1px);
+}
+
+/* "SCROLL MORE" indicator at bottom-center */
+.lc-hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.lc-hero-scroll-mouse {
+  width: 22px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  position: relative;
+}
+.lc-hero-scroll-mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background: white;
+  border-radius: 2px;
+  animation: lc-scroll-mouse 1.8s ease-in-out infinite;
+}
+@keyframes lc-scroll-mouse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+  35% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+}
+
+/* ── Scroll-scrubbed video section ─────────────────────────────────────
+   The outer section is taller than the viewport; the inner pin sticks
+   to the top while the user scrolls through it. JS maps scroll progress
+   inside the section to video.currentTime for forward / reverse scrub. */
+.lc-scroll-video {
+  position: relative;
+  /* Total scroll length: 220vh means the user scrolls ~1.2 viewports
+       past the section's top before the pin releases. Increase for
+       slower playback per pixel of scroll, decrease for faster. */
+  height: 220vh;
+  background: #000;
+}
+.lc-scroll-video-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+.lc-scroll-video-el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Poster shows first frame; background is a fallback only */
+  background: #000;
+  background-size: cover;
+}
+
+/* ── Stats strip (sits just below the hero card) ──────────────────────── */
+.lc-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 760px;
+  margin: clamp(1.75rem, 3.5vw, 2.75rem) auto 0;
+}
+.lc-stat {
+  background: white;
+  border: 1px solid var(--lc-line);
+  border-radius: 18px;
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--lc-shadow-soft);
+  text-align: center;
+}
+.lc-stat-num {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--lc-ink);
+  line-height: 1.15;
+}
+.lc-stat-lbl {
+  font-size: 0.78rem;
+  color: var(--lc-ink-soft);
+  margin-top: 0.25rem;
+}
+
+/* Hero illustration (CSS-composed, no images) */
+.lc-illus {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.lc-illus-circle {
+  position: absolute;
+  inset: 6%;
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.4),
+      transparent 60%
+    ),
+    linear-gradient(135deg, #16a34a 0%, #0f766e 60%, #134e4a 100%);
+  border-radius: 50%;
+  box-shadow:
+    inset -30px -30px 80px rgba(0, 0, 0, 0.2),
+    0 30px 60px rgba(15, 118, 110, 0.35);
+}
+.lc-illus-blob {
+  position: absolute;
+  background: linear-gradient(135deg, var(--lc-leaf-3), var(--lc-leaf-1));
+  border-radius: 40% 60% 55% 45% / 60% 50% 50% 40%;
+  box-shadow: var(--lc-shadow);
+  animation: lc-float 7s ease-in-out infinite;
+}
+.lc-illus-blob.b1 {
+  width: 130px;
+  height: 130px;
+  top: -3%;
+  right: -5%;
+}
+.lc-illus-blob.b2 {
+  width: 110px;
+  height: 110px;
+  bottom: 0%;
+  left: -3%;
+  animation-delay: -3s;
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+}
+.lc-illus-blob.b3 {
+  width: 80px;
+  height: 80px;
+  bottom: 12%;
+  right: 6%;
+  animation-delay: -1.5s;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+}
+
+.lc-illus-emoji {
+  position: absolute;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.2));
+}
+.lc-illus-emoji.e1 {
+  top: 28%;
+  left: 16%;
+}
+.lc-illus-emoji.e2 {
+  bottom: 22%;
+  right: 18%;
+  transform: rotate(-12deg);
+}
+.lc-illus-emoji.e3 {
+  top: 14%;
+  right: 28%;
+  transform: rotate(8deg);
+  font-size: 2.2rem;
+}
+
+.lc-illus-card {
+  position: absolute;
+  right: -2%;
+  bottom: 8%;
+  background: white;
+  border-radius: 16px;
+  padding: 0.85rem 1.05rem;
+  box-shadow: var(--lc-shadow);
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 0.7rem;
+  align-items: center;
+  min-width: 220px;
+  border: 1px solid var(--lc-line);
+}
+.lc-illus-card .ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.2),
+    rgba(14, 165, 233, 0.18)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.lc-illus-card .lbl {
+  font-size: 0.7rem;
+  color: var(--lc-ink-soft);
+}
+.lc-illus-card .val {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+@keyframes lc-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ── Page header (sub-pages) ─────────────────────────────────────────── */
+.lc-page-head {
+  position: relative;
+  overflow: hidden;
+  /* Top padding clears the fixed-position floating nav pill (~58px tall
+       + ~1.25rem top offset). */
+  padding: clamp(6rem, 9vw, 8rem) 0 clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+.lc-page-head::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 360px;
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(16, 185, 129, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 75% 30%,
+      rgba(14, 165, 233, 0.14),
+      transparent 55%
+    );
+  z-index: -1;
+}
+.lc-page-head .lc-eyebrow {
+  margin-bottom: 0.6rem;
+}
+.lc-page-head h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 0.4rem 0 0.6rem;
+  letter-spacing: -0.01em;
+}
+.lc-page-head p {
+  color: var(--lc-ink-soft);
+  max-width: 64ch;
+  margin: 0 auto;
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.lc-breadcrumb {
+  display: inline-flex;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #052424 !important;
+  background: white;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--lc-line);
+  box-shadow: var(--lc-shadow-soft);
+}
+.lc-breadcrumb,
+.lc-breadcrumb * {
+  color: #052424 !important;
+}
+.lc-breadcrumb a {
+  color: #052424 !important;
+  font-weight: 600;
+}
+.lc-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* ── Trust strip ─────────────────────────────────────────────────────── */
+.lc-trust {
+  background: white;
+  border-top: 1px solid var(--lc-line);
+  border-bottom: 1px solid var(--lc-line);
+  padding: 1.5rem 0;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+.lc-trust-inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem 2.5rem;
+  justify-content: space-between;
+}
+.lc-trust-label {
+  font-size: 0.78rem;
+  color: var(--lc-ink-soft);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.lc-trust-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  align-items: center;
+}
+.lc-trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+  color: var(--lc-ink);
+  font-weight: 600;
+}
+.lc-trust-item span {
+  font-size: 1.1rem;
+}
+
+/* ── Sections ────────────────────────────────────────────────────────── */
+.lc-section {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  margin-bottom: 0;
+  padding: 0;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+.lc-section.alt {
+  background: linear-gradient(180deg, white 0%, var(--lc-bg-2) 100%);
+}
+.lc-section.dark {
+  background: #f6f7f5;
+  color: #052424;
+}
+.lc-section.dark h2,
+.lc-section.dark h3 {
+  color: white;
+}
+
+.lc-eyebrow-h {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--lc-leaf-2);
+  margin-bottom: 0.6rem;
+}
+.lc-section.dark .lc-eyebrow-h {
+  color: var(--lc-leaf-3);
+}
+
+.lc-h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  margin: 0 0 0.85rem;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.lc-section-lede {
+  color: var(--lc-ink-soft);
+  max-width: 64ch;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin: 0 0 2.75rem;
+}
+.lc-section.dark .lc-section-lede {
+  color: rgba(230, 247, 234, 0.78);
+}
+
+/* ── Methodology cards ───────────────────────────────────────────────── */
+.lc-method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+.lc-method-card {
+  background: white;
+  border-radius: var(--lc-radius);
+  border: 1px solid var(--lc-line);
+  padding: 1.6rem;
+  box-shadow: var(--lc-shadow-soft);
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.lc-method-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(
+    --accent,
+    linear-gradient(90deg, var(--lc-leaf-1), var(--lc-leaf-2))
+  );
+}
+.lc-method-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--lc-shadow);
+}
+.lc-method-card .ico {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--lc-leaf-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.9rem;
+}
+.lc-method-card h3 {
+  font-size: 1.08rem;
+  margin: 0 0 0.45rem;
+}
+.lc-method-card p {
+  color: var(--lc-ink-soft);
+  font-size: 0.93rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Field data maps ──────────────────────────────────────────────────── */
+.lc-map-section {
+  position: relative;
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(171, 255, 2, 0.1), transparent 34%),
+    linear-gradient(
+      180deg,
+      rgba(244, 250, 243, 0.98),
+      #ffffff 58%,
+      rgba(230, 247, 234, 0.7)
+    );
+  overflow: hidden;
+}
+.lc-map-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(15, 118, 110, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 118, 110, 0.06) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 18%,
+    black 78%,
+    transparent
+  );
+  pointer-events: none;
+}
+.lc-map-section .lc-container {
+  position: relative;
+  z-index: 1;
+}
+.lc-map-head {
+  max-width: 760px;
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+.lc-map-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+.lc-map-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(15, 118, 110, 0.16);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.lc-map-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, #abff02, #16a34a, #0f766e);
+  z-index: 2;
+}
+.lc-map-card-top {
+  padding: clamp(1rem, 2.4vw, 1.35rem);
+}
+.lc-map-tag {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  background: rgba(171, 255, 2, 0.22);
+  color: #0f5132;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.lc-map-card h3 {
+  margin: 0 0 0.35rem;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  letter-spacing: -0.03em;
+  color: var(--lc-ink);
+}
+.lc-map-card p {
+  margin: 0;
+  color: var(--lc-ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+.lc-map-frame {
+  position: relative;
+  height: clamp(260px, 32vw, 390px);
+  margin: 0 clamp(0.75rem, 2vw, 1rem);
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(15, 118, 110, 0.16);
+  background: #dfeee7;
+}
+.lc-map-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  filter: saturate(1.05) contrast(1.02);
+}
+.lc-map-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 1rem clamp(1rem, 2.4vw, 1.35rem) 1.2rem;
+  color: rgba(15, 31, 23, 0.72);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.lc-map-meta span:last-child {
+  color: #0f766e;
+  font-weight: 800;
+}
+
+:root[data-theme="dark"] .lc-map-section {
+  background:
+    radial-gradient(
+      circle at 18% 10%,
+      rgba(171, 255, 2, 0.14),
+      transparent 34%
+    ),
+    linear-gradient(180deg, #052424 0%, #062f2f 58%, #052424 100%);
+}
+:root[data-theme="dark"] .lc-map-section::before {
+  background-image:
+    linear-gradient(rgba(171, 255, 2, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(171, 255, 2, 0.06) 1px, transparent 1px);
+}
+:root[data-theme="dark"] .lc-map-card {
+  border-color: rgba(171, 255, 2, 0.16);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+}
+:root[data-theme="dark"] .lc-map-card h3 {
+  color: #ffffff;
+}
+:root[data-theme="dark"] .lc-map-card p,
+:root[data-theme="dark"] .lc-map-meta {
+  color: rgba(230, 247, 234, 0.7);
+}
+:root[data-theme="dark"] .lc-map-tag {
+  background: rgba(171, 255, 2, 0.16);
+  color: #d7ff78;
+}
+:root[data-theme="dark"] .lc-map-frame {
+  border-color: rgba(171, 255, 2, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+}
+:root[data-theme="dark"] .lc-map-meta span:last-child {
+  color: #abff02;
+}
+
+@media (max-width: 900px) {
+  .lc-map-grid {
+    grid-template-columns: 1fr;
+  }
+  .lc-map-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.lc-method-card.amber .ico {
+  background: rgba(245, 158, 11, 0.14);
+  color: #b45309;
+}
+.lc-method-card.blue .ico {
+  background: rgba(14, 165, 233, 0.12);
+  color: #0369a1;
+}
+.lc-method-card.purple .ico {
+  background: rgba(139, 92, 246, 0.14);
+  color: #6d28d9;
+}
+
+/* Process timeline */
+.lc-process {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  list-style: none;
+  padding: 0;
+}
+.lc-process::before {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 28px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--lc-leaf-3),
+    var(--lc-leaf-1),
+    #0ea5e9
+  );
+  border-radius: 2px;
+  z-index: 0;
+}
+.lc-step {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+.lc-step-bullet {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--lc-leaf-1);
+  color: var(--lc-leaf-2);
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.7rem;
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.2);
+}
+.lc-step h4 {
+  margin: 0 0 0.25rem;
+  font-size: 0.98rem;
+}
+.lc-step p {
+  margin: 0;
+  color: var(--lc-ink-soft);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 800px) {
+  .lc-process {
+    grid-template-columns: 1fr 1fr;
+  }
+  .lc-process::before {
+    display: none;
+  }
+}
+
+/* ── About section ───────────────────────────────────────────────────── */
+.lc-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+.lc-about-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--lc-radius);
+  padding: 1.75rem;
+  backdrop-filter: blur(8px);
+}
+.lc-about-card h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.15rem;
+}
+.lc-about-card p {
+  margin: 0;
+  color: rgba(230, 247, 234, 0.78);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.lc-partners {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+.lc-partner {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+}
+.lc-partner-name {
+  font-weight: 700;
+  font-size: 0.93rem;
+  color: white;
+}
+.lc-partner-role {
+  font-size: 0.78rem;
+  color: rgba(230, 247, 234, 0.65);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 800px) {
+  .lc-about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Team grid ───────────────────────────────────────────────────────── */
+.lc-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+.lc-team-card {
+  text-align: center;
+}
+.lc-team-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1.1rem;
+  background: #e8eeea;
+}
+.lc-team-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transform: scale(1.08);
+  transition: transform 0.3s;
+}
+.lc-team-card:hover .lc-team-img img {
+  transform: scale(1.12);
+}
+.lc-team-card h4 {
+  margin: 0 0 0.2rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #052424;
+}
+.lc-team-role {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #5a706a;
+}
+
+:root[data-theme="dark"] .lc-team-card h4 {
+  color: #ffffff;
+}
+:root[data-theme="dark"] .lc-team-role {
+  color: rgba(255, 255, 255, 0.55);
+}
+:root[data-theme="dark"] .lc-team-img {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 900px) {
+  .lc-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 540px) {
+  .lc-team-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ── Modules preview ─────────────────────────────────────────────────── */
+.lc-mod-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+}
+.lc-mod-card {
+  flex: 1 1 220px;
+  min-height: 100%;
+  background: white;
+  border-radius: var(--lc-radius);
+  padding: 1.6rem;
+  border: 1px solid var(--lc-line);
+  box-shadow: var(--lc-shadow-soft);
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+.lc-mod-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lc-shadow);
+}
+.lc-mod-card .ico {
+  font-size: 1.85rem;
+  margin-bottom: 0.6rem;
+}
+.lc-mod-card h4 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+}
+.lc-mod-card p {
+  margin: 0;
+  color: var(--lc-ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.lc-mod-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.9rem;
+  color: var(--lc-leaf-2);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+.lc-mod-card a:hover {
+  color: var(--lc-leaf-1);
+}
+
+/* ── Final CTA section ───────────────────────────────────────────────── */
+.lc-final-cta {
+  margin: clamp(3rem, 6vw, 5rem) 0;
+  background: linear-gradient(135deg, var(--lc-leaf-1), var(--lc-leaf-2));
+  color: white;
+  border-radius: 28px;
+  padding: clamp(2rem, 4vw, 3.25rem);
+  display: grid;
+  grid-template-columns: 1.2fr auto;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  align-items: center;
+  box-shadow: 0 30px 60px rgba(15, 118, 110, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.lc-final-cta::before {
+  content: "";
+  position: absolute;
+  right: -50px;
+  top: -50px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25),
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+.lc-final-cta h2 {
+  margin: 0 0 0.55rem;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.lc-final-cta p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1rem;
+  max-width: 56ch;
+  line-height: 1.6;
+}
+.lc-final-cta .lc-cta-btn {
+  background: white;
+  color: var(--lc-leaf-2);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+}
+.lc-final-cta .lc-cta-btn:hover {
+  color: var(--lc-leaf-1);
+}
+
+@media (max-width: 800px) {
+  .lc-final-cta {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Logo Marquee ─────────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.lc-marquee-section {
+  background: var(--lc-bg);
+  padding: clamp(2rem, 4vw, 3.5rem) 0;
+  overflow: hidden;
+}
+
+.lc-marquee-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.lc-marquee {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  animation: marquee-scroll 45s linear infinite;
+  width: fit-content;
+  padding: 0 clamp(1rem, 2vw, 2rem);
+}
+
+.lc-marquee-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: clamp(120px, 14vw, 180px);
+  height: clamp(90px, 14vw, 140px);
+}
+
+.lc-logo-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: clamp(0.75rem, 2.5vw, 1.25rem);
+  border-radius: 0.375rem;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.lc-marquee-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  filter: grayscale(0.4);
+}
+
+.lc-marquee-item:hover img {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────── */
+.lc-footer {
+  background: #0b1b14;
+  color: #b6cbbe;
+  padding: clamp(2.5rem, 5vw, 4rem) 0 1.5rem;
+}
+.lc-footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: clamp(1.75rem, 3vw, 2.75rem);
+  margin-bottom: 2rem;
+}
+.lc-footer h5 {
+  color: white;
+  font-size: 0.85rem;
+  letter-spacing: 0.6px;
+  margin: 0 0 0.9rem;
+  text-transform: uppercase;
+}
+.lc-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.lc-footer li {
+  margin: 0.45rem 0;
+  font-size: 0.88rem;
+}
+.lc-footer a {
+  color: #b6cbbe;
+  transition: color 0.18s;
+}
+.lc-footer a:hover {
+  color: white;
+}
+.lc-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.25rem;
+  font-size: 0.8rem;
+  color: #7d8d83;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+@media (max-width: 800px) {
+  .lc-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Mobile nav ──────────────────────────────────────────────────────── */
+@media (max-width: 880px) {
+  .lc-nav-links {
+    display: none;
+  }
+  .lc-burger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lc-nav-cta {
+    display: none;
+  }
+  /* Tighter brand wordmark on mobile so the pill stays compact */
+  .lc-brand {
+    padding-right: 0.5rem;
+    margin-right: 0.2rem;
+    font-size: 0.92rem;
+  }
+
+  /* Dropdown: a second dark pill that floats just below the nav */
+  body.lc-menu-open .lc-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: fixed;
+    top: calc(58px + clamp(1.5rem, 3.5vw, 2.5rem));
+    left: 1rem;
+    right: 1rem;
+    padding: 0.6rem;
+    background: rgba(18, 26, 22, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.3),
+      0 4px 10px rgba(0, 0, 0, 0.18);
+    z-index: 49;
+  }
+  body.lc-menu-open .lc-nav-link {
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  body.lc-menu-open .lc-nav-link.active,
+  body.lc-menu-open .lc-nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+  }
+  .lc-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .lc-hero-stats {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 100%;
+  }
+}
+
+/* ── Universal stacking for landing page (≤ 900px) ─────────────────────── */
+@media (max-width: 900px) {
+  .lc-hero-grid,
+  .lc-hero-stats,
+  .lc-process,
+  .lc-about-grid,
+  .lc-method-grid,
+  .lc-partners,
+  .lc-footer-grid,
+  .lc-final-cta {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Mobile (≤ 640px) ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .lc-hero-stats {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  .lc-process {
+    grid-template-columns: 1fr;
+  }
+  .lc-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .lc-method-grid {
+    grid-template-columns: 1fr;
+  }
+  .lc-mod-card {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+  .lc-card-floating {
+    min-width: 0;
+    padding: 0.7rem 0.85rem;
+  }
+}
+
+/* ── Small mobile (≤ 420px) ────────────────────────────────────────────── */
+@media (max-width: 420px) {
+  .lc-final-cta {
+    padding: 1.5rem 1.2rem;
+  }
+  .lc-final-cta h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Image / SVG safety net for landing page */
+.lc-section img,
+.lc-section svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   BRAND SYSTEM OVERRIDES (Home / Methodology / About)
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --br-bg: #ffffff;
+  --br-text: #052424;
+  --br-primary: #829292;
+  --br-accent: #abff02;
+  --br-link: #052424;
+  --br-radius: 8px;
+  --br-font-body: "SuisseIntl", "Inter", "Poppins", system-ui, sans-serif;
+  --br-font-heading: "Poppins", "SuisseIntl", "Inter", system-ui, sans-serif;
+  --br-font-mono:
+    "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html,
+body {
+  font-family: var(--br-font-body);
+  color: var(--br-text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.lc-brand,
+.lc-h2,
+.lc-page-head h1,
+.lc-hero-card h1,
+.lc-final-cta h2 {
+  font-family: var(--br-font-heading) !important;
+  color: var(--br-text);
+  letter-spacing: -0.01em;
+}
+
+.lc-stat-num,
+.lc-illus-card .val,
+.lc-step-bullet,
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--br-font-mono) !important;
+  font-feature-settings: "tnum", "ss01";
+}
+
+a {
+  color: var(--br-link);
+}
+
+/* Primary nav CTA + hero CTA → lime accent */
+.lc-cta-btn {
+  background: var(--br-accent) !important;
+  color: var(--br-text) !important;
+  border-radius: var(--br-radius) !important;
+  box-shadow: none !important;
+}
+.lc-cta-btn:hover {
+  background: #c2ff3d !important;
+  box-shadow: 0 8px 18px rgba(171, 255, 2, 0.35) !important;
+}
+.lc-cta-arrow {
+  background: var(--br-text) !important;
+  color: var(--br-accent) !important;
+  border-radius: 50% !important;
+}
+
+/* Ghost / secondary buttons */
+.lc-cta-ghost {
+  background: transparent !important;
+  color: var(--br-text) !important;
+  border: 1px solid var(--br-text) !important;
+  border-radius: var(--br-radius) !important;
+}
+
+/* Cards — 8px radius unification */
+.lc-card,
+.lc-method-card,
+.lc-mod-card,
+.lc-step,
+.lc-stat,
+.lc-card-floating,
+.lc-partner,
+.lc-about-card,
+.lc-illus-card {
+  border-radius: var(--br-radius) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   DARK THEME (Home / Methodology / About) — base color #323b37
+   Applied via [data-theme="dark"] attribute on <html>. theme.js picks the
+   initial value from stored pref or OS preference. Uses CSS Nesting so
+   every nested rule is implicitly scoped to :root[data-theme="dark"].
+   ════════════════════════════════════════════════════════════════════════ */
+/* ── Theme toggle (landing nav) ──────────────────────────────────────── */
+.lc-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  margin-left: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(5, 36, 36, 0.14);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--br-text, #052424);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.12s ease,
+    border-color 0.15s ease;
+}
+.lc-theme-toggle:hover {
+  background: rgba(171, 255, 2, 0.18);
+  border-color: rgba(5, 36, 36, 0.3);
+  transform: translateY(-1px);
+}
+.lc-theme-toggle:active {
+  transform: translateY(0);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  background: #323b37;
+  color: #f1f5f4;
+  --lc-bg: #323b37;
+  --lc-bg-2: #2a322f;
+  --lc-ink: #f1f5f4;
+  --lc-ink-soft: #c8d2cd;
+  --lc-line: rgba(255, 255, 255, 0.1);
+  --lc-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+  --lc-shadow-soft: 0 10px 22px rgba(0, 0, 0, 0.25);
+  --lc-cream: #3d4945;
+
+  body {
+    background: #323b37;
+    color: #f1f5f4;
+  }
+
+  /* Generic text */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #ffffff !important;
+  }
+  p,
+  li,
+  dd,
+  dt,
+  span,
+  label,
+  small,
+  blockquote,
+  .lc-section p,
+  .lc-section li,
+  .lc-section dd {
+    color: #d8e1dd !important;
+  }
+  a {
+    color: #5eead4;
+  }
+  a:hover {
+    color: #99f6e4;
+  }
+
+  /* Don't let the universal span/p rule bleed into CTA buttons. */
+  .lc-cta-btn,
+  .lc-cta-btn span:not(.lc-cta-arrow),
+  .lc-cta-ghost,
+  .lc-cta-ghost * {
+    color: #0f1f17 !important;
+  }
+  .lc-nav .lc-cta-btn.lc-nav-cta,
+  .lc-nav .lc-cta-btn.lc-nav-cta span:not(.lc-cta-arrow) {
+    color: #0f1f17 !important;
+  }
+  .lc-hero-card .lc-cta-btn,
+  .lc-hero-card .lc-cta-btn span:not(.lc-cta-arrow) {
+    color: #0f1f17 !important;
+  }
+  .lc-cta-arrow {
+    color: #ffffff !important;
+    background: #0f1f17 !important;
+  }
+  .lc-final-cta .lc-cta-btn {
+    color: #0f766e !important;
+    background: #ffffff !important;
+  }
+  .lc-final-cta .lc-cta-btn * {
+    color: #0f766e !important;
+  }
+
+  /* Breadcrumb always dark text */
+  .lc-breadcrumb,
+  .lc-breadcrumb * {
+    color: #052424 !important;
+    background: white !important;
+  }
+
+  /* Section + container backgrounds (cards / panels) */
+  .lc-section,
+  .lc-section-alt {
+    background: transparent !important;
+  }
+  .lc-card,
+  .lc-method-card,
+  .lc-mod-card,
+  .lc-step,
+  .lc-stat,
+  .lc-card-floating,
+  .lc-partner,
+  .lc-about-card {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #e2e8e4 !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25) !important;
+  }
+  .lc-card h3,
+  .lc-method-card h3,
+  .lc-mod-card h3,
+  .lc-card h4,
+  .lc-method-card h4,
+  .lc-mod-card h4,
+  .lc-step h4,
+  .lc-about-card h3,
+  .lc-about-card h4 {
+    color: #ffffff !important;
+  }
+  .lc-card p,
+  .lc-method-card p,
+  .lc-mod-card p,
+  .lc-step p,
+  .lc-about-card p,
+  .lc-stat-label,
+  .lc-partner-role {
+    color: #c8d2cd !important;
+  }
+
+  /* Hero card / mainprint surfaces (often white in light mode) */
+  .lc-hero-card,
+  .lc-hero-visual,
+  .lc-hero-stats .lc-stat {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #f1f5f4 !important;
+  }
+
+  /* Tables (Methodology) */
+  table,
+  th,
+  td {
+    color: #e2e8e4 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  th {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.02) !important;
+  }
+
+  /* Code / pre blocks if any */
+  code,
+  pre {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #f1f5f4 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Footer */
+  .lc-footer {
+    background: #2a322f !important;
+    color: #c8d2cd !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .lc-footer h5 {
+    color: #ffffff !important;
+  }
+  .lc-footer a,
+  .lc-footer-bottom {
+    color: #c8d2cd !important;
+  }
+
+  /* Final CTA keeps its green gradient — text already white. */
+
+  /* Nav dropdown / mobile menu pane */
+  body.lc-menu-open .lc-nav-pane,
+  .lc-nav-pane {
+    background: rgba(20, 26, 23, 0.92) !important;
+    color: #f1f5f4 !important;
+  }
+
+  /* Stat numbers / accent text stays bright white */
+  .lc-stat-num,
+  .lc-hero-stats strong,
+  .lc-partner-name {
+    color: #ffffff !important;
+  }
+
+  /* Image filter softens overly bright PNGs against dark bg (optional) */
+  .lc-section img:not([data-keep-bright]) {
+    filter: brightness(0.92) contrast(1.02);
+  }
+
+  /* Theme toggle in dark mode: dark surface, light icon. */
+  .lc-theme-toggle {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    color: #f1f5f4 !important;
+  }
+  .lc-theme-toggle:hover {
+    background: rgba(171, 255, 2, 0.14) !important;
+    border-color: rgba(171, 255, 2, 0.4) !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN-SYSTEM REVAMP  (2026 brand refresh)
+   Tokens:
+     bg            #FFFFFF
+     text          #052424
+     primary       #829292   (warm gray  — secondary surfaces, muted ink)
+     accent        #ABFF02   (electric lime — primary CTA / highlights)
+     radius        8px
+     fonts         body  → SuisseIntl, Inter fallback
+                   head  → Poppins
+                   mono  → Geist Mono (numbers, paragraphs of body copy
+                           where the spec calls for monospace flavour)
+   This block is the LAST cascade layer in the file, so its tokens win.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Re-map every legacy green/teal token onto the new palette so
+       components built with the old vars automatically pick up brand. */
+  --lc-bg: #ffffff;
+  --lc-bg-2: #f6f7f5;
+  --lc-ink: #052424;
+  --lc-ink-soft: #829292;
+  --lc-leaf-1: #abff02;
+  --lc-leaf-2: #052424;
+  --lc-leaf-3: #abff02;
+  --lc-amber: #abff02;
+  --lc-cream: #f6f7f5;
+  --lc-line: rgba(5, 36, 36, 0.1);
+  --lc-shadow: 0 22px 50px rgba(5, 36, 36, 0.08);
+  --lc-shadow-soft: 0 10px 22px rgba(5, 36, 36, 0.05);
+  --lc-radius: 8px;
+}
+
+/* Global type — body copy in Geist Mono per spec ("paragraph" stack),
+   headings in Poppins, brand body in SuisseIntl with Inter fallback. */
+html,
+body {
+  background: #ffffff !important;
+  color: #052424 !important;
+  font-family:
+    "SuisseIntl",
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+p,
+.lede,
+.lc-section-lede,
+.lc-stat-lbl,
+.lc-trust-label,
+.lc-mod-card p,
+.lc-method-card p,
+.lc-step p,
+.lc-about-card p,
+.lc-footer li,
+.lc-footer-bottom,
+blockquote,
+dd {
+  font-family:
+    "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+  font-feature-settings: "tnum", "ss01";
+  color: #052424;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.lc-h2,
+.lc-page-head h1,
+.lc-hero-card h1,
+.lc-final-cta h2 {
+  font-family: "Poppins", "SuisseIntl", sans-serif !important;
+  color: #052424 !important;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+a {
+  color: #052424;
+}
+a:hover {
+  color: #052424;
+  opacity: 0.7;
+}
+
+/* ── Navigation: light pill on white background ───────────────────────── */
+.lc-nav-inner {
+  background: rgba(5, 36, 36, 0.38) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  backdrop-filter: blur(24px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+  box-shadow:
+    0 8px 24px rgba(5, 36, 36, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+/* Nav text — white on the dark translucent pill (matches reference). */
+.lc-nav-inner .lc-brand,
+.lc-nav-inner .lc-brand-text,
+.lc-nav-inner .lc-brand-text > div {
+  color: #ffffff !important;
+}
+.lc-nav-inner .lc-brand {
+  border-right-color: rgba(255, 255, 255, 0.2) !important;
+}
+.lc-nav-inner .lc-brand-mark {
+  background: #abff02 !important;
+  color: #052424 !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+}
+.lc-nav-inner .lc-nav-link {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+.lc-nav-inner .lc-nav-link:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+.lc-nav-inner .lc-nav-link.active {
+  color: #052424 !important;
+  background: rgba(171, 255, 2, 0.85) !important;
+}
+
+/* Burger + theme toggle on the dark translucent pill */
+.lc-nav-inner .lc-burger {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.lc-nav-inner .lc-burger:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+.lc-nav-inner .lc-theme-toggle {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+.lc-nav-inner .lc-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ── CTA buttons (8px radius, lime primary, white secondary) ─────────── */
+.lc-cta-btn,
+.lc-nav .lc-cta-btn.lc-nav-cta,
+.lc-hero-card .lc-cta-btn,
+.lc-final-cta .lc-cta-btn {
+  background: #abff02 !important;
+  color: #052424 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  font-family: "Poppins", "SuisseIntl", sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: none;
+}
+.lc-cta-btn:hover,
+.lc-nav .lc-cta-btn.lc-nav-cta:hover,
+.lc-hero-card .lc-cta-btn:hover,
+.lc-final-cta .lc-cta-btn:hover {
+  background: #bfff3d !important;
+  box-shadow: 0 8px 18px rgba(171, 255, 2, 0.4) !important;
+  transform: translateY(-1px);
+}
+.lc-cta-arrow,
+.lc-nav .lc-cta-btn.lc-nav-cta .lc-cta-arrow,
+.lc-hero-card .lc-cta-btn .lc-cta-arrow {
+  background: #052424 !important;
+  color: #abff02 !important;
+  border-radius: 50% !important;
+}
+
+.lc-cta-ghost,
+.lc-hero-card .lc-cta-ghost {
+  background: #ffffff !important;
+  color: #052424 !important;
+  border: 1px solid #052424 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  font-family: "Poppins", "SuisseIntl", sans-serif !important;
+  font-weight: 600 !important;
+}
+.lc-cta-ghost:hover,
+.lc-hero-card .lc-cta-ghost:hover {
+  background: #f6f7f5 !important;
+  border-color: #052424 !important;
+}
+
+/* ── Hero: keep image, retint overlay to be lighter / brand-friendly ── */
+.lc-hero-card {
+  background-image:
+    linear-gradient(
+      105deg,
+      rgba(5, 36, 36, 0.55) 0%,
+      rgba(5, 36, 36, 0.3) 50%,
+      rgba(5, 36, 36, 0.1) 100%
+    ),
+    url("/media/hero/hero.jpg") !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 30px 70px rgba(5, 36, 36, 0.1),
+    0 6px 18px rgba(5, 36, 36, 0.06) !important;
+  margin: 0 clamp(0.75rem, 2vw, 1.5rem);
+  margin-top: clamp(5.25rem, 8vw, 6rem);
+}
+.lc-hero-card h1 {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+.lc-hero-card h1 .lc-grad {
+  color: #abff02 !important;
+  -webkit-text-fill-color: #abff02 !important;
+  background: none !important;
+}
+.lc-hero-card p.lede {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+.lc-hero-card .lc-eyebrow {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+.lc-hero-card .lc-eyebrow-dot {
+  background: #abff02 !important;
+  box-shadow: 0 0 0 3px rgba(171, 255, 2, 0.25) !important;
+}
+
+/* ── Stats / cards / surfaces — white with subtle border, 8px radius ── */
+.lc-stat,
+.lc-mod-card,
+.lc-method-card,
+.lc-about-card,
+.lc-partner,
+.lc-card,
+.lc-illus-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(5, 36, 36, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 14px rgba(5, 36, 36, 0.04) !important;
+  color: #052424 !important;
+}
+.lc-stat-num {
+  color: #052424 !important;
+  font-family: "Geist Mono", ui-monospace, monospace !important;
+}
+.lc-stat-lbl {
+  color: #829292 !important;
+}
+
+.lc-mod-card h4,
+.lc-method-card h3,
+.lc-about-card h3,
+.lc-step h4 {
+  color: #052424 !important;
+}
+.lc-mod-card p,
+.lc-method-card p,
+.lc-about-card p,
+.lc-step p {
+  color: #829292 !important;
+}
+.lc-mod-card a {
+  color: #052424 !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid #abff02;
+  padding-bottom: 1px;
+  display: inline-block;
+}
+.lc-mod-card a:hover {
+  color: #052424 !important;
+  opacity: 0.7;
+}
+
+/* Method-card top bar — lime accent */
+.lc-method-card::before {
+  background: #abff02 !important;
+}
+.lc-method-card .ico,
+.lc-method-card.amber .ico,
+.lc-method-card.blue .ico,
+.lc-method-card.purple .ico {
+  background: rgba(171, 255, 2, 0.18) !important;
+  color: #052424 !important;
+  border-radius: 8px !important;
+}
+
+/* Process timeline bullets */
+.lc-process::before {
+  background: #abff02 !important;
+}
+.lc-step-bullet {
+  background: #ffffff !important;
+  border: 2px solid #abff02 !important;
+  color: #052424 !important;
+  box-shadow: 0 4px 10px rgba(171, 255, 2, 0.3) !important;
+  font-family: "Geist Mono", ui-monospace, monospace !important;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────── */
+.lc-section.alt {
+  background: #f6f7f5 !important;
+  background-image: none !important;
+}
+.lc-section.dark {
+  background: #f6f7f5 !important;
+  color: #052424 !important;
+}
+.lc-section.dark h2,
+.lc-section.dark h3,
+.lc-section.dark h4 {
+  color: #052424 !important;
+}
+.lc-section.dark .lc-section-lede,
+.lc-section.dark p,
+.lc-section.dark li {
+  color: #4a5b50 !important;
+}
+.lc-section.dark .lc-about-card {
+  background: #ffffff !important;
+  border-color: rgba(5, 36, 36, 0.1) !important;
+  color: #052424 !important;
+}
+.lc-section.dark .lc-about-card h3 {
+  color: #052424 !important;
+}
+.lc-section.dark .lc-about-card p {
+  color: #4a5b50 !important;
+}
+.lc-section.dark .lc-partner {
+  background: #ffffff !important;
+  border-color: rgba(5, 36, 36, 0.1) !important;
+}
+.lc-section.dark .lc-partner-name {
+  color: #052424 !important;
+}
+.lc-section.dark .lc-partner-role {
+  color: #829292 !important;
+}
+
+:root[data-theme="dark"] .lc-section.dark {
+  background: #052424 !important;
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-section.dark h2,
+:root[data-theme="dark"] .lc-section.dark h3,
+:root[data-theme="dark"] .lc-section.dark h4 {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-section.dark .lc-section-lede,
+:root[data-theme="dark"] .lc-section.dark p,
+:root[data-theme="dark"] .lc-section.dark li {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+:root[data-theme="dark"] .lc-section.dark .lc-about-card {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-section.dark .lc-about-card h3 {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-section.dark .lc-about-card p {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+:root[data-theme="dark"] .lc-section.dark .lc-partner {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+:root[data-theme="dark"] .lc-section.dark .lc-partner-name {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-section.dark .lc-partner-role {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.lc-eyebrow-h {
+  color: #052424 !important;
+  background: rgba(171, 255, 2, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* Trust strip */
+.lc-trust {
+  background: #ffffff !important;
+  border-color: rgba(5, 36, 36, 0.08) !important;
+}
+.lc-trust-label {
+  color: #829292 !important;
+}
+.lc-trust-item {
+  color: #052424 !important;
+}
+
+/* ── Final CTA — flat lime block ──────────────────────────────────────── */
+.lc-final-cta {
+  background: #abff02 !important;
+  color: #052424 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 30px rgba(171, 255, 2, 0.25) !important;
+}
+.lc-final-cta::before {
+  display: none !important;
+}
+.lc-final-cta h2 {
+  color: #052424 !important;
+}
+.lc-final-cta p {
+  color: #1a3a2a !important;
+}
+.lc-final-cta .lc-cta-btn {
+  background: #052424 !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+.lc-final-cta .lc-cta-btn:hover {
+  background: #052424 !important;
+  opacity: 0.9;
+}
+
+:root[data-theme="dark"] .lc-final-cta {
+  background: #abff02 !important;
+  color: #052424 !important;
+}
+:root[data-theme="dark"] .lc-final-cta h2 {
+  color: #052424 !important;
+}
+:root[data-theme="dark"] .lc-final-cta p {
+  color: #1a3a2a !important;
+}
+:root[data-theme="dark"] .lc-final-cta .lc-cta-btn {
+  background: #052424 !important;
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-final-cta .lc-cta-btn:hover {
+  opacity: 0.9;
+}
+
+/* ── Footer — dark teal-black with light text, brand match ───────────── */
+.lc-footer {
+  background: #052424 !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+.lc-footer,
+.lc-footer * {
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.82) !important;
+}
+.lc-footer .lc-brand,
+.lc-footer .lc-brand-text > div {
+  color: #ffffff !important;
+}
+.lc-footer h5 {
+  color: #ffffff !important;
+}
+.lc-footer li,
+.lc-footer p,
+.lc-footer small,
+.lc-footer span {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+.lc-footer a {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+.lc-footer a:hover {
+  color: #abff02 !important;
+  opacity: 1;
+}
+.lc-footer-bottom {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+.lc-footer .lc-brand {
+  border-right: none !important;
+}
+
+/* ── DARK theme rebalanced to brand (when user opts in) ───────────────── */
+:root[data-theme="dark"] {
+  background: #052424 !important;
+  color: #ffffff;
+  --lc-bg: #052424;
+  --lc-bg-2: #0a3232;
+  --lc-ink: #ffffff;
+  --lc-ink-soft: rgba(255, 255, 255, 0.65);
+  --lc-line: rgba(255, 255, 255, 0.1);
+}
+:root[data-theme="dark"] body {
+  background: #052424 !important;
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-nav-inner {
+  background: rgba(10, 50, 50, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+:root[data-theme="dark"] .lc-brand,
+:root[data-theme="dark"] .lc-brand-text > div,
+:root[data-theme="dark"] .lc-nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+:root[data-theme="dark"] .lc-nav-link.active {
+  background: rgba(171, 255, 2, 0.18) !important;
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] h4 {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] p,
+:root[data-theme="dark"] .lede,
+:root[data-theme="dark"] .lc-section-lede {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+:root[data-theme="dark"] .lc-stat,
+:root[data-theme="dark"] .lc-mod-card,
+:root[data-theme="dark"] .lc-method-card,
+:root[data-theme="dark"] .lc-about-card,
+:root[data-theme="dark"] .lc-partner {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-mod-card h4,
+:root[data-theme="dark"] .lc-method-card h3,
+:root[data-theme="dark"] .lc-stat-num {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-mod-card p,
+:root[data-theme="dark"] .lc-method-card p,
+:root[data-theme="dark"] .lc-stat-lbl {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+:root[data-theme="dark"] .lc-mod-card a {
+  color: #abff02 !important;
+  border-bottom-color: rgba(171, 255, 2, 0.75) !important;
+}
+:root[data-theme="dark"] .lc-mod-card a:hover {
+  color: #d7ff78 !important;
+  opacity: 1;
+}
+:root[data-theme="dark"] .lc-trust {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+:root[data-theme="dark"] .lc-section.alt {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+:root[data-theme="dark"] a {
+  color: #abff02;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   SCROLL-EXPANSION HERO
+   ════════════════════════════════════════════════════════════════════════ */
+.lc-expand-hero {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #052424;
+}
+
+.lc-expand-stage {
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Background layer — same hero image, blurred + dark overlay */
+.lc-expand-bg {
+  position: absolute;
+  inset: 0;
+  height: 100dvh;
+  z-index: 0;
+  transition: opacity 0.08s linear;
+}
+.lc-expand-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: blur(2px) brightness(0.6);
+}
+.lc-expand-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 36, 36, 0.35);
+}
+
+/* Expanding media card — absolutely centered, grows to fill viewport */
+.lc-expand-media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 95vw;
+  max-height: 85vh;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  will-change: width, height, border-radius;
+}
+.lc-expand-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.lc-expand-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 36, 36, 0.08) 0%,
+    rgba(5, 36, 36, 0.15) 50%,
+    rgba(5, 36, 36, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+/* Title overlay — positioned center, splits apart */
+.lc-expand-titles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: center;
+  pointer-events: none;
+  width: max-content;
+  max-width: 90vw;
+}
+.lc-expand-title-top,
+.lc-expand-title-bottom {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 600 !important;
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  color: #ffffff !important;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
+  white-space: nowrap;
+  will-change: transform, opacity;
+  margin: 0;
+}
+.lc-expand-title-bottom .lc-grad {
+  color: #abff02 !important;
+  -webkit-text-fill-color: #abff02 !important;
+  background: none !important;
+}
+
+/* Scroll hint at bottom */
+.lc-expand-scroll-hint {
+  position: absolute;
+  bottom: clamp(1.5rem, 3vw, 2.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.lc-expand-scroll-hint .lc-hero-scroll-mouse {
+  width: 22px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  position: relative;
+}
+.lc-expand-scroll-hint .lc-hero-scroll-mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background: white;
+  border-radius: 2px;
+  animation: lc-scroll-mouse 1.8s ease-in-out infinite;
+}
+
+/* Eyebrow inside expansion section */
+.lc-expand-eyebrow {
+  position: absolute;
+  top: clamp(6rem, 9vw, 7.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+}
+.lc-expand-eyebrow .lc-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #abff02;
+  box-shadow: 0 0 0 3px rgba(171, 255, 2, 0.25);
+}
+
+/* Reveal content — full hero overlay on expanded image */
+.lc-expand-reveal {
+  position: absolute;
+  inset: 0;
+  height: 100dvh;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: clamp(2.25rem, 5vw, 4.5rem);
+  padding-inline: max(clamp(1.5rem, 4vw, 3rem), calc((100% - 1240px) / 2));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* Inner: eyebrow at top, then title/lede/ctas pushed to bottom */
+.lc-expand-reveal-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.lc-expand-reveal .lc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: white !important;
+  width: fit-content;
+  margin-bottom: clamp(1rem, 3vw, 2.5rem);
+}
+.lc-expand-reveal .lc-eyebrow .lc-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #abff02 !important;
+  box-shadow: 0 0 0 3px rgba(171, 255, 2, 0.25);
+}
+
+.lc-expand-reveal h1 {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 600 !important;
+  font-size: clamp(2.4rem, 5.6vw, 4.4rem) !important;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #ffffff !important;
+  margin: 0;
+  max-width: 18ch;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.2);
+}
+.lc-expand-reveal h1 .lc-grad {
+  color: #abff02 !important;
+  -webkit-text-fill-color: #abff02 !important;
+  background: none !important;
+}
+
+.lc-expand-reveal p.lede {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: clamp(0.88rem, 1.1vw, 1.02rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.9) !important;
+  max-width: 46ch;
+  margin: 0;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.lc-expand-reveal .lc-hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.lc-expand-reveal .lc-cta-btn {
+  color: #052424 !important;
+}
+.lc-expand-reveal .lc-cta-ghost {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #052424 !important;
+  border: none !important;
+}
+.lc-expand-reveal .lc-cta-ghost:hover {
+  background: #ffffff !important;
+}
+
+/* Scroll indicator at bottom-center of reveal */
+.lc-expand-reveal-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+/* Responsive: smaller mobile text */
+@media (max-width: 640px) {
+  .lc-expand-title-top,
+  .lc-expand-title-bottom {
+    font-size: clamp(1.5rem, 7vw, 2.2rem);
+    white-space: normal;
+    text-align: center;
+  }
+  .lc-expand-titles {
+    width: 90vw;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   STATS + TRUST — SHARED LAYOUT
+   ════════════════════════════════════════════════════════════════════════ */
+.lc-stats-section {
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(2.5rem, 4vw, 3.5rem);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stats grid */
+.lc-stats-section .lc-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  max-width: 820px;
+  margin: 0 auto clamp(2.5rem, 4vw, 3.5rem);
+}
+
+/* Individual stat card — shared structure */
+.lc-stats-section .lc-stat {
+  position: relative;
+  border-radius: 14px !important;
+  padding: clamp(1.2rem, 2vw, 1.8rem) clamp(1rem, 2vw, 1.5rem);
+  text-align: center;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  overflow: hidden;
+}
+.lc-stats-section .lc-stat:hover {
+  transform: translateY(-3px);
+}
+
+/* Lime accent bar at top of each stat card */
+.lc-stat-accent {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+}
+
+/* Stat number */
+.lc-stats-section .lc-stat-num {
+  font-family: "Geist Mono", ui-monospace, monospace !important;
+  font-size: clamp(1.6rem, 2.5vw, 2rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-top: 0.3rem;
+}
+
+/* Stat label */
+.lc-stats-section .lc-stat-lbl {
+  font-family: "Geist Mono", ui-monospace, monospace !important;
+  font-size: 0.75rem !important;
+  margin-top: 0.4rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Trust strip — shared layout */
+.lc-trust-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.lc-trust-strip .lc-trust-label {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.lc-trust-strip .lc-trust-items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+}
+
+.lc-trust-strip .lc-trust-item {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  transition: color 0.15s ease;
+}
+
+.lc-trust-divider {
+  width: 1px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Hide old trust section if it's still in the DOM */
+.lc-trust {
+  display: none !important;
+}
+
+/* ── LIGHT MODE (default) ────────────────────────────────────────────── */
+.lc-stats-section {
+  background: #ffffff;
+}
+.lc-stats-section::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(
+    ellipse,
+    rgba(171, 255, 2, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.lc-stats-section .lc-stat {
+  background: #ffffff !important;
+  border: 1px solid rgba(5, 36, 36, 0.1) !important;
+  box-shadow:
+    0 4px 20px rgba(5, 36, 36, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+.lc-stats-section .lc-stat:hover {
+  border-color: rgba(171, 255, 2, 0.5) !important;
+  box-shadow:
+    0 8px 30px rgba(5, 36, 36, 0.1),
+    0 0 0 3px rgba(171, 255, 2, 0.1) !important;
+}
+.lc-stat-accent {
+  background: linear-gradient(90deg, #abff02, #86efac);
+  opacity: 0.9;
+}
+.lc-stats-section .lc-stat-num {
+  color: #052424 !important;
+}
+.lc-stats-section .lc-stat-lbl {
+  color: #829292 !important;
+}
+
+.lc-trust-strip {
+  border-top: 1px solid rgba(5, 36, 36, 0.08);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.15rem, 2.2vw, 1.5rem) clamp(1rem, 2.5vw, 2rem);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(5, 36, 36, 0.08);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+.lc-trust-strip .lc-trust-label {
+  color: #829292;
+}
+.lc-trust-strip .lc-trust-item {
+  color: #052424;
+}
+.lc-trust-strip .lc-trust-item:hover {
+  color: #0a3232;
+  opacity: 0.7;
+}
+.lc-trust-divider {
+  background: rgba(5, 36, 36, 0.15);
+}
+
+/* ── DARK MODE ───────────────────────────────────────────────────────── */
+:root[data-theme="dark"] .lc-stats-section {
+  background: linear-gradient(180deg, #052424 0%, #0a3232 60%, #052424 100%);
+}
+:root[data-theme="dark"] .lc-stats-section::before {
+  background: radial-gradient(
+    ellipse,
+    rgba(171, 255, 2, 0.06) 0%,
+    transparent 70%
+  );
+}
+:root[data-theme="dark"] .lc-stats-section .lc-stat {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(171, 255, 2, 0.12) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+:root[data-theme="dark"] .lc-stats-section .lc-stat:hover {
+  border-color: rgba(171, 255, 2, 0.3) !important;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(171, 255, 2, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+:root[data-theme="dark"] .lc-stat-accent {
+  background: linear-gradient(90deg, #abff02, #86efac);
+  opacity: 0.8;
+}
+:root[data-theme="dark"] .lc-stats-section .lc-stat-num {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .lc-stats-section .lc-stat-lbl {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+:root[data-theme="dark"] .lc-trust-strip {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(171, 255, 2, 0.1);
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+:root[data-theme="dark"] .lc-trust-strip .lc-trust-label {
+  color: rgba(255, 255, 255, 0.62);
+}
+:root[data-theme="dark"] .lc-trust-strip .lc-trust-item {
+  color: rgba(255, 255, 255, 0.84);
+}
+:root[data-theme="dark"] .lc-trust-strip .lc-trust-item:hover {
+  color: #abff02;
+  opacity: 1;
+}
+:root[data-theme="dark"] .lc-trust-divider {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .lc-stats-section .lc-hero-stats {
+    grid-template-columns: 1fr !important;
+    max-width: 320px;
+  }
+  .lc-trust-strip .lc-trust-items {
+    gap: 0.25rem 0;
+  }
+  .lc-trust-divider {
+    display: none;
+  }
+  .lc-trust-strip .lc-trust-item {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.76rem;
+  }
+}

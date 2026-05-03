@@ -1,0 +1,54 @@
+# ─── ClimateKrishi · .gitignore ────────────────────────────────────────────
+# Minimal — only ignores what the app DOES NOT need at runtime.
+# All source code, models (.pkl), datasets (.csv), and media stay tracked
+# so the repo is runnable straight after `git clone`.
+
+# ── Python bytecode (regenerated automatically) ────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+
+# ── Virtual environments (machine-specific) ────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Secrets (never commit these) ───────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.json
+
+# ── Caches (regenerated automatically) ─────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ── Logs / runtime junk ────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── IDE / editor ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Windsurf / Cursor / Copilot project caches
+.windsurf/
+.cursor/
+
+# ── OS junk ────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Project-specific scratch ───────────────────────────────────────────────
+container/
+cleanup.ps1
+__shelltest.txt

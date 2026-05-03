@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — CarbonKrishi AI</title>
+    <meta name="description"
+        content="A guided tour of the CarbonKrishi AI dashboard: the LCA Impact Predictor, Organic–Conventional Gradient explorer, Carbon Credit Potential calculator, Field Emission Calculator, and Model Information panel." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/landing.css" />
+    <!-- Theme controller — runs before first paint to avoid theme flash. -->
+    <script src="/js/theme.js"></script>
+</head>
+
+<body>
+    <!-- ── Top navigation ───────────────────────────────────────────────── -->
+    <header class="lc-nav">
+        <div class="lc-nav-inner">
+            <a href="/" class="lc-brand" aria-label="CarbonKrishi home">
+                <div class="lc-brand-mark">🌾</div>
+                <div class="lc-brand-text">
+                    <div>CarbonKrishi</div>
+                    <div class="lc-brand-sub">AI · LCA</div>
+                </div>
+            </a>
+
+            <nav class="lc-nav-links" aria-label="Main">
+                <a class="lc-nav-link" href="/">Home</a>
+                <a class="lc-nav-link active" href="/dashboard-info">Dashboard</a>
+                <a class="lc-nav-link" href="/methodology">Methodology</a>
+                <a class="lc-nav-link" href="/about">About Us</a>
+            </nav>
+
+            <a class="lc-cta-btn lc-nav-cta" href="/dashboard">
+                <span>Open Dashboard</span><span class="lc-cta-arrow" aria-hidden="true">→</span>
+            </a>
+            <button class="lc-theme-toggle" data-theme-toggle aria-label="Toggle theme" title="Toggle theme"
+                type="button">☀</button>
+            <button class="lc-burger" id="lc-burger" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- ── Page header ─────────────────────────────────────────────────── -->
+    <section class="lc-page-head">
+        <div class="lc-container">
+            <span class="lc-breadcrumb"><a href="/">Home</a> / Dashboard</span>
+            <h1>Inside the CarbonKrishi dashboard.</h1>
+            <p>Six interconnected modules turn one farmer's fertiliser plan into an ISO-grade life-cycle
+                report — complete with cost-aware mitigation advice and a carbon-credit revenue estimate.</p>
+        </div>
+    </section>
+
+    <!-- ── Quick stats strip ───────────────────────────────────────────── -->
+    <section class="lc-section">
+        <div class="lc-container">
+            <div class="lc-hero-stats" style="margin-top: 0;">
+                <div class="lc-stat">
+                    <div class="lc-stat-num">6</div>
+                    <div class="lc-stat-lbl">Interactive modules</div>
+                </div>
+                <div class="lc-stat">
+                    <div class="lc-stat-num">18</div>
+                    <div class="lc-stat-lbl">ReCiPe 2016 impact categories</div>
+                </div>
+                <div class="lc-stat">
+                    <div class="lc-stat-num">3</div>
+                    <div class="lc-stat-lbl">Languages — EN · HI · TE</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Module deep-dive ────────────────────────────────────────────── -->
+    <section class="lc-section alt">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">Modules</span>
+            <h2 class="lc-h2">What you'll find inside.</h2>
+            <p class="lc-section-lede">Each tab in the left sidebar of the dashboard maps to a focused
+                analysis. They share data, so changing an input on one tab updates the rest in real time.</p>
+
+            <div class="lc-mod-grid" style="margin-top: 1.75rem;">
+                <div class="lc-mod-card">
+                    <div class="ico">🏠</div>
+                    <h4>Overview</h4>
+                    <p>A snapshot of your current scenario: total GWP, water footprint, energy use, and the
+                        organic–conventional balance — all in one glance, with localised inference summaries.</p>
+                    <a href="/dashboard">Open module <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🔬</div>
+                    <h4>LCA Impact Predictor</h4>
+                    <p>Enter your fertiliser blend, irrigation regime, and crop residue handling. The Ridge
+                        regression model returns 18 ReCiPe 2016 (H) midpoint impacts with confidence bands.</p>
+                    <a href="/dashboard">Open module <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🎚️</div>
+                    <h4>Organic–Conventional Gradient</h4>
+                    <p>Slide the organic-share dial from 0 % → 100 % and watch every impact curve respond.
+                        Pinpoint the sweet-spot blend that minimises GWP without a yield penalty.</p>
+                    <a href="/dashboard">Open module <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">💲</div>
+                    <h4>Carbon Credit Potential</h4>
+                    <p>Translate avoided CO₂-eq into rupee revenue under the CCTS soil-carbon market band
+                        (₹600–₹900 per tonne). Models per-hectare and farm-level upside.</p>
+                    <a href="/dashboard">Open module <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">🌱</div>
+                    <h4>Field Emission Calculator</h4>
+                    <p>Direct CH₄, N₂O, and NH₃ field emissions from IPCC 2019 refinement factors — adjusted
+                        for your water-management regime and residue incorporation rate.</p>
+                    <a href="/dashboard">Open module <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="lc-mod-card">
+                    <div class="ico">📊</div>
+                    <h4>Model Information</h4>
+                    <p>Full transparency: training-set composition, feature importances, residual diagnostics,
+                        and the exact OpenLCA flow lists driving each impact category.</p>
+                    <a href="/dashboard">Open module <span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── What you can do ─────────────────────────────────────────────── -->
+    <section class="lc-section">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">What you can do</span>
+            <h2 class="lc-h2">From a single field plan to a portfolio report.</h2>
+
+            <div class="lc-method-grid" style="margin-top: 1.75rem;">
+                <article class="lc-method-card">
+                    <div class="ico">🧪</div>
+                    <h3>Run scenarios</h3>
+                    <p>Compare a baseline against any number of "what-if" plans side-by-side. Diff cards
+                        highlight gains and trade-offs across all 18 impact categories.</p>
+                </article>
+                <article class="lc-method-card">
+                    <div class="ico">📥</div>
+                    <h3>Export results</h3>
+                    <p>Download the full LCA result as CSV, JSON, or a print-ready PDF brief — suitable for
+                        co-operative reports, audit trails, or carbon-credit submissions.</p>
+                </article>
+                <article class="lc-method-card">
+                    <div class="ico">🌐</div>
+                    <h3>Switch languages</h3>
+                    <p>Every numerical inference is generated in English, Hindi, and Telugu. The toggle is
+                        live — translations appear without a page reload.</p>
+                </article>
+                <article class="lc-method-card">
+                    <div class="ico">🔍</div>
+                    <h3>Trace every number</h3>
+                    <p>Click any value to see its provenance: source factor, OpenLCA flow ID, IPCC tier, and
+                        the exact regression coefficient that produced it.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Key features ────────────────────────────────────────────────── -->
+    <section class="lc-section dark">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">Built for the field</span>
+            <h2 class="lc-h2">Designed for daily decisions, not quarterly reports.</h2>
+            <p class="lc-section-lede">The dashboard runs entirely in the browser — no signup, no installs.
+                Every interaction is instantaneous, every output is auditable.</p>
+
+            <div class="lc-about-grid">
+                <div class="lc-about-card">
+                    <h3>⚡ Instant feedback</h3>
+                    <p>Every slider, dropdown, and input is wired to the model. Predictions, charts, and
+                        carbon-credit estimates refresh in under 50 ms — fast enough for an extension worker
+                        to tune a plan with the farmer in the room.</p>
+                </div>
+                <div class="lc-about-card">
+                    <h3>🎯 ISO-grade rigour</h3>
+                    <p>The pipeline implements ISO 14040 / 14044 phases end-to-end: goal &amp; scope, life-cycle
+                        inventory, impact assessment (ReCiPe 2016 H), and interpretation. Hand-off to a
+                        certified practitioner is one CSV away.</p>
+                </div>
+                <div class="lc-about-card">
+                    <h3>📱 Mobile-friendly</h3>
+                    <p>The layout adapts down to a 360 px viewport — usable on a typical field-worker
+                        smartphone. Charts collapse to scrollable strips; sliders become large tap targets.</p>
+                </div>
+                <div class="lc-about-card">
+                    <h3>🔓 No black-boxes</h3>
+                    <p>Source factors, model coefficients, and emission factors are all exposed under
+                        <em>Model Info</em>. You can replicate any number with a calculator and the citations
+                        provided.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── How to start ────────────────────────────────────────────────── -->
+    <section class="lc-section alt">
+        <div class="lc-container">
+            <span class="lc-eyebrow-h">Getting started</span>
+            <h2 class="lc-h2">Three steps to your first LCA.</h2>
+
+            <ol class="lc-process" style="margin-top: 2rem;">
+                <li class="lc-step">
+                    <div class="lc-step-bullet">1</div>
+                    <h4>Describe the field</h4>
+                    <p>Crop, area, water regime, soil class. Sensible defaults pre-fill from typical
+                        Telangana paddy systems.</p>
+                </li>
+                <li class="lc-step">
+                    <div class="lc-step-bullet">2</div>
+                    <h4>Set the fertiliser plan</h4>
+                    <p>Pick urea, DAP, MOP, FYM, vermicompost, biofertiliser doses — or load a preset blend.</p>
+                </li>
+                <li class="lc-step">
+                    <div class="lc-step-bullet">3</div>
+                    <h4>Read the results</h4>
+                    <p>Open any module from the sidebar. Tweak inputs, compare scenarios, export the report.</p>
+                </li>
+                <li class="lc-step">
+                    <div class="lc-step-bullet">4</div>
+                    <h4>Act on it</h4>
+                    <p>Use the inference summary to brief the farmer; submit the credit estimate to your
+                        co-operative's CCTS aggregator.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ── Final CTA ───────────────────────────────────────────────────── -->
+    <section>
+        <div class="lc-container">
+            <div class="lc-final-cta">
+                <div>
+                    <h2>Ready to run your first scenario?</h2>
+                    <p>The dashboard opens with a worked example loaded — change any input to see the
+                        downstream impacts update live.</p>
+                </div>
+                <a class="lc-cta-btn" href="/dashboard">
+                    🚀 Open Dashboard <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ──────────────────────────────────────────────────────── -->
+    <footer class="lc-footer">
+        <div class="lc-container">
+            <div class="lc-footer-grid">
+                <div>
+                    <div class="lc-brand" style="margin-bottom: 0.7rem;">
+                        <div class="lc-brand-mark">🌾</div>
+                        <div class="lc-brand-text">
+                            <div style="color:white;">CarbonKrishi</div>
+                            <div class="lc-brand-sub">AI · LCA</div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.88rem; line-height:1.55; margin:0; color:#b6cbbe;">
+                        Climate-smart agriculture LCA, powered by AI and rooted in Indian field data.
+                    </p>
+                </div>
+                <div>
+                    <h5>Product</h5>
+                    <ul>
+                        <li><a href="/dashboard-info">Dashboard</a></li>
+                        <li><a href="/methodology">Methodology</a></li>
+                        <li><a href="/about">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Modules</h5>
+                    <ul>
+                        <li><a href="/dashboard">Predictor</a></li>
+                        <li><a href="/dashboard">Gradient</a></li>
+                        <li><a href="/dashboard">Credits</a></li>
+                        <li><a href="/dashboard">Emissions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Standards</h5>
+                    <ul>
+                        <li>ISO 14040 / 14044</li>
+                        <li>ReCiPe 2016 (H)</li>
+                        <li>IPCC 2019</li>
+                        <li>SALCA</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lc-footer-bottom">
+                <div>&copy; 2026 CarbonKrishi AI · Data from ICAR-IIRR &amp; KVK Medak</div>
+                <div>Made with 🌾 for Indian farmers</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/landing.js"></script>
+    <!-- Dev-only hot reload (no-op in production: ws fails silently) -->
+    <script>
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+            (function connect() {
+                try {
+                    const ws = new WebSocket(`ws://${location.host}/hot-reload`);
+                    ws.onmessage = (e) => { if (e.data === "reload") location.reload(); };
+                    ws.onclose = () => setTimeout(connect, 1000);
+                    ws.onerror = () => { try { ws.close(); } catch { } };
+                } catch { setTimeout(connect, 2000); }
+            })();
+        }
+    </script>
+</body>
+
+</html>

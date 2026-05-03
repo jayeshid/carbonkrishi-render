@@ -1,0 +1,4245 @@
+/* ── CarbonKrishi AI — Dashboard layout ──────────────────────────────────── */
+
+:root {
+  --ck-surface: rgba(255, 255, 255, 0.85);
+  --ck-surface-strong: rgba(255, 255, 255, 0.95);
+  --ck-border: rgba(15, 23, 42, 0.08);
+  --ck-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --ck-shadow-soft: 0 8px 22px rgba(15, 23, 42, 0.06);
+  --ck-accent-1: #16a34a;
+  --ck-accent-2: #0f766e;
+  --ck-accent-3: #0ea5e9;
+  --ck-text: #1f2937;
+  --ck-text-muted: #475569;
+  --ck-tabs-bg: #323b37;
+  --ck-tabs-surface: rgba(50, 59, 55, 0.94);
+  --ck-tabs-surface-soft: rgba(50, 59, 55, 0.82);
+  --ck-tabs-border: rgba(255, 255, 255, 0.1);
+  --ck-tabs-text: #eef3ef;
+  --ck-tabs-text-muted: rgba(238, 243, 239, 0.72);
+
+  --ck-sidebar-w: 256px;
+  --ck-topbar-h: 76px;
+  --ck-page-bg: #f5faf6;
+  --ck-side-bg-1: #0b3d2e;
+  --ck-side-bg-2: #052e22;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: var(--ck-text);
+  background-color: var(--ck-page-bg);
+  background-image:
+    radial-gradient(
+      1100px 500px at 0% -10%,
+      rgba(16, 185, 129, 0.11),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 100% 0%,
+      rgba(14, 165, 233, 0.08),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #f7fbf6 0%, #eff8f1 100%);
+  min-height: 100vh;
+  overflow: hidden; /* the .ck-main owns the scrollbar */
+}
+
+/* ── App shell ──────────────────────────────────────────────────────────── */
+.ck-app {
+  display: grid;
+  grid-template-columns: var(--ck-sidebar-w) 1fr;
+  height: 100vh;
+  width: 100vw;
+}
+.ck-shell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100vh;
+  background: var(--ck-page-bg);
+  background-image:
+    radial-gradient(
+      1100px 500px at 0% -10%,
+      rgba(16, 185, 129, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 100% 0%,
+      rgba(14, 165, 233, 0.07),
+      transparent 55%
+    );
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────────── */
+.ck-sidebar {
+  background: linear-gradient(
+    180deg,
+    rgba(18, 26, 22, 0.78) 0%,
+    rgba(8, 18, 14, 0.92) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: #d6f1e2;
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 0.85rem 1rem;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.22),
+    4px 0 30px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.ck-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: -40% -40% auto auto;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(
+    circle,
+    rgba(52, 211, 153, 0.22) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.ck-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0.5rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 0.85rem;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.18s;
+}
+.ck-brand:hover {
+  opacity: 0.85;
+}
+.ck-brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #16a34a, #34d399);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+.ck-brand-name {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+.ck-brand-tag {
+  font-size: 0.72rem;
+  color: rgba(214, 241, 226, 0.7);
+  letter-spacing: 0.4px;
+  margin-top: 1px;
+}
+
+.ck-side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.ck-side-link {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  color: rgba(214, 241, 226, 0.86);
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+  position: relative;
+}
+.ck-side-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.ck-side-link.active {
+  background: linear-gradient(
+    135deg,
+    rgba(22, 163, 74, 0.96) 0%,
+    rgba(15, 118, 110, 0.96) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow:
+    0 10px 22px rgba(16, 185, 129, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+.ck-side-link.active::before {
+  content: "";
+  position: absolute;
+  left: -0.85rem;
+  top: 10%;
+  bottom: 10%;
+  width: 3px;
+  background: #34d399;
+  border-radius: 0 4px 4px 0;
+}
+.ck-side-ico {
+  font-size: 1.05rem;
+  width: 1.4rem;
+  text-align: center;
+}
+
+.ck-side-foot {
+  padding: 0.6rem 0.4rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.ck-side-foot small {
+  color: rgba(214, 241, 226, 0.55);
+  font-size: 0.7rem;
+}
+.ck-side-foot-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 0.7rem 0.85rem;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+}
+.ck-side-foot-title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.ck-side-foot-sub {
+  color: rgba(214, 241, 226, 0.65);
+  font-size: 0.72rem;
+  margin-top: 0.15rem;
+}
+
+/* ── Topbar ────────────────────────────────────────────────────────────── */
+.ck-topbar {
+  height: var(--ck-topbar-h);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(240, 253, 244, 0.78) 100%
+  );
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  flex-shrink: 0;
+  z-index: 5;
+}
+.ck-icon-btn {
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  background: rgba(255, 255, 255, 0.82);
+  color: #0f172a;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.ck-icon-btn:hover {
+  background: #ecfdf5;
+  border-color: #86efac;
+}
+.ck-topbar-title {
+  flex: 1;
+  min-width: 0;
+}
+.ck-topbar-title h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: "Poppins", "SuisseIntl", sans-serif;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+.ck-topbar-title p {
+  margin: 0.1rem 0 0;
+  font-size: 0.82rem;
+}
+
+.ck-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.ck-search {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  border-radius: 12px;
+  padding: 0.4rem 0.75rem;
+  min-width: 240px;
+  transition:
+    border-color 0.18s,
+    box-shadow 0.18s;
+}
+.ck-search:focus-within {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+  background: rgba(255, 255, 255, 0.94);
+}
+.ck-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--ck-text);
+}
+.ck-search span {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.ck-lang-select {
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  background: rgba(255, 255, 255, 0.84);
+  border-radius: 10px;
+  padding: 0.4rem 0.55rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+}
+.ck-lang-select:focus {
+  outline: none;
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+}
+
+.ck-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.65rem 0.3rem 0.3rem;
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+}
+.ck-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #0f766e);
+  color: white;
+  font-weight: 700;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ck-profile-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.ck-profile-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+.ck-profile-role {
+  font-size: 0.7rem;
+  color: var(--ck-text-muted);
+}
+
+/* ── Main scroll area ─────────────────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Poppins", "SuisseIntl", sans-serif;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+a {
+  color: var(--ck-accent-2);
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.12),
+    rgba(148, 163, 184, 0.45),
+    rgba(148, 163, 184, 0.12)
+  );
+  margin: 1.5rem 0;
+}
+
+.ck-main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 2.5vw, 2.5rem);
+  scroll-behavior: smooth;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+.ck-hero {
+  display: grid;
+  grid-template-columns: 2.4fr 1.6fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+.ck-hero-left h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+}
+.ck-grad {
+  background: linear-gradient(90deg, #16a34a, #0f766e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ck-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(16, 185, 129, 0.12);
+  color: #065f46;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  margin-bottom: 0.85rem;
+}
+.ck-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
+}
+.ck-lede {
+  color: #334155;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin: 0.4rem 0 0.6rem;
+}
+.ck-lede-strong {
+  color: #0f172a;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ck-hero-right {
+  background: linear-gradient(135deg, #ecfdf5 0%, #bbf7d0 100%);
+  border-radius: 28px;
+  padding: 2rem 1.6rem;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+.ck-hero-right::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.35),
+    transparent 70%
+  );
+  border-radius: 50%;
+}
+.ck-hero-right h2 {
+  color: #064e3b;
+  margin: 0;
+  line-height: 1.15;
+  font-size: 1.9rem;
+  position: relative;
+}
+.ck-hero-right h3 {
+  color: #065f46;
+  margin: 0.35rem 0 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  position: relative;
+}
+.ck-hero-right p {
+  color: #065f46;
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  position: relative;
+}
+.ck-rice-row {
+  font-size: 2.6rem;
+  line-height: 1;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .ck-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Feature cards ──────────────────────────────────────────────────────── */
+.ck-feature-grid {
+  display: grid;
+  /* Auto-fit so cards reflow at any width: 5→4→3→2→1 cols smoothly. */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 600px) {
+  .ck-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ck-feature-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fffb 100%);
+  padding: 1.2rem;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.55rem;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.22s,
+    box-shadow 0.22s,
+    border-color 0.22s;
+}
+.ck-feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, #16a34a, #0f766e, #0ea5e9);
+  opacity: 0.85;
+}
+.ck-feature-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 22px 44px rgba(15, 23, 42, 0.12);
+}
+.ck-feature-card h4 {
+  margin: 0;
+  color: #047857;
+}
+.ck-feature-card p {
+  margin: 0;
+  color: #334155;
+}
+
+/* ── Legacy tab pill rules superseded by .ck-side-link (sidebar nav). ──── */
+/* Kept only for any non-sidebar .ck-tab element, none currently used.    */
+
+.ck-tabpanel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(240, 253, 244, 0.82) 100%
+  );
+  border: 1px solid rgba(16, 185, 129, 0.16);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+.ck-tabpanel[hidden] {
+  display: none;
+}
+.ck-tabpanel h2 {
+  margin: 0 0 0.35rem;
+}
+/* Overview is its own composition of cards; no outer card needed. */
+.ck-tabpanel#t0 {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.ck-main .ck-input-block,
+.ck-main .ck-radio-group,
+.ck-main .ck-metric,
+.ck-main .ck-chart,
+.ck-main .ck-gauge,
+.ck-main .ck-scenario-card,
+.ck-main .ck-waffle-wrap,
+.ck-main .ck-bullet,
+.ck-main .ck-callout,
+.ck-main .ck-details,
+.ck-main .ck-mode-btn,
+.ck-main .ck-lang-tab,
+.ck-main .ck-kpi-card,
+.ck-main .ck-feature-card,
+.ck-main .ck-inference-card,
+.ck-main .ck-source-list,
+.ck-main .ck-table,
+.ck-main .ck-search,
+.ck-main .ck-lang-select,
+.ck-main .ck-profile {
+  background-color: rgba(255, 255, 255, 0.82);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(240, 253, 244, 0.78) 100%
+  );
+  border-color: rgba(16, 185, 129, 0.14);
+}
+.ck-main .ck-table th {
+  background-image: linear-gradient(
+    180deg,
+    rgba(16, 185, 129, 0.09) 0%,
+    rgba(14, 165, 233, 0.05) 100%
+  );
+}
+.ck-tabpanel h3 {
+  margin: 1.5rem 0 0.5rem;
+}
+.ck-tabpanel h4 {
+  margin: 1.5rem 0 0.5rem;
+}
+.ck-muted {
+  color: var(--ck-text-muted);
+  margin: 0;
+}
+.ck-chart-caption {
+  color: var(--ck-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0.4rem 0 1.1rem;
+  font-style: italic;
+}
+.ck-chart-caption strong {
+  color: var(--ck-text);
+  font-style: normal;
+}
+
+/* ── Form controls ──────────────────────────────────────────────────────── */
+.ck-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0.5rem 0 1rem;
+}
+
+.ck-radio-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  border-radius: 14px;
+  padding: 0.35rem 0.45rem;
+  box-shadow: var(--ck-shadow-soft);
+  border-style: solid;
+}
+.ck-radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 12px;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    box-shadow 0.18s;
+  font-weight: 500;
+}
+.ck-radio-group label:has(input:checked) {
+  background: rgba(16, 185, 129, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(5, 150, 105, 0.24);
+  color: #065f46;
+}
+.ck-radio-group input {
+  accent-color: #16a34a;
+}
+
+.ck-input-block {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  margin: 0.75rem 0;
+}
+.ck-input-block h3 {
+  margin-top: 0;
+}
+
+.ck-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.ck-grid-2 > * {
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  .ck-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Any .ck-grid-2 that contains a chart should stack much earlier so charts
+   don't get squeezed or overlap on narrow desktops / tablets. */
+@media (max-width: 1200px) {
+  .ck-grid-2:has(.ck-chart),
+  .ck-grid-2:has(.ck-bullet),
+  .ck-grid-2:has([id$="-bullets"]) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ck-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.92rem;
+}
+.ck-field small {
+  display: block;
+  font-weight: 400;
+  color: var(--ck-text-muted);
+  font-size: 0.78rem;
+  margin-top: 0.15rem;
+}
+.ck-field input,
+.ck-field select {
+  padding: 0.65rem 0.85rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--ck-text);
+}
+.ck-field input:focus,
+.ck-field select:focus {
+  outline: none;
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+}
+
+.ck-info {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  color: #065f46;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  margin: 0.6rem 0;
+}
+
+.ck-warnings {
+  margin: 0.75rem 0;
+}
+.ck-warnings:empty {
+  display: none;
+}
+.ck-warning-card {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #92400e;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.ck-success-card {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  color: #065f46;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+.ck-btn {
+  background: linear-gradient(135deg, #16a34a 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.85rem 1.5rem;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.18);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    opacity 0.2s;
+  margin: 0.5rem 0;
+}
+.ck-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(16, 185, 129, 0.22);
+}
+.ck-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Slider ─────────────────────────────────────────────────────────────── */
+.ck-slider-block {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--ck-border);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  margin: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ck-slider-block label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-weight: 600;
+}
+.ck-slider-block input[type="range"] {
+  flex: 1;
+  accent-color: #16a34a;
+}
+
+/* ── Metrics ───────────────────────────────────────────────────────────── */
+.ck-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.85rem;
+  margin: 0.75rem 0;
+}
+.ck-metric {
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(240, 253, 244, 0.88) 100%
+  );
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  outline: 1px solid rgba(5, 150, 105, 0.08);
+  box-shadow:
+    0 10px 24px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.ck-metric:hover {
+  transform: translateY(-1px);
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow:
+    0 14px 32px rgba(15, 23, 42, 0.13),
+    0 0 0 2px rgba(16, 185, 129, 0.1);
+}
+.ck-metric-label {
+  font-size: 0.78rem;
+  color: var(--ck-text-muted);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.ck-metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0.25rem;
+  line-height: 1.15;
+}
+.ck-metric-unit {
+  font-size: 0.75rem;
+  color: var(--ck-text-muted);
+  margin-top: 0.15rem;
+}
+
+/* ── Charts ────────────────────────────────────────────────────────────── */
+.ck-chart {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(240, 253, 244, 0.84) 100%
+  );
+  border-radius: 14px;
+  padding: 0.5rem;
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  box-shadow: var(--ck-shadow-soft);
+  margin: 0.4rem 0 1rem;
+  min-height: 320px;
+}
+
+/* ── Inferences ────────────────────────────────────────────────────────── */
+.ck-inferences {
+  margin-top: 1.5rem;
+}
+.ck-inferences:empty {
+  display: none;
+}
+.ck-inferences h3 {
+  margin-bottom: 0.6rem;
+}
+.ck-lang-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+.ck-lang-tab {
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  background: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: #374151;
+}
+.ck-lang-tab.active {
+  background: linear-gradient(135deg, #16a34a, #0f766e);
+  color: white;
+  border-color: transparent;
+}
+
+.ck-inference-actions {
+  margin-top: 1rem;
+}
+
+.ck-print-btn {
+  align-self: flex-start;
+}
+
+.ck-inference-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(240, 253, 244, 0.86) 100%
+  );
+  border-left: 4px solid var(--ck-accent-3);
+  border-radius: 12px;
+  padding: 0.85rem 1.1rem;
+  margin: 0.6rem 0;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+}
+.ck-inference-card .title {
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+.ck-inference-card .body {
+  color: #334155;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.ck-inference-card .refs {
+  margin-top: 0.55rem;
+  line-height: 1.9;
+}
+.ck-ref-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  background: #eef2ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+  padding: 0.05rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 0 0.15rem;
+  white-space: nowrap;
+}
+.ck-ref-pill:hover {
+  background: #e0e7ff;
+}
+
+/* ── Source list (Tab 5) ───────────────────────────────────────────────── */
+.ck-source-list {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+}
+.ck-source-list ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.ck-source-list li {
+  margin: 0.25rem 0;
+}
+
+/* ── Tables (Tab 5) ────────────────────────────────────────────────────── */
+.ck-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+.ck-table th,
+.ck-table td {
+  text-align: left;
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+.ck-table th {
+  font-weight: 700;
+  color: #0f172a;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+.ck-footer {
+  text-align: center;
+  color: var(--ck-text-muted);
+  padding: 1rem 0;
+}
+
+/* ── Gauges (% change + value) ──────────────────────────────────────────── */
+.ck-gauge {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fffb 100%);
+  border-radius: 18px;
+  padding: 1rem 0.9rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+  text-align: center;
+  height: 100%;
+}
+.ck-gauge-label {
+  font-size: 0.82rem;
+  color: #475569;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.2px;
+}
+.ck-gauge-ring {
+  width: 118px;
+  height: 118px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+.ck-gauge-inner {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: inset 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+.ck-gauge-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.ck-gauge-value-large {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+.ck-gauge-sub {
+  font-size: 0.62rem;
+  color: #94a3b8;
+  letter-spacing: 0.4px;
+  margin-top: 0.15rem;
+}
+.ck-gauge-bench {
+  margin-top: 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.ck-gauges-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.85rem;
+  margin: 0.4rem 0 1rem;
+}
+
+/* ── Winner badge (A vs B comparisons) ──────────────────────────────────── */
+.ck-winner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.ck-winner-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.ck-winner-badge.win-a {
+  background: rgba(59, 130, 246, 0.12);
+  color: #1d4ed8;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+.ck-winner-badge.win-b {
+  background: rgba(249, 115, 22, 0.12);
+  color: #c2410c;
+  border-color: rgba(249, 115, 22, 0.3);
+}
+.ck-winner-badge.tie {
+  background: rgba(148, 163, 184, 0.18);
+  color: #475569;
+}
+
+/* ── Diff arrow (A vs B side-by-side) ───────────────────────────────────── */
+.ck-diff-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.ck-diff-side {
+  text-align: center;
+  flex: 1;
+}
+.ck-diff-tag {
+  font-size: 0.7rem;
+  color: #64748b;
+  letter-spacing: 0.4px;
+}
+.ck-diff-val {
+  font-weight: 700;
+  color: #0f172a;
+}
+.ck-diff-mid {
+  text-align: center;
+}
+.ck-diff-arrow-glyph {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.ck-diff-pct {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.ck-diff-verdict {
+  font-size: 0.65rem;
+  color: #94a3b8;
+}
+.ck-diff-label {
+  font-size: 0.78rem;
+  color: #475569;
+  font-weight: 600;
+  min-width: 90px;
+  text-align: right;
+}
+
+/* ── Scenario card (Conv / Blend / Organic) ─────────────────────────────── */
+.ck-scenario-cards {
+  display: grid;
+  /* auto-fit so 3 cards reflow to 2-up or 1-up smoothly instead of squeezing */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.85rem;
+  margin: 0.5rem 0 1rem;
+}
+@media (max-width: 600px) {
+  .ck-scenario-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ck-scenario-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+}
+.ck-scenario-head {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+.ck-scenario-accent {
+  width: 6px;
+  height: 38px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.ck-scenario-line {
+  margin: 0.2rem 0 0.15rem;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+/* ── Waffle ─────────────────────────────────────────────────────────────── */
+.ck-waffle-wrap {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: var(--ck-shadow-soft);
+  margin: 0.4rem 0 1rem;
+}
+.ck-waffle-header {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.6rem;
+}
+.ck-waffle-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 18px);
+  gap: 3px;
+  justify-content: center;
+  padding: 0.4rem 0;
+}
+.ck-waffle-cell {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+.ck-waffle-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #475569;
+}
+.ck-waffle-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.ck-waffle-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+/* ── Bullet (SVG) ───────────────────────────────────────────────────────── */
+/* Bullets sit inside the dark tab panel — always render text in white. */
+.ck-main .ck-bullet svg text { fill: #1d5dbd !important; }
+.ck-main .ck-bullet svg line { stroke: #ffffff !important; }
+.ck-main .ck-bullet-title { color: #ffffff !important; }
+.ck-main .ck-bullet-unit  { color: rgba(255, 255, 255, 0.72) !important; }
+
+.ck-bullet {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  box-shadow: var(--ck-shadow-soft);
+  margin-bottom: 0.5rem;
+}
+.ck-bullet-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+.ck-bullet-unit {
+  color: #64748b;
+  font-weight: 500;
+  font-size: 0.78rem;
+}
+
+/* ── Callout boxes (info / success / warning) ───────────────────────────── */
+.ck-callout {
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  margin: 0.5rem 0;
+  border: 1px solid;
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .ck-app,
+  .ck-shell,
+  .ck-main {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .ck-sidebar,
+  .ck-topbar,
+  .ck-print-btn {
+    display: none !important;
+  }
+
+  .ck-main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .ck-tabpanel,
+  .ck-results,
+  .ck-inferences,
+  .ck-input-block,
+  .ck-slider-block,
+  .ck-callout,
+  .ck-chart,
+  .ck-metric,
+  .ck-gauge,
+  .ck-details {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .ck-tabpanel {
+    padding: 0 !important;
+    margin: 0 0 16mm !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  .ck-tabpanel h2,
+  .ck-tabpanel h3,
+  .ck-tabpanel h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .ck-tabpanel[hidden] {
+    display: none !important;
+  }
+
+  .ck-print-btn {
+    display: none !important;
+  }
+}
+.ck-callout.info {
+  background: rgba(14, 165, 233, 0.08);
+  color: #075985;
+  border-color: rgba(14, 165, 233, 0.25);
+}
+.ck-callout.success {
+  background: rgba(16, 185, 129, 0.08);
+  color: #065f46;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+.ck-callout.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #92400e;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+.ck-callout strong {
+  color: inherit;
+}
+
+/* ── Speedometer / gauge grid ──────────────────────────────────────────── */
+.ck-speedo-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.6rem;
+  align-items: stretch;
+}
+.ck-speedo {
+  min-height: 200px;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;       /* clip any momentary Plotly overflow */
+}
+.ck-speedo .js-plotly-plot,
+.ck-speedo .plot-container,
+.ck-speedo .svg-container {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+/* ≤ 1100px → 2-up grid */
+@media (max-width: 1100px) {
+  .ck-speedo-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+/* ≤ 640px → single column */
+@media (max-width: 640px) {
+  .ck-speedo-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Compare-Two summary row (Tab 1) ───────────────────────────────────── */
+.ck-cmp-summary-row {
+  /* Two callout cards side-by-side on desktop, stack on mobile. */
+  grid-template-columns: 1fr 1fr !important;
+}
+@media (max-width: 700px) {
+  .ck-cmp-summary-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Detailed-impact rows (Tab 2) ──────────────────────────────────────── */
+.ck-detail-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+@media (max-width: 800px) {
+  .ck-detail-row {
+    grid-template-columns: 1fr;
+  }
+}
+.ck-metric .delta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+.ck-metric .delta.neg {
+  color: #16a34a;
+}
+.ck-metric .delta.pos {
+  color: #ef4444;
+}
+
+/* ── Disclosure (collapsible) ──────────────────────────────────────────── */
+.ck-details {
+  border: 1px solid var(--ck-border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem 0.85rem;
+  margin: 0.6rem 0;
+}
+.ck-details > summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.45rem 0;
+  color: #0f172a;
+  list-style: none;
+}
+.ck-details > summary::-webkit-details-marker {
+  display: none;
+}
+.ck-details > summary::before {
+  content: "▶ ";
+  color: #16a34a;
+}
+.ck-details[open] > summary::before {
+  content: "▼ ";
+}
+
+/* ── Mini-tab control (sub-mode within a tab) ──────────────────────────── */
+.ck-mode-bar {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0.85rem;
+  flex-wrap: wrap;
+}
+.ck-mode-btn {
+  border: 1px solid var(--ck-border);
+  background: white;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: #374151;
+}
+.ck-mode-btn.active {
+  background: linear-gradient(135deg, #0f766e, #16a34a);
+  color: white;
+  border-color: transparent;
+}
+
+/* ── Welcome banner (Overview) ─────────────────────────────────────────── */
+.ck-welcome {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.1),
+      rgba(14, 165, 233, 0.06) 60%,
+      rgba(255, 255, 255, 0.95)
+    ),
+    linear-gradient(135deg, #ffffff, #f0fdf4);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  border-radius: 22px;
+  padding: 1.6rem 1.8rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  margin-bottom: 1.4rem;
+}
+.ck-welcome::before {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ck-welcome-text h2 {
+  margin: 0.4rem 0 0.4rem;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+}
+.ck-welcome-illustration {
+  text-align: center;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1;
+  filter: drop-shadow(0 6px 14px rgba(16, 185, 129, 0.25));
+}
+.ck-cta-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.8rem;
+}
+.ck-cta {
+  padding: 0.65rem 1.1rem;
+}
+.ck-cta-ghost {
+  background: white;
+  color: #0f766e;
+  border: 1px solid rgba(15, 118, 110, 0.3);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.05);
+}
+.ck-cta-ghost:hover {
+  background: #ecfdf5;
+  border-color: rgba(15, 118, 110, 0.55);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .ck-welcome {
+    grid-template-columns: 1fr;
+  }
+  .ck-welcome-illustration {
+    display: none;
+  }
+}
+
+/* ── Section heading ──────────────────────────────────────────────────── */
+.ck-section-h {
+  margin: 1.5rem 0 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.2px;
+}
+
+/* ── KPI strip (Overview) ─────────────────────────────────────────────── */
+.ck-kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.4rem;
+}
+.ck-kpi-card {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 0.85rem;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--ck-border);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  box-shadow: var(--ck-shadow-soft);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.ck-kpi-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--kpi-accent, #16a34a);
+}
+.ck-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.1);
+}
+.ck-kpi-ico {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--kpi-bg, rgba(16, 185, 129, 0.12));
+  color: var(--kpi-accent, #16a34a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+}
+.ck-kpi-title {
+  font-size: 0.78rem;
+  color: var(--ck-text-muted);
+  font-weight: 600;
+}
+.ck-kpi-value {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0.05rem;
+  line-height: 1.1;
+}
+.ck-kpi-sub {
+  font-size: 0.74rem;
+  color: var(--ck-text-muted);
+  margin-top: 0.15rem;
+}
+
+.ck-kpi-card.tone-green {
+  --kpi-accent: #16a34a;
+  --kpi-bg: rgba(16, 185, 129, 0.12);
+}
+.ck-kpi-card.tone-amber {
+  --kpi-accent: #d97706;
+  --kpi-bg: rgba(245, 158, 11, 0.14);
+}
+.ck-kpi-card.tone-blue {
+  --kpi-accent: #0ea5e9;
+  --kpi-bg: rgba(14, 165, 233, 0.12);
+}
+.ck-kpi-card.tone-teal {
+  --kpi-accent: #0f766e;
+  --kpi-bg: rgba(15, 118, 110, 0.12);
+}
+.ck-kpi-card.tone-purple {
+  --kpi-accent: #8b5cf6;
+  --kpi-bg: rgba(139, 92, 246, 0.12);
+}
+.ck-kpi-card.tone-indigo {
+  --kpi-accent: #4f46e5;
+  --kpi-bg: rgba(79, 70, 229, 0.12);
+}
+
+/* ── Module cards (overview) — restyle of feature-grid for clickable jumps */
+.ck-feature-card {
+  cursor: pointer;
+  min-height: auto;
+  padding: 1rem 1.1rem;
+}
+.ck-feature-ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.18),
+    rgba(14, 165, 233, 0.14)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ── Mobile: hide sidebar by default, slide in via toggle ─────────────── */
+@media (max-width: 1024px) {
+  :root {
+    --ck-sidebar-w: 0px;
+  }
+  .ck-app {
+    grid-template-columns: 1fr;
+  }
+  .ck-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 256px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 50;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  body.ck-sidebar-open .ck-sidebar {
+    transform: translateX(0);
+  }
+  body.ck-sidebar-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    z-index: 40;
+  }
+  .ck-icon-btn {
+    display: inline-flex;
+  }
+  .ck-search {
+    min-width: 0;
+  }
+  .ck-search input {
+    width: 110px;
+  }
+  .ck-profile-text {
+    display: none;
+  }
+}
+
+/* ── Misc ──────────────────────────────────────────────────────────────── */
+[hidden] {
+  display: none !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   BRAND SYSTEM OVERRIDES
+   Spec:
+     body       → SuisseIntl (commercial, paid) — falls back to Inter
+     heading    → Poppins
+     monospace  → Geist Mono
+     accent     → #ABFF02  (electric lime)
+     primary    → #829292  (warm gray)
+     text       → #052424  (deep teal-black)
+     bg         → #FFFFFF
+     radius     → 8px
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+    --br-bg:        #ffffff;
+    --br-text:      #052424;
+    --br-primary:   #829292;
+    --br-accent:    #abff02;
+    --br-link:      #052424;
+    --br-radius:    8px;
+    --br-font-body: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --br-font-heading: "Poppins", "SuisseIntl", sans-serif;
+    --br-font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* Body / paragraph text — SuisseIntl with Inter fallback */
+html, body {
+    font-family: var(--br-font-body);
+    color: var(--br-text);
+}
+
+/* Headings — Poppins */
+h1, h2, h3, h4, h5, h6,
+.ck-brand-name,
+.ck-topbar-title h1,
+.ck-kpi-value,
+.ck-metric-value {
+    font-family: var(--br-font-heading) !important;
+    color: var(--br-text);
+    letter-spacing: -0.01em;
+}
+
+/* Numeric values & code → Geist Mono */
+.ck-metric-value,
+.ck-kpi-value,
+.ck-gauge-value,
+.ck-gauge-value-large,
+.ck-diff-val,
+code, pre, kbd, samp {
+    font-family: var(--br-font-mono) !important;
+    font-feature-settings: "tnum", "ss01";
+}
+
+/* Links */
+a { color: var(--br-link); }
+
+/* Primary CTA button — lime green */
+.ck-cta,
+.ck-primary-btn,
+.ck-tab.active,
+button[type="submit"]:not(.ck-cta-ghost) {
+    background: var(--br-accent) !important;
+    color: var(--br-text) !important;
+    border-radius: var(--br-radius) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.ck-cta:hover,
+.ck-primary-btn:hover {
+    background: #c2ff3d !important;
+    transform: translateY(-1px);
+}
+
+/* Inputs — minimalist (transparent, no border per spec) */
+.ck-field input,
+.ck-field select,
+.ck-search input {
+    background: transparent !important;
+    border: 1px solid rgba(5, 36, 36, 0.12) !important;
+    border-radius: var(--br-radius) !important;
+    color: var(--br-text) !important;
+    box-shadow: none !important;
+}
+.ck-field input:focus,
+.ck-field select:focus {
+    border-color: var(--br-accent) !important;
+    outline: none !important;
+}
+
+/* Cards / surfaces — 8px radius unification */
+.ck-tabpanel,
+.ck-input-block,
+.ck-slider-block,
+.ck-feature-card,
+.ck-metric,
+.ck-kpi-card,
+.ck-scenario-card,
+.ck-bullet,
+.ck-gauge,
+.ck-callout,
+.ck-inference-card,
+.ck-chart {
+    border-radius: var(--br-radius) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   DARK MODE — applied via [data-theme="dark"] attribute on <html>.
+   theme.js sets this attribute based on stored preference (or OS preference
+   on first visit). Uses CSS Nesting so every nested rule is implicitly
+   scoped to :root[data-theme="dark"].
+   ════════════════════════════════════════════════════════════════════════ */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    background: #323b37;
+    color: #f1f5f4;
+    --ck-page-bg: #323b37;
+    --ck-surface: rgba(255, 255, 255, 0.04);
+    --ck-surface-strong: rgba(255, 255, 255, 0.06);
+    --ck-border: rgba(255, 255, 255, 0.10);
+    --ck-text: #f1f5f4;
+    --ck-text-muted: #c8d2cd;
+
+    body { background: #323b37; color: #f1f5f4; }
+    .ck-shell { background: #323b37; }
+    .ck-topbar { background: rgba(20, 26, 23, 0.85); border-bottom-color: rgba(255,255,255,0.08); }
+    .ck-tabpanel,
+    .ck-input-block,
+    .ck-slider-block,
+    .ck-feature-card,
+    .ck-metric,
+    .ck-kpi-card,
+    .ck-scenario-card,
+    .ck-bullet,
+    .ck-waffle-wrap,
+    .ck-source-list,
+    .ck-details,
+    .ck-inference-card {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-color: rgba(255, 255, 255, 0.10) !important;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25) !important;
+    }
+    .ck-search { background: rgba(255, 255, 255, 0.05) !important; border-color: rgba(255,255,255,0.12) !important; }
+    .ck-lang-select, .ck-profile, .ck-icon-btn,
+    .ck-radio-group, .ck-mode-btn, .ck-lang-tab {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+        color: #f1f5f4 !important;
+    }
+    .ck-field input, .ck-field select {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6,
+    .ck-topbar-title h1,
+    .ck-tabpanel h2, .ck-tabpanel h3, .ck-tabpanel h4,
+    .ck-section-h,
+    .ck-welcome-text h2 { color: #f8fafc !important; }
+
+    .ck-topbar-title p,
+    .ck-muted,
+    .ck-chart-caption,
+    .ck-metric-label,
+    .ck-metric-unit,
+    .ck-kpi-title,
+    .ck-kpi-sub,
+    .ck-gauge-label,
+    .ck-gauge-sub,
+    .ck-bullet-title,
+    .ck-bullet-unit,
+    .ck-scenario-line,
+    .ck-feature-card p,
+    .ck-lede,
+    .ck-profile-name,
+    .ck-profile-role { color: #cbd5e1 !important; }
+
+    /* Strong / emphasised values */
+    .ck-metric-value,
+    .ck-kpi-value,
+    .ck-gauge-value,
+    .ck-gauge-value-large,
+    .ck-diff-val,
+    .ck-feature-card h4,
+    .ck-lede-strong,
+    .ck-inference-card .title { color: #ffffff !important; }
+
+    /* Body / paragraph text inside cards */
+    .ck-inference-card .body,
+    .ck-tabpanel p,
+    .ck-source-list,
+    .ck-source-list li,
+    .ck-table th,
+    .ck-table td,
+    .ck-field,
+    .ck-radio-group label,
+    .ck-feature-card,
+    label { color: #e2e8f0 !important; }
+
+    /* Form inputs */
+    .ck-field input,
+    .ck-field select,
+    .ck-search input,
+    .ck-lang-select { color: #f1f5f9 !important; }
+
+    /* Hero / welcome banners — these have light-green backgrounds and need
+       darker text for contrast even in dark mode. */
+    .ck-hero-right h2,
+    .ck-hero-right h3,
+    .ck-hero-right p { color: #064e3b !important; }
+
+    /* Callouts: keep their tinted text colour, not white. */
+    .ck-callout.info    { color: #bae6fd !important; }
+    .ck-callout.success { color: #bbf7d0 !important; }
+    .ck-callout.warning { color: #fde68a !important; }
+
+    /* Search placeholder visibility */
+    .ck-search input::placeholder { color: #94a3b8; }
+
+    /* Plotly text — every text node inside any Plotly plot becomes light. */
+    .js-plotly-plot text,
+    .js-plotly-plot tspan,
+    .js-plotly-plot .gtitle,
+    .js-plotly-plot .xtick text,
+    .js-plotly-plot .ytick text,
+    .js-plotly-plot .angularaxistick text,
+    .js-plotly-plot .radialaxistick text,
+    .js-plotly-plot .legendtext,
+    .js-plotly-plot .annotation-text,
+    .js-plotly-plot .colorbar text,
+    .js-plotly-plot .xtitle,
+    .js-plotly-plot .ytitle,
+    .ck-chart text, .ck-chart tspan,
+    .ck-speedo text, .ck-speedo tspan { fill: #f1f5f9 !important; }
+
+    /* Plotly indicator (gauge / number) numeric values — pure white. */
+    .js-plotly-plot .number,
+    .js-plotly-plot .number text,
+    .js-plotly-plot .number tspan,
+    .js-plotly-plot .delta,
+    .js-plotly-plot .delta text,
+    .js-plotly-plot .title,
+    .js-plotly-plot .title text { fill: #ffffff !important; }
+
+    /* Plotly grid / axis lines: lighten so they're faintly visible on dark. */
+    .js-plotly-plot .gridlayer path,
+    .js-plotly-plot .xgrid, .js-plotly-plot .ygrid { stroke: rgba(148, 163, 184, 0.25) !important; }
+    .js-plotly-plot .xaxislayer-above path,
+    .js-plotly-plot .yaxislayer-above path,
+    .js-plotly-plot .zerolinelayer path { stroke: rgba(203, 213, 225, 0.4) !important; }
+
+    /* Bullet charts (Input Levels vs Recommended Range) — invert to light. */
+    .ck-bullet { background: rgba(255, 255, 255, 0.04) !important; border-color: rgba(255,255,255,0.10) !important; }
+    .ck-bullet-title { color: #f8fafc !important; }
+    .ck-bullet-unit  { color: #c8d2cd !important; }
+    .ck-bullet svg text { fill: #f1f5f4 !important; }
+    .ck-bullet svg line { stroke: #abff02 !important; }
+
+    /* Custom HTML gauge ring (the donut with the value inside). */
+    .ck-gauge {
+        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+        border-color: rgba(148, 163, 184, 0.25) !important;
+    }
+    .ck-gauge-inner {
+        background: #1e293b !important;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+    }
+    .ck-gauge-value,
+    .ck-gauge-value-large,
+    .ck-gauge-bench { color: #ffffff !important; }
+    .ck-gauge-label,
+    .ck-gauge-sub   { color: #cbd5e1 !important; }
+}
+
+/* Charts always shrink to their container, never overflow horizontally. */
+.ck-chart > .plotly,
+.ck-chart .js-plotly-plot,
+.ck-chart .plot-container,
+.ck-chart .plotly,
+.ck-chart svg {
+  max-width: 100%;
+}
+.ck-chart,
+.ck-speedo {
+  width: 100%;
+  min-width: 0;
+}
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables: allow horizontal scroll on narrow screens instead of breaking layout. */
+.ck-tabpanel table,
+.ck-table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.ck-tabpanel table thead,
+.ck-tabpanel table tbody {
+  width: 100%;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   - Tablet:        ≤ 900px
+   - Mobile:        ≤ 640px
+   - Small mobile:  ≤ 420px
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── Universal stacking: every grid in the dashboard collapses to 1 column. ── */
+@media (max-width: 900px) {
+  .ck-main .ck-grid-2,
+  .ck-main .ck-feature-grid,
+  .ck-main .ck-scenario-cards,
+  .ck-main .ck-detail-row,
+  .ck-main .ck-metrics-row,
+  .ck-main .ck-gauges-row,
+  .ck-main .ck-speedo-row,
+  .ck-main .ck-kpi-strip,
+  .ck-main .ck-hero,
+  .ck-main .ck-welcome,
+  .ck-main .ck-kpi-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Any inline flex-row of cards / blocks should also wrap into a column. */
+  .ck-main .ck-row,
+  .ck-main .ck-cta-row,
+  .ck-main .ck-mode-bar,
+  .ck-main .ck-lang-tabs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ck-main .ck-row > *,
+  .ck-main .ck-cta-row > * {
+    width: 100%;
+  }
+}
+
+/* ── Tablet (≤ 900px) ──────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  :root {
+    --ck-topbar-h: 64px;
+  }
+  .ck-main {
+    padding: 1rem 1rem 1.4rem;
+  }
+  .ck-topbar {
+    padding: 0 0.85rem;
+    gap: 0.6rem;
+  }
+  .ck-topbar-title h1 {
+    font-size: 1.05rem;
+  }
+  .ck-topbar-title p {
+    font-size: 0.74rem;
+  }
+  .ck-topbar-actions {
+    gap: 0.45rem;
+  }
+
+  .ck-tabpanel {
+    padding: 1.1rem;
+    border-radius: 14px;
+  }
+  .ck-tabpanel h2 {
+    font-size: clamp(1.15rem, 3.2vw, 1.45rem);
+  }
+  .ck-tabpanel h3 {
+    font-size: 1.02rem;
+    margin: 1.1rem 0 0.45rem;
+  }
+  .ck-tabpanel h4 {
+    font-size: 0.95rem;
+    margin: 1.1rem 0 0.4rem;
+  }
+
+  .ck-chart {
+    min-height: 280px;
+    padding: 0.4rem;
+  }
+  .ck-speedo {
+    min-height: 200px;
+  }
+
+  .ck-input-block {
+    padding: 0.85rem 0.9rem;
+  }
+  .ck-slider-block {
+    padding: 0.85rem 0.9rem;
+  }
+  .ck-metric {
+    padding: 0.85rem 0.95rem;
+  }
+  .ck-metric-value {
+    font-size: 1.25rem;
+  }
+
+  .ck-feature-card {
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .ck-gauge-ring {
+    width: 100px;
+    height: 100px;
+  }
+  .ck-gauge-inner {
+    width: 74px;
+    height: 74px;
+  }
+
+  .ck-waffle-grid {
+    grid-template-columns: repeat(10, 14px);
+  }
+  .ck-waffle-cell {
+    width: 14px;
+    height: 14px;
+  }
+
+  .ck-inference-card {
+    padding: 0.7rem 0.9rem;
+  }
+  .ck-inference-card .body {
+    font-size: 0.85rem;
+  }
+
+  .ck-hero-right {
+    padding: 1.4rem 1.2rem;
+  }
+  .ck-hero-right h2 {
+    font-size: 1.5rem;
+  }
+  .ck-rice-row {
+    font-size: 2rem;
+  }
+}
+
+/* ── Mobile (≤ 640px) ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --ck-topbar-h: 60px;
+  }
+
+  .ck-main {
+    padding: 0.85rem 0.75rem 1.2rem;
+  }
+  .ck-topbar {
+    padding: 0 0.65rem;
+    gap: 0.4rem;
+  }
+  .ck-topbar-title h1 {
+    font-size: 0.98rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ck-topbar-title p {
+    display: none;
+  }
+  .ck-topbar-actions .ck-search {
+    display: none;
+  }
+  .ck-lang-select {
+    padding: 0.35rem 0.4rem;
+    font-size: 0.78rem;
+  }
+  .ck-profile {
+    padding: 0.25rem 0.45rem 0.25rem 0.25rem;
+    gap: 0.4rem;
+  }
+  .ck-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+
+  .ck-tabpanel {
+    padding: 0.9rem 0.85rem;
+    border-radius: 12px;
+  }
+
+  /* Force any 2/3-col grid down to 1 column. */
+  .ck-grid-2,
+  .ck-detail-row,
+  .ck-scenario-cards {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ck-metrics-row {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.6rem;
+  }
+  .ck-metric {
+    padding: 0.75rem 0.85rem;
+  }
+  .ck-metric-label {
+    font-size: 0.72rem;
+  }
+  .ck-metric-value {
+    font-size: 1.1rem;
+  }
+
+  .ck-gauges-row {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.55rem;
+  }
+  .ck-gauge {
+    padding: 0.75rem 0.6rem;
+  }
+  .ck-gauge-ring {
+    width: 88px;
+    height: 88px;
+  }
+  .ck-gauge-inner {
+    width: 64px;
+    height: 64px;
+  }
+  .ck-gauge-value,
+  .ck-gauge-value-large {
+    font-size: 0.85rem;
+  }
+
+  .ck-speedo-row {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0.4rem;
+  }
+  .ck-speedo {
+    min-height: 180px;
+  }
+
+  .ck-chart {
+    min-height: 240px;
+    padding: 0.35rem;
+    border-radius: 10px;
+  }
+
+  /* Charts forced to a small but readable height — Plotly auto-fits width. */
+  #t1-radar,
+  #t1-cmp-radar,
+  #t1-cmp-bars,
+  #t1-cmp-scatter,
+  #t2-breakdown,
+  #t2-cost-chart,
+  #t2-trend,
+  #t2-cband,
+  #t2-stream,
+  #t2-radar3,
+  #t2-frontier,
+  #t2-delta,
+  #t2-pareto,
+  #t3-source,
+  #t3-bufchart,
+  #t3-value-chart,
+  #t4-bar,
+  #t4-pie,
+  #t4-sankey,
+  #t4-treemap,
+  #t5-heatmap {
+    min-height: 260px;
+  }
+  #t4-sankey {
+    min-height: 320px;
+  }
+
+  .ck-input-block,
+  .ck-slider-block {
+    padding: 0.75rem 0.8rem;
+    border-radius: 12px;
+  }
+  .ck-field input,
+  .ck-field select {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.9rem;
+  }
+  .ck-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .ck-radio-group label {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.85rem;
+  }
+
+  .ck-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.92rem;
+  }
+  .ck-btn:hover {
+    transform: none;
+  }
+
+  .ck-feature-grid,
+  .ck-kpi-strip {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  .ck-kpi-card {
+    grid-template-columns: 44px 1fr;
+    padding: 0.85rem 0.95rem;
+  }
+  .ck-kpi-ico {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+  .ck-kpi-value {
+    font-size: 1.1rem;
+  }
+
+  /* A vs B diff arrow stacks vertically on mobile. */
+  .ck-diff-arrow {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem;
+  }
+  .ck-diff-label {
+    min-width: 0;
+    text-align: left;
+    flex: 1 0 100%;
+  }
+  .ck-diff-side {
+    flex: 1;
+    min-width: 0;
+  }
+  .ck-diff-arrow-glyph {
+    font-size: 1.1rem;
+  }
+
+  .ck-waffle-grid {
+    grid-template-columns: repeat(10, 12px);
+    gap: 2px;
+  }
+  .ck-waffle-cell {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  .ck-lang-tabs {
+    gap: 0.3rem;
+  }
+  .ck-lang-tab {
+    padding: 0.32rem 0.65rem;
+    font-size: 0.78rem;
+  }
+  .ck-inference-card {
+    padding: 0.65rem 0.8rem;
+  }
+  .ck-inference-card .body {
+    font-size: 0.83rem;
+    line-height: 1.55;
+  }
+  .ck-ref-pill {
+    font-size: 0.65rem;
+    padding: 0.05rem 0.45rem;
+  }
+
+  .ck-chart-caption {
+    font-size: 0.75rem;
+    margin: 0.3rem 0 0.85rem;
+  }
+
+  .ck-hero {
+    gap: 1rem;
+  }
+  .ck-hero-right {
+    padding: 1.2rem 1rem;
+  }
+  .ck-hero-right h2 {
+    font-size: 1.3rem;
+  }
+  .ck-hero-right h3 {
+    font-size: 0.92rem;
+  }
+  .ck-hero-right p {
+    font-size: 0.85rem;
+  }
+  .ck-rice-row {
+    font-size: 1.6rem;
+  }
+
+  .ck-welcome {
+    padding: 1.1rem 1rem;
+    border-radius: 16px;
+  }
+
+  hr {
+    margin: 1rem 0;
+  }
+}
+
+/* ── Small mobile (≤ 420px) ────────────────────────────────────────────── */
+@media (max-width: 420px) {
+  .ck-main {
+    padding: 0.7rem 0.5rem 1rem;
+  }
+  .ck-topbar {
+    padding: 0 0.5rem;
+  }
+  .ck-profile-text {
+    display: none;
+  }
+  .ck-tabpanel {
+    padding: 0.75rem 0.65rem;
+  }
+
+  .ck-metrics-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .ck-metric-value {
+    font-size: 1rem;
+  }
+
+  .ck-gauges-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+  }
+  .ck-gauge {
+    padding: 0.6rem 0.5rem;
+  }
+  .ck-gauge-ring {
+    width: 76px;
+    height: 76px;
+  }
+  .ck-gauge-inner {
+    width: 56px;
+    height: 56px;
+  }
+
+  .ck-speedo-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ck-waffle-grid {
+    grid-template-columns: repeat(10, 10px);
+    gap: 2px;
+  }
+  .ck-waffle-cell {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  .ck-radio-group {
+    width: 100%;
+  }
+  .ck-radio-group label {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* ── Landscape phones / large tablets fine-tuning (≤ 1024px) ───────────── */
+@media (max-width: 1024px) {
+  .ck-tabpanel {
+    padding: 1.25rem;
+  }
+  .ck-feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ck-search {
+    min-width: 0;
+    flex: 0 1 200px;
+  }
+}
+
+/* Touch devices: remove hover transforms that feel jittery on tap. */
+@media (hover: none) {
+  .ck-feature-card:hover,
+  .ck-metric:hover,
+  .ck-kpi-card:hover,
+  .ck-cta-ghost:hover {
+    transform: none;
+  }
+}
+
+/* ── Tabs theme: charcoal / sage tint ─────────────────────────────────── */
+.ck-shell {
+  background:
+    radial-gradient(
+      1100px 500px at 0% -10%,
+      rgba(90, 118, 103, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 100% 0%,
+      rgba(120, 154, 136, 0.12),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #323b37 0%, #242b28 100%);
+}
+.ck-topbar {
+  background: linear-gradient(
+    180deg,
+    rgba(50, 59, 55, 0.96) 0%,
+    rgba(37, 44, 41, 0.92) 100%
+  );
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+.ck-topbar-title h1,
+.ck-topbar-title p {
+  color: var(--ck-tabs-text);
+}
+.ck-topbar-title p,
+.ck-profile-role,
+.ck-field small,
+.ck-muted,
+.ck-chart-caption,
+.ck-waffle-legend,
+.ck-bullet-unit,
+.ck-kpi-title,
+.ck-kpi-sub,
+.ck-metric-label,
+.ck-search input::placeholder {
+  color: var(--ck-tabs-text-muted);
+}
+.ck-icon-btn,
+.ck-search,
+.ck-lang-select,
+.ck-profile {
+  background: var(--ck-tabs-surface-soft);
+  border-color: var(--ck-tabs-border);
+  color: var(--ck-tabs-text);
+}
+.ck-icon-btn:hover,
+.ck-search:focus-within,
+.ck-lang-select:focus {
+  background: rgba(50, 59, 55, 0.98);
+  border-color: rgba(167, 243, 208, 0.28);
+  box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.12);
+}
+.ck-search input,
+.ck-lang-select,
+.ck-profile-name,
+.ck-field,
+.ck-field input,
+.ck-field select,
+.ck-tabpanel,
+.ck-tabpanel h2,
+.ck-tabpanel h3,
+.ck-tabpanel h4,
+.ck-section-h,
+.ck-scenario-line,
+.ck-bullet-title,
+.ck-waffle-header,
+.ck-kpi-value,
+.ck-metric-value,
+.ck-welcome-text h2,
+.ck-hero-right h2,
+.ck-hero-right h3,
+.ck-hero-right p,
+.ck-cta-ghost,
+.ck-btn,
+.ck-lang-tab,
+.ck-mode-btn,
+.ck-inference-card .title,
+.ck-inference-card .body {
+  color: var(--ck-tabs-text);
+}
+.ck-main {
+  background: linear-gradient(
+    180deg,
+    rgba(18, 24, 21, 0.24) 0%,
+    rgba(18, 24, 21, 0.08) 100%
+  );
+}
+.ck-tabpanel,
+.ck-main .ck-input-block,
+.ck-main .ck-radio-group,
+.ck-main .ck-metric,
+.ck-main .ck-chart,
+.ck-main .ck-gauge,
+.ck-main .ck-scenario-card,
+.ck-main .ck-waffle-wrap,
+.ck-main .ck-bullet,
+.ck-main .ck-callout,
+.ck-main .ck-details,
+.ck-main .ck-mode-btn,
+.ck-main .ck-lang-tab,
+.ck-main .ck-kpi-card,
+.ck-main .ck-feature-card,
+.ck-main .ck-inference-card,
+.ck-main .ck-source-list,
+.ck-main .ck-table,
+.ck-main .ck-search,
+.ck-main .ck-lang-select,
+.ck-main .ck-profile,
+.ck-main .ck-slider-block,
+.ck-main .ck-cta-ghost,
+.ck-main .ck-welcome,
+.ck-main .ck-hero-right {
+  background: linear-gradient(
+    180deg,
+    rgba(50, 59, 55, 0.96) 0%,
+    rgba(36, 43, 40, 0.92) 100%
+  );
+  border-color: var(--ck-tabs-border);
+  box-shadow: 0 18px 38px rgba(8, 13, 11, 0.24);
+}
+.ck-tabpanel {
+  color: var(--ck-tabs-text);
+}
+.ck-tabpanel#t0 {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.ck-main .ck-radio-group,
+.ck-main .ck-lang-tab,
+.ck-main .ck-mode-btn,
+.ck-main .ck-cta-ghost {
+  color: var(--ck-tabs-text);
+}
+.ck-main .ck-radio-group label:has(input:checked),
+.ck-main .ck-lang-tab.active,
+.ck-main .ck-mode-btn.active {
+  background: rgba(167, 243, 208, 0.16);
+  color: #f8fffb;
+}
+.ck-main .ck-field input,
+.ck-main .ck-field select {
+  background: rgba(24, 30, 27, 0.72);
+  color: var(--ck-tabs-text);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Dropdown popup options — browsers render <option> with OS defaults that
+   inherit text color but keep a white background, making options unreadable
+   on dark themes. Force a dark popup with white text everywhere. */
+.ck-field select option,
+.ck-main .ck-field select option,
+.ck-lang-select option {
+  background-color: #1f2a26 !important;
+  color: #f1f5f9 !important;
+}
+.ck-field select option:checked,
+.ck-field select option:hover,
+.ck-main .ck-field select option:checked,
+.ck-main .ck-field select option:hover {
+  background-color: #2d3a35 !important;
+  color: #ffffff !important;
+}
+.ck-main .ck-field input:focus,
+.ck-main .ck-field select:focus {
+  border-color: rgba(167, 243, 208, 0.35);
+  box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.14);
+}
+.ck-main .ck-info,
+.ck-main .ck-warning-card,
+.ck-main .ck-success-card {
+  background: rgba(24, 30, 27, 0.72);
+}
+.ck-main .ck-info,
+.ck-main .ck-success-card {
+  color: #dff9ea;
+  border-color: rgba(167, 243, 208, 0.18);
+}
+.ck-main .ck-warning-card {
+  color: #ffe7c2;
+  border-color: rgba(251, 191, 36, 0.26);
+}
+.ck-main .ck-feature-card h4,
+.ck-main .ck-kpi-card,
+.ck-main .ck-kpi-value,
+.ck-main .ck-metric-value,
+.ck-main .ck-gauge-value,
+.ck-main .ck-gauge-value-large,
+.ck-main .ck-profile-name,
+.ck-main .ck-topbar-title h1,
+.ck-main .ck-section-h {
+  color: var(--ck-tabs-text);
+}
+.ck-main .ck-feature-card p,
+.ck-main .ck-inference-card .body,
+.ck-main .ck-chart-caption,
+.ck-main .ck-profile-role,
+.ck-main .ck-kpi-sub,
+.ck-main .ck-field small,
+.ck-main .ck-waffle-legend,
+.ck-main .ck-bullet-unit,
+.ck-main .ck-chart-caption strong {
+  color: var(--ck-tabs-text-muted);
+}
+.ck-main .ck-chart,
+.ck-chart > .plotly,
+.ck-chart .js-plotly-plot,
+.ck-chart .plot-container,
+.ck-chart .plotly {
+  background: transparent !important;
+}
+
+/* ── Theme toggle button (dashboard topbar) ───────────────────────────── */
+.ck-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--ck-border);
+  background: var(--ck-surface);
+  color: var(--ck-text);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+}
+.ck-theme-toggle:hover {
+  background: var(--ck-surface-strong);
+  transform: translateY(-1px);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.ck-theme-toggle:active {
+  transform: translateY(0);
+}
+:root[data-theme="dark"] .ck-theme-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f1f5f4;
+}
+:root[data-theme="dark"] .ck-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* Plotly Sankey / treemap node labels: remove the default white text-shadow
+   halo (designed for light backgrounds) and the SVG stroke outline so the
+   labels render as plain white text on our dark theme. */
+.ck-chart .node-label,
+.ck-chart text.node-label,
+.ck-chart .sankey .node-label,
+.ck-chart .treemap .slicetext {
+  fill: #ffffff !important;
+  stroke: none !important;
+  paint-order: fill !important;
+  text-shadow: none !important;
+}
+.ck-chart .node-label tspan,
+.ck-chart text.node-label tspan {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN-SYSTEM REVAMP  (2026 brand refresh) — DASHBOARD
+   bg #FFFFFF · text #052424 · primary #829292 · accent #ABFF02 · radius 8px
+   This block is the LAST cascade layer in the file, so its tokens win.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+    /* Re-map every legacy accent variable to the brand palette. */
+    --ck-accent-1:        #ABFF02;
+    --ck-accent-2:        #052424;
+    --ck-accent-3:        #ABFF02;
+    --ck-text:            #052424;
+    --ck-text-muted:      #829292;
+    --ck-page-bg:         #FFFFFF;
+    --ck-side-bg-1:       #FFFFFF;
+    --ck-side-bg-2:       #F6F7F5;
+    --ck-surface:         #FFFFFF;
+    --ck-surface-strong:  #FFFFFF;
+    --ck-border:          rgba(5, 36, 36, 0.10);
+    --ck-shadow:          0 8px 22px rgba(5, 36, 36, 0.06);
+    --ck-shadow-soft:     0 4px 14px rgba(5, 36, 36, 0.04);
+    --ck-tabs-bg:         #FFFFFF;
+    --ck-tabs-surface:    #FFFFFF;
+    --ck-tabs-surface-soft: #F6F7F5;
+    --ck-tabs-border:     rgba(5, 36, 36, 0.10);
+    --ck-tabs-text:       #052424;
+    --ck-tabs-text-muted: #829292;
+}
+
+html, body {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    color: #052424 !important;
+    font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+}
+.ck-shell {
+    background: #FFFFFF !important;
+    background-image: none !important;
+}
+
+/* ── Sidebar: light surface ──────────────────────────────────────────── */
+.ck-sidebar {
+    background: #F6F7F5 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: #052424 !important;
+    border-right: 1px solid rgba(5, 36, 36, 0.08) !important;
+    box-shadow: none !important;
+}
+.ck-sidebar::before { display: none !important; }
+.ck-sidebar .ck-brand,
+.ck-sidebar .ck-brand-name { color: #052424 !important; }
+.ck-sidebar .ck-brand-tag,
+.ck-sidebar .ck-side-foot small,
+.ck-sidebar .ck-side-foot-sub { color: #829292 !important; }
+.ck-brand-mark {
+    background: #ABFF02 !important;
+    color: #052424 !important;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+}
+.ck-side-link {
+    color: #052424 !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+}
+.ck-side-link:hover {
+    background: rgba(5, 36, 36, 0.05) !important;
+    color: #052424 !important;
+    border-color: transparent !important;
+}
+.ck-side-link.active,
+.ck-tab.active.ck-side-link {
+    background: #ABFF02 !important;
+    background-image: none !important;
+    color: #052424 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+.ck-side-link.active::before { background: #052424 !important; }
+.ck-side-foot {
+    border-top: 1px solid rgba(5, 36, 36, 0.08) !important;
+}
+.ck-side-foot-card {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(5, 36, 36, 0.10) !important;
+    border-radius: 8px !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+.ck-side-foot-title { color: #052424 !important; }
+
+/* ── Topbar ──────────────────────────────────────────────────────────── */
+.ck-topbar {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    border-bottom: 1px solid rgba(5, 36, 36, 0.08) !important;
+    box-shadow: none !important;
+}
+.ck-topbar-title h1 {
+    color: #052424 !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em;
+}
+.ck-topbar-title p, .ck-muted { color: #829292 !important; }
+
+.ck-search {
+    background: transparent !important;
+    border: 1px solid rgba(5, 36, 36, 0.12) !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+.ck-search input {
+    background: transparent !important;
+    color: #052424 !important;
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+}
+.ck-search input::placeholder { color: #829292 !important; }
+
+.ck-icon-btn,
+.ck-theme-toggle,
+.ck-lang-select,
+.ck-profile {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(5, 36, 36, 0.12) !important;
+    border-radius: 8px !important;
+    color: #052424 !important;
+    box-shadow: none !important;
+}
+.ck-icon-btn:hover, .ck-theme-toggle:hover { background: #F6F7F5 !important; }
+
+/* ── Headings / typography ───────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6,
+.ck-section-h, .ck-tabpanel h2, .ck-tabpanel h3, .ck-tabpanel h4,
+.ck-welcome-text h2, .ck-feature-card h4 {
+    font-family: "Poppins", "SuisseIntl", sans-serif !important;
+    color: #052424 !important;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+}
+p, label, dd, dt, li, .ck-tabpanel p, .ck-feature-card p {
+    color: #052424 !important;
+}
+.ck-chart-caption, .ck-muted, .ck-metric-label, .ck-metric-unit,
+.ck-kpi-title, .ck-kpi-sub, .ck-gauge-label, .ck-gauge-sub,
+.ck-bullet-title, .ck-bullet-unit, .ck-scenario-line, .ck-lede,
+.ck-profile-name, .ck-profile-role { color: #829292 !important; }
+
+/* Numeric values → Geist Mono */
+.ck-metric-value, .ck-kpi-value, .ck-gauge-value,
+.ck-gauge-value-large, .ck-diff-val {
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+    color: #052424 !important;
+    font-feature-settings: "tnum", "ss01";
+}
+
+/* ── Cards / surfaces — uniform 8px white cards ──────────────────────── */
+.ck-tabpanel,
+.ck-input-block,
+.ck-slider-block,
+.ck-feature-card,
+.ck-metric,
+.ck-kpi-card,
+.ck-scenario-card,
+.ck-bullet,
+.ck-gauge,
+.ck-callout,
+.ck-inference-card,
+.ck-chart,
+.ck-waffle-wrap,
+.ck-source-list,
+.ck-details {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    border: 1px solid rgba(5, 36, 36, 0.10) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 14px rgba(5, 36, 36, 0.04) !important;
+    color: #052424 !important;
+}
+.ck-feature-card::before { background: #ABFF02 !important; opacity: 1 !important; }
+.ck-feature-card:hover {
+    border-color: rgba(171, 255, 2, 0.50) !important;
+    box-shadow: 0 8px 22px rgba(5, 36, 36, 0.08) !important;
+}
+.ck-metric:hover {
+    border-color: rgba(171, 255, 2, 0.50) !important;
+    box-shadow: 0 8px 22px rgba(5, 36, 36, 0.08), 0 0 0 2px rgba(171, 255, 2, 0.15) !important;
+}
+
+/* ── Buttons — primary lime, secondary white ─────────────────────────── */
+.ck-cta,
+.ck-primary-btn,
+button[type="submit"]:not(.ck-cta-ghost):not(.ck-side-link) {
+    background: #ABFF02 !important;
+    color: #052424 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    font-family: "Poppins", "SuisseIntl", sans-serif !important;
+    font-weight: 600 !important;
+}
+.ck-cta:hover, .ck-primary-btn:hover {
+    background: #BFFF3D !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(171, 255, 2, 0.40) !important;
+}
+.ck-cta-ghost {
+    background: #FFFFFF !important;
+    color: #052424 !important;
+    border: 1px solid #052424 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+/* ── Form controls ───────────────────────────────────────────────────── */
+.ck-field input, .ck-field select, .ck-lang-select {
+    background: transparent !important;
+    border: 1px solid rgba(5, 36, 36, 0.15) !important;
+    border-radius: 8px !important;
+    color: #052424 !important;
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+    box-shadow: none !important;
+}
+.ck-field input:focus, .ck-field select:focus {
+    border-color: #ABFF02 !important;
+    outline: 2px solid rgba(171, 255, 2, 0.30) !important;
+    outline-offset: 0 !important;
+}
+
+/* Radio / mode pill groups */
+.ck-radio-group,
+.ck-mode-btn,
+.ck-lang-tab {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(5, 36, 36, 0.12) !important;
+    border-radius: 8px !important;
+    color: #052424 !important;
+    box-shadow: none !important;
+}
+.ck-radio-group label { color: #052424 !important; border-radius: 6px !important; }
+.ck-radio-group label:has(input:checked) {
+    background: rgba(171, 255, 2, 0.20) !important;
+    color: #052424 !important;
+    box-shadow: inset 0 0 0 1px #ABFF02 !important;
+}
+.ck-radio-group input { accent-color: #ABFF02 !important; }
+.ck-lang-tab.active,
+.ck-mode-btn.active {
+    background: #ABFF02 !important;
+    background-image: none !important;
+    color: #052424 !important;
+    border-color: transparent !important;
+}
+
+/* Tabs in sidebar (already covered) — also tablist in tab panels if any */
+.ck-tab {
+    border-radius: 8px !important;
+}
+
+/* ── Inference cards ─────────────────────────────────────────────────── */
+.ck-inference-card {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    border: 1px solid rgba(5, 36, 36, 0.10) !important;
+    border-left: 3px solid #ABFF02 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+.ck-inference-card .title { color: #052424 !important; }
+.ck-inference-card .body  { color: #052424 !important; font-family: "Geist Mono", ui-monospace, monospace !important; }
+
+/* ── Gauges ──────────────────────────────────────────────────────────── */
+/* Outer card. */
+.ck-gauge { background: #FFFFFF !important; background-image: none !important; }
+/* The ring's `background` is set inline by renderGauge() in widgets.js as a
+   conic-gradient driven by the live percentage. We MUST NOT override it with
+   !important here, or the inline style gets killed and the ring disappears.
+   We only adjust ancillary visual polish below. */
+.ck-gauge-ring {
+    box-shadow: none !important;
+    border-radius: 50% !important;
+}
+.ck-gauge-inner {
+    background: #FFFFFF !important;
+    box-shadow: inset 0 1px 4px rgba(5, 36, 36, 0.06) !important;
+}
+.ck-gauge-value, .ck-gauge-value-large { color: #052424 !important; }
+.ck-gauge-bench { color: #829292 !important; }
+
+/* Dark-mode gauge inner — keep an opaque dark surface so the ring reads
+   cleanly behind it, but never override the ring's inline conic-gradient. */
+:root[data-theme="dark"] .ck-gauge-inner {
+    background: #0a2e2a !important;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+:root[data-theme="dark"] .ck-gauge-value,
+:root[data-theme="dark"] .ck-gauge-value-large,
+:root[data-theme="dark"] .ck-gauge-bench { color: #FFFFFF !important; }
+
+/* ── Callouts ────────────────────────────────────────────────────────── */
+.ck-callout.info {
+    background: rgba(5, 36, 36, 0.04) !important;
+    color: #052424 !important;
+    border-color: rgba(5, 36, 36, 0.15) !important;
+}
+.ck-callout.success {
+    background: rgba(171, 255, 2, 0.15) !important;
+    color: #052424 !important;
+    border-color: rgba(171, 255, 2, 0.50) !important;
+}
+.ck-callout.warning {
+    background: rgba(245, 158, 11, 0.10) !important;
+    color: #7c2d12 !important;
+    border-color: rgba(245, 158, 11, 0.35) !important;
+}
+
+/* ── Links ───────────────────────────────────────────────────────────── */
+a { color: #052424; }
+a:hover { color: #052424; opacity: 0.7; }
+
+/* ── DARK theme rebalanced to brand ──────────────────────────────────── */
+:root[data-theme="dark"] {
+    background: #052424 !important;
+    color: #FFFFFF;
+    --ck-page-bg: #052424;
+    --ck-side-bg-1: #0a3232;
+    --ck-side-bg-2: #052424;
+    --ck-text: #FFFFFF;
+    --ck-text-muted: rgba(255,255,255,0.65);
+    --ck-border: rgba(255,255,255,0.10);
+}
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .ck-shell { background: #052424 !important; }
+:root[data-theme="dark"] .ck-sidebar { background: #0a3232 !important; color: #FFFFFF !important; }
+:root[data-theme="dark"] .ck-sidebar .ck-brand,
+:root[data-theme="dark"] .ck-sidebar .ck-brand-name,
+:root[data-theme="dark"] .ck-side-link { color: rgba(255,255,255,0.85) !important; }
+:root[data-theme="dark"] .ck-side-link.active { background: #ABFF02 !important; color: #052424 !important; }
+:root[data-theme="dark"] .ck-topbar { background: #052424 !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
+:root[data-theme="dark"] .ck-topbar-title h1 { color: #FFFFFF !important; }
+:root[data-theme="dark"] .ck-tabpanel,
+:root[data-theme="dark"] .ck-input-block,
+:root[data-theme="dark"] .ck-slider-block,
+:root[data-theme="dark"] .ck-feature-card,
+:root[data-theme="dark"] .ck-metric,
+:root[data-theme="dark"] .ck-kpi-card,
+:root[data-theme="dark"] .ck-scenario-card,
+:root[data-theme="dark"] .ck-bullet,
+:root[data-theme="dark"] .ck-gauge,
+:root[data-theme="dark"] .ck-inference-card,
+:root[data-theme="dark"] .ck-chart {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.10) !important;
+    color: #FFFFFF !important;
+}
+:root[data-theme="dark"] h1, :root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3, :root[data-theme="dark"] h4,
+:root[data-theme="dark"] .ck-metric-value,
+:root[data-theme="dark"] .ck-kpi-value,
+:root[data-theme="dark"] .ck-gauge-value,
+:root[data-theme="dark"] .ck-gauge-value-large,
+:root[data-theme="dark"] .ck-inference-card .title { color: #FFFFFF !important; }
+:root[data-theme="dark"] p, :root[data-theme="dark"] label,
+:root[data-theme="dark"] .ck-inference-card .body,
+:root[data-theme="dark"] .ck-tabpanel p { color: #e2e8f0 !important; }
+:root[data-theme="dark"] .ck-muted,
+:root[data-theme="dark"] .ck-metric-label,
+:root[data-theme="dark"] .ck-gauge-label,
+:root[data-theme="dark"] .ck-kpi-title { color: rgba(255,255,255,0.65) !important; }
+:root[data-theme="dark"] .ck-search,
+:root[data-theme="dark"] .ck-icon-btn,
+:root[data-theme="dark"] .ck-theme-toggle,
+:root[data-theme="dark"] .ck-lang-select,
+:root[data-theme="dark"] .ck-profile {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+    color: #FFFFFF !important;
+}
+:root[data-theme="dark"] .ck-search input { color: #FFFFFF !important; }
+:root[data-theme="dark"] .ck-field input,
+:root[data-theme="dark"] .ck-field select {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+    color: #FFFFFF !important;
+}
+:root[data-theme="dark"] a { color: #ABFF02 !important; }
+
+/* ── Dark-mode text contrast booster — every text node inside dashboard
+       cards reads as bright white or near-white (no more dim gray-on-dark). */
+:root[data-theme="dark"] .ck-main,
+:root[data-theme="dark"] .ck-main p,
+:root[data-theme="dark"] .ck-main li,
+:root[data-theme="dark"] .ck-main ol li,
+:root[data-theme="dark"] .ck-main ul li,
+:root[data-theme="dark"] .ck-main dd,
+:root[data-theme="dark"] .ck-main dt,
+:root[data-theme="dark"] .ck-main label,
+:root[data-theme="dark"] .ck-main span,
+:root[data-theme="dark"] .ck-main strong,
+:root[data-theme="dark"] .ck-input-block,
+:root[data-theme="dark"] .ck-input-block *,
+:root[data-theme="dark"] .ck-feature-card *,
+:root[data-theme="dark"] .ck-callout,
+:root[data-theme="dark"] .ck-callout * { color: #f1f5f4 !important; }
+
+:root[data-theme="dark"] .ck-main .ck-muted,
+:root[data-theme="dark"] .ck-main .ck-kpi-title,
+:root[data-theme="dark"] .ck-main .ck-kpi-sub,
+:root[data-theme="dark"] .ck-main .ck-metric-label,
+:root[data-theme="dark"] .ck-main .ck-metric-unit,
+:root[data-theme="dark"] .ck-main .ck-gauge-label,
+:root[data-theme="dark"] .ck-main .ck-gauge-sub,
+:root[data-theme="dark"] .ck-main .ck-bullet-unit,
+:root[data-theme="dark"] .ck-main .ck-chart-caption,
+:root[data-theme="dark"] .ck-main .ck-section-h small { color: rgba(255, 255, 255, 0.72) !important; }
+
+:root[data-theme="dark"] .ck-main strong,
+:root[data-theme="dark"] .ck-main b { color: #ABFF02 !important; }
+
+/* Sidebar text in dark mode */
+:root[data-theme="dark"] .ck-sidebar,
+:root[data-theme="dark"] .ck-sidebar * { color: #f1f5f4 !important; }
+:root[data-theme="dark"] .ck-sidebar .ck-side-foot small,
+:root[data-theme="dark"] .ck-sidebar .ck-side-foot-sub,
+:root[data-theme="dark"] .ck-sidebar .ck-brand-tag { color: rgba(255, 255, 255, 0.55) !important; }
+:root[data-theme="dark"] .ck-sidebar .ck-side-link.active,
+:root[data-theme="dark"] .ck-sidebar .ck-side-link.active * { color: #052424 !important; }
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN-SYSTEM REVAMP — DASHBOARD (round 2)
+   Higher-specificity overrides that beat the legacy `.ck-main descendant`
+   block (≈ line 2580-2700) which forces a dark tabs-surface gradient onto
+   cards inside the main panel. Also brand-align the Overview welcome
+   banner, the .ck-btn primary, the .ck-pill eyebrow, and KPI tone variants.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── Overview welcome banner — dark-to-lime gradient hero, 8px radius ── */
+.ck-main .ck-welcome,
+:root .ck-welcome {
+    background-color: #052424 !important;
+    background-image:
+        radial-gradient(600px 320px at 100% 100%, rgba(171, 255, 2, 0.35), transparent 65%),
+        linear-gradient(115deg,
+            #052424 0%,
+            #0a3a2c 30%,
+            #2d6a1f 60%,
+            #6FA800 85%,
+            #ABFF02 100%) !important;
+    border: 1px solid rgba(171, 255, 2, 0.25) !important;
+    border-radius: 8px !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 12px 30px rgba(5, 36, 36, 0.30) !important;
+}
+.ck-main .ck-welcome::before,
+.ck-welcome::before {
+    background: radial-gradient(circle, rgba(171, 255, 2, 0.30), transparent 70%) !important;
+}
+.ck-main .ck-welcome h2,
+.ck-welcome-text h2 {
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+}
+.ck-main .ck-welcome p,
+.ck-welcome-text p,
+.ck-main .ck-welcome .ck-muted { color: rgba(255, 255, 255, 0.80) !important; }
+
+/* ── Eyebrow pill on welcome banner ──────────────────────────────────── */
+.ck-pill {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 999px !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-family: "Poppins", "SuisseIntl", sans-serif !important;
+    font-weight: 500 !important;
+}
+.ck-pill-dot {
+    background: #ABFF02 !important;
+    box-shadow: 0 0 0 3px rgba(171, 255, 2, 0.30) !important;
+}
+
+/* ── Primary button (.ck-btn) used in welcome banner & elsewhere ─────── */
+.ck-btn,
+.ck-main .ck-btn {
+    background: #052424 !important;
+    background-image: none !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    font-family: "Poppins", "SuisseIntl", sans-serif !important;
+    font-weight: 600 !important;
+    padding: 0.7rem 1.2rem !important;
+}
+.ck-btn:hover,
+.ck-main .ck-btn:hover {
+    background: #052424 !important;
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(5, 36, 36, 0.20) !important;
+}
+
+/* Ghost button — white surface with deep-teal border on the lime banner */
+.ck-cta-ghost,
+.ck-main .ck-cta-ghost {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    color: #052424 !important;
+    border: 1px solid #052424 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    font-family: "Poppins", "SuisseIntl", sans-serif !important;
+    font-weight: 600 !important;
+}
+.ck-cta-ghost:hover,
+.ck-main .ck-cta-ghost:hover {
+    background: #F6F7F5 !important;
+    border-color: #052424 !important;
+}
+
+/* ── Override the legacy `.ck-main` dark surface block on cards ───────── */
+.ck-main .ck-tabpanel,
+.ck-main .ck-input-block,
+.ck-main .ck-slider-block,
+.ck-main .ck-feature-card,
+.ck-main .ck-metric,
+.ck-main .ck-kpi-card,
+.ck-main .ck-scenario-card,
+.ck-main .ck-bullet,
+.ck-main .ck-gauge,
+.ck-main .ck-callout,
+.ck-main .ck-inference-card,
+.ck-main .ck-chart,
+.ck-main .ck-waffle-wrap,
+.ck-main .ck-source-list,
+.ck-main .ck-details,
+.ck-main .ck-table {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    border: 1px solid rgba(5, 36, 36, 0.10) !important;
+    border-radius: 8px !important;
+    color: #052424 !important;
+    box-shadow: 0 4px 14px rgba(5, 36, 36, 0.04) !important;
+}
+.ck-main .ck-feature-card h4,
+.ck-main .ck-kpi-card,
+.ck-main .ck-kpi-value,
+.ck-main .ck-metric-value,
+.ck-main .ck-gauge-value,
+.ck-main .ck-gauge-value-large,
+.ck-main .ck-section-h,
+.ck-main .ck-topbar-title h1 { color: #052424 !important; }
+.ck-main .ck-feature-card p,
+.ck-main .ck-inference-card .body,
+.ck-main .ck-chart-caption,
+.ck-main .ck-kpi-title,
+.ck-main .ck-kpi-sub,
+.ck-main .ck-field small,
+.ck-main .ck-bullet-unit { color: #829292 !important; }
+
+/* Field inputs / selects inside .ck-main */
+.ck-main .ck-field input,
+.ck-main .ck-field select {
+    background: transparent !important;
+    color: #052424 !important;
+    border: 1px solid rgba(5, 36, 36, 0.15) !important;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+}
+.ck-main .ck-field input:focus,
+.ck-main .ck-field select:focus {
+    border-color: #ABFF02 !important;
+    box-shadow: 0 0 0 3px rgba(171, 255, 2, 0.25) !important;
+}
+.ck-field select option,
+.ck-main .ck-field select option,
+.ck-lang-select option {
+    background-color: #FFFFFF !important;
+    color: #052424 !important;
+}
+.ck-field select option:checked,
+.ck-field select option:hover,
+.ck-main .ck-field select option:checked,
+.ck-main .ck-field select option:hover {
+    background-color: #F6F7F5 !important;
+    color: #052424 !important;
+}
+
+/* Radio / mode pill / lang tab inside .ck-main */
+.ck-main .ck-radio-group,
+.ck-main .ck-mode-btn,
+.ck-main .ck-lang-tab,
+.ck-main .ck-cta-ghost { color: #052424 !important; }
+.ck-main .ck-radio-group label:has(input:checked),
+.ck-main .ck-lang-tab.active,
+.ck-main .ck-mode-btn.active {
+    background: rgba(171, 255, 2, 0.20) !important;
+    color: #052424 !important;
+    box-shadow: inset 0 0 0 1px #ABFF02 !important;
+}
+
+/* ── KPI cards: re-tone every variant onto the brand palette ─────────── */
+.ck-kpi-card,
+.ck-main .ck-kpi-card {
+    --kpi-accent: #ABFF02;
+    --kpi-bg: rgba(171, 255, 2, 0.18);
+}
+.ck-kpi-card.tone-green,
+.ck-main .ck-kpi-card.tone-green {
+    --kpi-accent: #ABFF02;
+    --kpi-bg: rgba(171, 255, 2, 0.18);
+}
+.ck-kpi-card.tone-amber,
+.ck-main .ck-kpi-card.tone-amber {
+    --kpi-accent: #052424;
+    --kpi-bg: rgba(5, 36, 36, 0.08);
+}
+.ck-kpi-card.tone-blue,
+.ck-main .ck-kpi-card.tone-blue {
+    --kpi-accent: #829292;
+    --kpi-bg: rgba(130, 146, 146, 0.18);
+}
+.ck-kpi-card.tone-teal,
+.ck-main .ck-kpi-card.tone-teal {
+    --kpi-accent: #052424;
+    --kpi-bg: rgba(5, 36, 36, 0.10);
+}
+.ck-kpi-card.tone-purple,
+.ck-main .ck-kpi-card.tone-purple {
+    --kpi-accent: #ABFF02;
+    --kpi-bg: rgba(171, 255, 2, 0.14);
+}
+.ck-kpi-card.tone-indigo,
+.ck-main .ck-kpi-card.tone-indigo {
+    --kpi-accent: #829292;
+    --kpi-bg: rgba(130, 146, 146, 0.14);
+}
+.ck-kpi-card::before,
+.ck-main .ck-kpi-card::before {
+    background: var(--kpi-accent, #ABFF02) !important;
+}
+.ck-kpi-ico,
+.ck-main .ck-kpi-ico {
+    background: var(--kpi-bg, rgba(171, 255, 2, 0.18)) !important;
+    border-radius: 8px !important;
+    color: #052424 !important;
+}
+.ck-kpi-card:hover,
+.ck-main .ck-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(5, 36, 36, 0.08) !important;
+    border-color: rgba(171, 255, 2, 0.50) !important;
+}
+
+/* ── Section headings inside dashboard ──────────────────────────────── */
+.ck-section-h,
+.ck-main .ck-section-h {
+    color: #052424 !important;
+    font-family: "Poppins", "SuisseIntl", sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* ── Dashboard topbar pieces — make sure they're on brand ─────────────── */
+.ck-search,
+.ck-main .ck-search,
+.ck-icon-btn,
+.ck-main .ck-icon-btn,
+.ck-lang-select,
+.ck-main .ck-lang-select,
+.ck-profile,
+.ck-main .ck-profile,
+.ck-theme-toggle,
+.ck-main .ck-theme-toggle {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(5, 36, 36, 0.10) !important;
+    border-radius: 8px !important;
+    color: #052424 !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.ck-search input,
+.ck-main .ck-search input { color: #052424 !important; font-family: "Geist Mono", ui-monospace, monospace !important; }
+.ck-search input::placeholder,
+.ck-main .ck-search input::placeholder { color: #829292 !important; }
+
+/* ── Profile chip — small avatar bubble + name/role ──────────────────── */
+.ck-profile-name { color: #052424 !important; font-family: "Poppins", sans-serif !important; }
+.ck-profile-role { color: #829292 !important; }
+
+/* ── Inference cards — keep lime left rule ───────────────────────────── */
+.ck-main .ck-inference-card {
+    border-left: 3px solid #ABFF02 !important;
+}
+.ck-main .ck-inference-card .title { color: #052424 !important; }
+.ck-main .ck-inference-card .body  { color: #052424 !important; font-family: "Geist Mono", ui-monospace, monospace !important; }
+
+/* ── Tabpanel #t0 (Overview) — explicit transparent so the body gradient
+       shows through and the white cards float on it. ─────────────────── */
+.ck-tabpanel#t0,
+.ck-main .ck-tabpanel#t0 {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Plotly text colour back to dark ink in light mode ───────────────── */
+:root:not([data-theme="dark"]) .ck-chart .node-label,
+:root:not([data-theme="dark"]) .ck-chart text.node-label,
+:root:not([data-theme="dark"]) .ck-chart .sankey .node-label,
+:root:not([data-theme="dark"]) .ck-chart .treemap .slicetext {
+    fill: #052424 !important;
+}
+:root:not([data-theme="dark"]) .ck-chart .node-label tspan,
+:root:not([data-theme="dark"]) .ck-chart text.node-label tspan {
+    fill: #052424 !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESIGN-SYSTEM POLISH LAYER — make the dashboard beautiful in BOTH modes.
+   - Ambient gradient backdrops on the page + tabpanels
+   - Glassy cards with refined borders + subtle inner sheen
+   - Lime accent rails on KPIs, metrics, inference cards, section headings
+   - Tabular Geist Mono numerics with confident weight
+   - Buttery hover lifts and lime focus rings
+   This block is the LAST cascade layer in the file.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── Section headings — lime micro-rail on the left ──────────────────── */
+.ck-section-h,
+.ck-main .ck-section-h {
+    position: relative;
+    padding-left: 0.85rem;
+    margin: 1.6rem 0 0.85rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.005em !important;
+}
+.ck-section-h::before,
+.ck-main .ck-section-h::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.18em; bottom: 0.18em;
+    width: 3px;
+    background: #ABFF02;
+    border-radius: 2px;
+}
+
+/* ── Buttery card transitions (both themes) ──────────────────────────── */
+.ck-main .ck-feature-card,
+.ck-main .ck-kpi-card,
+.ck-main .ck-metric,
+.ck-main .ck-bullet,
+.ck-main .ck-gauge,
+.ck-main .ck-inference-card,
+.ck-main .ck-input-block,
+.ck-main .ck-slider-block,
+.ck-main .ck-scenario-card,
+.ck-main .ck-chart {
+    transition:
+        transform 0.22s cubic-bezier(.2,.8,.2,1),
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease !important;
+}
+
+/* ── Numerics — confident, monospace, optical sizing ─────────────────── */
+.ck-metric-value,
+.ck-kpi-value,
+.ck-gauge-value,
+.ck-gauge-value-large,
+.ck-diff-val,
+.ck-bullet-value,
+.ck-stat-num {
+    font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+    font-feature-settings: "tnum", "ss01", "cv11" !important;
+    letter-spacing: -0.01em !important;
+    font-weight: 600 !important;
+}
+.ck-kpi-value, .ck-main .ck-kpi-value {
+    font-size: 1.45rem !important;
+    line-height: 1.15 !important;
+}
+.ck-metric-value, .ck-main .ck-metric-value {
+    font-size: 1.55rem !important;
+    line-height: 1.15 !important;
+}
+
+/* ── Inference cards — lime rail + subtle lime glow on hover ─────────── */
+.ck-inference-card,
+.ck-main .ck-inference-card {
+    position: relative;
+    border-left: 3px solid #ABFF02 !important;
+    transition: transform 0.22s cubic-bezier(.2,.8,.2,1), box-shadow 0.22s ease;
+}
+.ck-inference-card:hover,
+.ck-main .ck-inference-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(171, 255, 2, 0.10), 0 0 0 1px rgba(171, 255, 2, 0.25) !important;
+}
+
+/* ── Charts — rounded container, soft interior glow ──────────────────── */
+.ck-chart,
+.ck-main .ck-chart {
+    padding: 1.1rem 1rem !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ── DARK-MODE BEAUTIFICATION ────────────────────────────────────────── */
+:root[data-theme="dark"] {
+    /* Replace flat #052424 with a subtle ambient gradient + lime glow. */
+    background-color: #052424;
+}
+:root[data-theme="dark"] body {
+    background-color: #052424 !important;
+    background-image:
+        radial-gradient(1100px 600px at 0% -10%, rgba(171, 255, 2, 0.08), transparent 60%),
+        radial-gradient(900px 500px at 100% 100%, rgba(171, 255, 2, 0.06), transparent 60%),
+        radial-gradient(800px 400px at 100% 0%, rgba(94, 234, 212, 0.05), transparent 60%),
+        linear-gradient(180deg, #052424 0%, #0a2e2a 100%) !important;
+    background-attachment: fixed, fixed, fixed, fixed !important;
+}
+:root[data-theme="dark"] .ck-shell {
+    background: transparent !important;
+    background-image:
+        radial-gradient(700px 380px at 100% 0%, rgba(171, 255, 2, 0.05), transparent 60%) !important;
+}
+
+/* Dashboard cards in dark mode — frosted glass with lime hover rim */
+:root[data-theme="dark"] .ck-main .ck-tabpanel,
+:root[data-theme="dark"] .ck-main .ck-input-block,
+:root[data-theme="dark"] .ck-main .ck-slider-block,
+:root[data-theme="dark"] .ck-main .ck-feature-card,
+:root[data-theme="dark"] .ck-main .ck-metric,
+:root[data-theme="dark"] .ck-main .ck-kpi-card,
+:root[data-theme="dark"] .ck-main .ck-scenario-card,
+:root[data-theme="dark"] .ck-main .ck-bullet,
+:root[data-theme="dark"] .ck-main .ck-gauge,
+:root[data-theme="dark"] .ck-main .ck-inference-card,
+:root[data-theme="dark"] .ck-main .ck-details,
+:root[data-theme="dark"] .ck-main .ck-table,
+:root[data-theme="dark"] .ck-main .ck-source-list,
+:root[data-theme="dark"] .ck-main .ck-waffle-wrap,
+:root[data-theme="dark"] .ck-main .ck-callout,
+:root[data-theme="dark"] .ck-main .ck-diff-arrow,
+:root[data-theme="dark"] .ck-main .ck-chart {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    background-image:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+:root[data-theme="dark"] .ck-main .ck-feature-card:hover,
+:root[data-theme="dark"] .ck-main .ck-metric:hover,
+:root[data-theme="dark"] .ck-main .ck-kpi-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(171, 255, 2, 0.45) !important;
+    box-shadow:
+        0 18px 36px rgba(0, 0, 0, 0.36),
+        0 0 0 1px rgba(171, 255, 2, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+/* KPI accent rail in dark mode — full lime glow */
+:root[data-theme="dark"] .ck-main .ck-kpi-card::before {
+    background: linear-gradient(180deg, #ABFF02 0%, #97E600 100%) !important;
+    box-shadow: 0 0 12px rgba(171, 255, 2, 0.45);
+}
+:root[data-theme="dark"] .ck-main .ck-kpi-ico {
+    background: rgba(171, 255, 2, 0.14) !important;
+    color: #ABFF02 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-kpi-value,
+:root[data-theme="dark"] .ck-main .ck-metric-value,
+:root[data-theme="dark"] .ck-main .ck-gauge-value,
+:root[data-theme="dark"] .ck-main .ck-gauge-value-large {
+    color: #FFFFFF !important;
+}
+
+/* Section heading rail glows in dark mode */
+:root[data-theme="dark"] .ck-section-h::before {
+    box-shadow: 0 0 10px rgba(171, 255, 2, 0.55);
+}
+
+/* Inference cards — translucent gradient backdrop in dark mode.
+   The left-border color is set inline (per-domain) by inferences.js, so we
+   keep the border-left-WIDTH/STYLE here and let the inline color come through. */
+:root[data-theme="dark"] .ck-main .ck-inference-card {
+    background-color: transparent !important;
+    background-image:
+        radial-gradient(420px 220px at 0% 0%, rgba(171, 255, 2, 0.10), transparent 65%),
+        radial-gradient(380px 220px at 100% 100%, rgba(94, 234, 212, 0.06), transparent 65%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 60%, rgba(255, 255, 255, 0.005) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-left-width: 3px !important;
+    border-left-style: solid !important;
+    /* border-left-color stays from inline style="border-left-color:..." */
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+:root[data-theme="dark"] .ck-main .ck-inference-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.30),
+        0 0 0 1px rgba(171, 255, 2, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+:root[data-theme="dark"] .ck-main .ck-inference-card .title {
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-inference-card .body {
+    color: rgba(255, 255, 255, 0.88) !important;
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+}
+:root[data-theme="dark"] .ck-main .ck-inference-card .body strong,
+:root[data-theme="dark"] .ck-main .ck-inference-card .body b {
+    color: #ABFF02 !important;
+}
+/* Reference chips inside an inference card */
+:root[data-theme="dark"] .ck-main .ck-inference-card .refs a,
+:root[data-theme="dark"] .ck-main .ck-inference-card .refs .ref {
+    background: rgba(171, 255, 2, 0.10) !important;
+    color: #ABFF02 !important;
+    border: 1px solid rgba(171, 255, 2, 0.30) !important;
+    border-radius: 999px !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+:root[data-theme="dark"] .ck-main .ck-inference-card .refs a:hover,
+:root[data-theme="dark"] .ck-main .ck-inference-card .refs .ref:hover {
+    background: rgba(171, 255, 2, 0.18) !important;
+    border-color: rgba(171, 255, 2, 0.55) !important;
+}
+
+/* Topbar glassy in dark mode */
+:root[data-theme="dark"] .ck-topbar {
+    background: rgba(5, 36, 36, 0.65) !important;
+    backdrop-filter: blur(16px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+:root[data-theme="dark"] .ck-search,
+:root[data-theme="dark"] .ck-icon-btn,
+:root[data-theme="dark"] .ck-theme-toggle,
+:root[data-theme="dark"] .ck-lang-select,
+:root[data-theme="dark"] .ck-profile {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 8px !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+:root[data-theme="dark"] .ck-search:focus-within {
+    border-color: rgba(171, 255, 2, 0.45) !important;
+    box-shadow: 0 0 0 3px rgba(171, 255, 2, 0.18) !important;
+}
+
+/* Sidebar in dark mode — subtle lime corner glow + glassy nav */
+:root[data-theme="dark"] .ck-sidebar {
+    background-color: #0a2e2a !important;
+    background-image:
+        radial-gradient(380px 280px at 100% 0%, rgba(171, 255, 2, 0.10), transparent 65%),
+        radial-gradient(340px 260px at 0% 100%, rgba(94, 234, 212, 0.05), transparent 65%),
+        linear-gradient(180deg, #0a3232 0%, #052424 100%) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+:root[data-theme="dark"] .ck-sidebar::before {
+    background: radial-gradient(circle, rgba(171, 255, 2, 0.18) 0%, transparent 68%) !important;
+}
+:root[data-theme="dark"] .ck-side-link {
+    border-radius: 8px !important;
+}
+:root[data-theme="dark"] .ck-side-link:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+:root[data-theme="dark"] .ck-side-link.active {
+    background: linear-gradient(135deg, #ABFF02 0%, #97E600 100%) !important;
+    color: #052424 !important;
+    box-shadow: 0 8px 22px rgba(171, 255, 2, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+:root[data-theme="dark"] .ck-side-link.active::before {
+    background: #052424 !important;
+}
+:root[data-theme="dark"] .ck-side-foot-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 8px !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Buttons in dark mode — lime primary with proper glow */
+:root[data-theme="dark"] .ck-cta,
+:root[data-theme="dark"] .ck-primary-btn {
+    background: linear-gradient(135deg, #ABFF02 0%, #97E600 100%) !important;
+    color: #052424 !important;
+    box-shadow: 0 8px 22px rgba(171, 255, 2, 0.20) !important;
+}
+:root[data-theme="dark"] .ck-cta:hover,
+:root[data-theme="dark"] .ck-primary-btn:hover {
+    box-shadow: 0 12px 28px rgba(171, 255, 2, 0.35) !important;
+    transform: translateY(-1px);
+}
+:root[data-theme="dark"] .ck-btn,
+:root[data-theme="dark"] .ck-main .ck-btn {
+    background: linear-gradient(135deg, #ABFF02 0%, #97E600 100%) !important;
+    color: #052424 !important;
+    box-shadow: 0 8px 22px rgba(171, 255, 2, 0.20) !important;
+}
+:root[data-theme="dark"] .ck-cta-ghost,
+:root[data-theme="dark"] .ck-main .ck-cta-ghost {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.20) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+:root[data-theme="dark"] .ck-cta-ghost:hover {
+    background: rgba(171, 255, 2, 0.10) !important;
+    border-color: rgba(171, 255, 2, 0.50) !important;
+}
+
+/* Form controls in dark mode */
+:root[data-theme="dark"] .ck-main .ck-field input,
+:root[data-theme="dark"] .ck-main .ck-field select {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+}
+:root[data-theme="dark"] .ck-main .ck-field input:focus,
+:root[data-theme="dark"] .ck-main .ck-field select:focus {
+    border-color: rgba(171, 255, 2, 0.50) !important;
+    box-shadow: 0 0 0 3px rgba(171, 255, 2, 0.18) !important;
+}
+
+/* Radio / mode pill / lang tab in dark mode */
+:root[data-theme="dark"] .ck-main .ck-radio-group,
+:root[data-theme="dark"] .ck-main .ck-mode-btn,
+:root[data-theme="dark"] .ck-main .ck-lang-tab {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+}
+:root[data-theme="dark"] .ck-main .ck-radio-group label:has(input:checked),
+:root[data-theme="dark"] .ck-main .ck-lang-tab.active,
+:root[data-theme="dark"] .ck-main .ck-mode-btn.active {
+    background: rgba(171, 255, 2, 0.18) !important;
+    color: #FFFFFF !important;
+    box-shadow: inset 0 0 0 1px rgba(171, 255, 2, 0.55) !important;
+}
+
+/* Callouts in dark mode — brand-tinted */
+:root[data-theme="dark"] .ck-main .ck-callout {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 8px !important;
+}
+:root[data-theme="dark"] .ck-main .ck-callout.success {
+    background: rgba(171, 255, 2, 0.08) !important;
+    border-color: rgba(171, 255, 2, 0.30) !important;
+    color: #d9ffa3 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-callout.info {
+    background: rgba(94, 234, 212, 0.06) !important;
+    border-color: rgba(94, 234, 212, 0.25) !important;
+    color: #a7f3d0 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-callout.warning {
+    background: rgba(251, 191, 36, 0.08) !important;
+    border-color: rgba(251, 191, 36, 0.30) !important;
+    color: #fde68a !important;
+}
+
+/* Tables in dark mode — fully transparent cells, white text, lime row hover */
+:root[data-theme="dark"] .ck-main .ck-table,
+:root[data-theme="dark"] .ck-main table.ck-table {
+    background: transparent !important;
+    color: #f1f5f4 !important;
+    border-collapse: collapse !important;
+}
+:root[data-theme="dark"] .ck-main .ck-table thead,
+:root[data-theme="dark"] .ck-main .ck-table tbody,
+:root[data-theme="dark"] .ck-main .ck-table tr {
+    background: transparent !important;
+}
+:root[data-theme="dark"] .ck-main .ck-table th {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
+:root[data-theme="dark"] .ck-main .ck-table td {
+    background: transparent !important;
+    color: #f1f5f4 !important;
+    border-color: rgba(255, 255, 255, 0.06) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+}
+:root[data-theme="dark"] .ck-main .ck-table td:first-child {
+    font-family: "Poppins", sans-serif !important;
+    color: #FFFFFF !important;
+    font-weight: 500 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-table tr:hover td {
+    background: rgba(171, 255, 2, 0.06) !important;
+    color: #FFFFFF !important;
+}
+
+/* Bulletproof: ANY <table> rendered inside .ck-main in dark mode (covers
+   tables emitted by widgets without the .ck-table class, e.g. the t4
+   "Summary" output and similar). */
+:root[data-theme="dark"] .ck-main table,
+:root[data-theme="dark"] .ck-main thead,
+:root[data-theme="dark"] .ck-main tbody,
+:root[data-theme="dark"] .ck-main tr,
+:root[data-theme="dark"] .ck-main th,
+:root[data-theme="dark"] .ck-main td {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+:root[data-theme="dark"] .ck-main table { color: #f1f5f4 !important; }
+:root[data-theme="dark"] .ck-main th {
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding: 0.55rem 0.7rem !important;
+}
+:root[data-theme="dark"] .ck-main td {
+    color: #f1f5f4 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    padding: 0.55rem 0.7rem !important;
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+}
+:root[data-theme="dark"] .ck-main td:first-child {
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+}
+:root[data-theme="dark"] .ck-main tr:hover td {
+    background: rgba(171, 255, 2, 0.06) !important;
+}
+/* Wrappers that simply hold a table (e.g. <div id="t4-summary"> created
+   by renderTable()) — make sure they don't inherit a white surface. */
+:root[data-theme="dark"] .ck-main #t4-summary,
+:root[data-theme="dark"] .ck-main #t1-cmp-fulltable,
+:root[data-theme="dark"] .ck-main #t2-fulltable {
+    background: transparent !important;
+    background-image: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 0.75rem !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* <details> summary in dark mode — readable label, lime triangle */
+:root[data-theme="dark"] .ck-main .ck-details summary,
+:root[data-theme="dark"] .ck-main details.ck-details > summary {
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+    list-style: none;
+    cursor: pointer;
+}
+:root[data-theme="dark"] .ck-main .ck-details summary::marker,
+:root[data-theme="dark"] .ck-main details.ck-details > summary::marker { color: #ABFF02 !important; }
+:root[data-theme="dark"] .ck-main .ck-details summary::-webkit-details-marker {
+    color: #ABFF02 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-details[open] {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+}
+:root[data-theme="dark"] .ck-main .ck-details,
+:root[data-theme="dark"] .ck-main .ck-details * {
+    color: #f1f5f4 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-details strong,
+:root[data-theme="dark"] .ck-main .ck-details b { color: #ABFF02 !important; }
+
+/* Charts in dark mode — frosted backdrop and refined border */
+:root[data-theme="dark"] .ck-main .ck-chart {
+    background: rgba(255, 255, 255, 0.025) !important;
+    background-image:
+        radial-gradient(600px 300px at 100% 0%, rgba(171, 255, 2, 0.05), transparent 60%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Bullet / scenario / metric — lime accent on left edge */
+:root[data-theme="dark"] .ck-main .ck-bullet,
+:root[data-theme="dark"] .ck-main .ck-scenario-card {
+    border-left: 2px solid rgba(171, 255, 2, 0.45) !important;
+}
+
+/* ── Waffle chart (GWP share) — bigger cells so it fills the card width
+       instead of leaving large empty bands on either side. ─────────────── */
+.ck-main .ck-waffle-grid,
+.ck-waffle-grid {
+    grid-template-columns: repeat(10, minmax(28px, 1fr)) !important;
+    gap: 6px !important;
+    max-width: 520px;
+    margin: 0 auto !important;
+    padding: 0.6rem 0 !important;
+}
+.ck-main .ck-waffle-cell,
+.ck-waffle-cell {
+    width: 100% !important;
+    height: 0 !important;
+    padding-bottom: 100% !important; /* keeps the cells perfectly square */
+    border-radius: 6px !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18) !important;
+}
+.ck-main .ck-waffle-legend,
+.ck-waffle-legend {
+    justify-content: center;
+    margin-top: 0.6rem;
+}
+
+/* Dark-mode waffle header + legend text */
+:root[data-theme="dark"] .ck-main .ck-waffle-header,
+:root[data-theme="dark"] .ck-waffle-header {
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-waffle-legend,
+:root[data-theme="dark"] .ck-main .ck-waffle-legend-item,
+:root[data-theme="dark"] .ck-waffle-legend,
+:root[data-theme="dark"] .ck-waffle-legend-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Light-mode waffle header — make it readable too (was already dark slate) */
+:root:not([data-theme="dark"]) .ck-main .ck-waffle-header {
+    color: #052424 !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* Smaller waffle on narrow viewports — keep responsive override */
+@media (max-width: 720px) {
+    .ck-waffle-grid,
+    .ck-main .ck-waffle-grid {
+        grid-template-columns: repeat(10, minmax(20px, 1fr)) !important;
+        gap: 4px !important;
+        max-width: 360px;
+    }
+}
+
+
+/* ── Validation Plot gallery (Tab 5) ─────────────────────────────────── */
+.ck-plot-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+.ck-plot-figure {
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(5, 36, 36, 0.10);
+    background: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(5, 36, 36, 0.06);
+    transition: transform 0.22s cubic-bezier(.2,.8,.2,1), box-shadow 0.22s ease, border-color 0.22s ease;
+    display: flex;
+    flex-direction: column;
+}
+.ck-plot-figure:hover {
+    transform: translateY(-2px);
+    border-color: rgba(171, 255, 2, 0.45);
+    box-shadow: 0 14px 28px rgba(5, 36, 36, 0.10), 0 0 0 1px rgba(171, 255, 2, 0.20);
+}
+.ck-plot-link {
+    display: block;
+    line-height: 0;
+    background: #FFFFFF;
+}
+.ck-plot-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.ck-plot-figure figcaption {
+    padding: 0.7rem 0.9rem 0.85rem;
+    font-size: 0.85rem;
+    color: #052424;
+    border-top: 1px solid rgba(5, 36, 36, 0.06);
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.ck-plot-figure figcaption strong {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #052424;
+}
+.ck-plot-figure figcaption span {
+    color: #829292;
+    line-height: 1.4;
+}
+
+/* Dark-mode plot gallery — frosted card with white plot canvas inside */
+:root[data-theme="dark"] .ck-plot-figure {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+:root[data-theme="dark"] .ck-plot-figure:hover {
+    border-color: rgba(171, 255, 2, 0.45);
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.40),
+        0 0 0 1px rgba(171, 255, 2, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+:root[data-theme="dark"] .ck-plot-link {
+    background: #FFFFFF; /* keep white canvas behind the matplotlib PNG */
+}
+:root[data-theme="dark"] .ck-plot-figure figcaption {
+    background: transparent;
+    border-top-color: rgba(255, 255, 255, 0.08);
+    color: #f1f5f4;
+}
+:root[data-theme="dark"] .ck-plot-figure figcaption strong { color: #FFFFFF; }
+:root[data-theme="dark"] .ck-plot-figure figcaption span { color: rgba(255, 255, 255, 0.65); }
+
+
+/* ── Diff-arrow rows (A vs B comparison) — translucent in dark mode ── */
+:root[data-theme="dark"] .ck-main .ck-diff-arrow {
+    border-radius: 8px !important;
+}
+:root[data-theme="dark"] .ck-main .ck-diff-tag,
+:root[data-theme="dark"] .ck-main .ck-diff-side,
+:root[data-theme="dark"] .ck-main .ck-diff-val {
+    color: #f1f5f4 !important;
+    background: transparent !important;
+}
+:root[data-theme="dark"] .ck-main .ck-diff-tag {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 6px !important;
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+}
+:root[data-theme="dark"] .ck-main .ck-diff-verdict {
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+:root[data-theme="dark"] .ck-main .ck-diff-label {
+    color: #FFFFFF !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* ── Radar / polar plot backdrop — replace Plotly's white default with a
+       translucent brand wash so the wrapper's gradient shows through. ── */
+.ck-chart g.polar > path.bg,
+.ck-chart .polarsubplot path.bg,
+.ck-chart .polarsublayer path.bg,
+.ck-chart .bglayer path.bg {
+    fill: rgba(255, 255, 255, 0.04) !important;
+    fill-opacity: 1 !important;
+}
+:root[data-theme="dark"] .ck-chart g.polar > path.bg,
+:root[data-theme="dark"] .ck-chart .polarsubplot path.bg,
+:root[data-theme="dark"] .ck-chart .polarsublayer path.bg,
+:root[data-theme="dark"] .ck-chart .bglayer path.bg {
+    fill: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Boost the chart wrapper's radial gradient so the transparent polar reads
+   as a soft glowing backdrop rather than a flat dark area. */
+:root[data-theme="dark"] .ck-main .ck-chart {
+    background-color: rgba(255, 255, 255, 0.025) !important;
+    background-image:
+        radial-gradient(420px 420px at 50% 50%, rgba(171, 255, 2, 0.10), transparent 65%),
+        radial-gradient(700px 320px at 100% 0%, rgba(94, 234, 212, 0.06), transparent 60%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
